@@ -1,0 +1,84 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}Tracker{% endblock %}
+{% block heading %}Application Tracker{% endblock %}
+{% block subheading %}Every application in one pipeline — move cards as you progress and keep the history honest.{% endblock %}
+
+{% block head_actions %}
+<button type="button" class="cp-btn" id="cp-app-toggle">
+    <i class="fa-solid fa-plus"></i> Add application
+</button>
+{% endblock %}
+
+{% block content %}
+<!-- Stats -->
+<div class="cp-grid cp-grid--4" id="cp-app-stats">
+    <div class="cp-card"><span class="cp-label">Applications</span><div class="cp-ring-score" id="cp-stat-apps">—</div></div>
+    <div class="cp-card"><span class="cp-label">Saved jobs</span><div class="cp-ring-score" id="cp-stat-saved">—</div></div>
+    <div class="cp-card"><span class="cp-label">Streak</span><div class="cp-ring-score" id="cp-stat-streak">—</div></div>
+    <div class="cp-card"><span class="cp-label">Open to-dos</span><div class="cp-ring-score" id="cp-stat-todos">—</div></div>
+</div>
+
+<!-- Add form -->
+<section class="cp-card cp-mt cp-hide" id="cp-app-form-card">
+    <div class="cp-card-head">
+        <h2 class="cp-card-title"><i class="fa-solid fa-plus"></i> New application</h2>
+        <button type="button" class="cp-icon-btn" id="cp-app-cancel" aria-label="Close form">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="cp-grid cp-grid--2">
+        <div class="cp-field">
+            <label class="cp-label" for="cp-app-company">Company</label>
+            <input class="cp-input" id="cp-app-company" type="text" placeholder="Globex">
+        </div>
+        <div class="cp-field">
+            <label class="cp-label" for="cp-app-role">Role</label>
+            <input class="cp-input" id="cp-app-role" type="text" placeholder="Backend Engineer">
+        </div>
+        <div class="cp-field">
+            <label class="cp-label" for="cp-app-url">Job URL (optional)</label>
+            <input class="cp-input" id="cp-app-url" type="url" placeholder="https://…">
+        </div>
+        <div class="cp-field">
+            <label class="cp-label" for="cp-app-deadline">Deadline (optional)</label>
+            <input class="cp-input" id="cp-app-deadline" type="date">
+        </div>
+    </div>
+
+    <div class="cp-spread cp-mt">
+        <span class="cp-faint">Starts in the Applied column.</span>
+        <button type="button" class="cp-btn" id="cp-app-save">
+            <i class="fa-solid fa-check"></i> Save application
+        </button>
+    </div>
+</section>
+
+<!-- Pipeline -->
+<section class="cp-mt">
+    <div class="cp-spread" style="margin-bottom: .8rem;">
+        <h2 class="cp-card-title"><i class="fa-solid fa-table-columns"></i> Pipeline</h2>
+        <span class="cp-faint" id="cp-app-status">Loading…</span>
+    </div>
+    <div class="cp-kanban" id="cp-kanban">
+        <div class="cp-col" data-status="applied">
+            <div class="cp-col-head"><span class="cp-col-name">Applied</span><span class="cp-col-count" data-count="applied">0</span></div>
+            <div class="cp-col-body" data-col="applied"></div>
+        </div>
+        <div class="cp-col" data-status="interviewing">
+            <div class="cp-col-head"><span class="cp-col-name">Interviewing</span><span class="cp-col-count" data-count="interviewing">0</span></div>
+            <div class="cp-col-body" data-col="interviewing"></div>
+        </div>
+        <div class="cp-col" data-status="offer">
+            <div class="cp-col-head"><span class="cp-col-name">Offer</span><span class="cp-col-count" data-count="offer">0</span></div>
+            <div class="cp-col-body" data-col="offer"></div>
+        </div>
+        <div class="cp-col" data-status="rejected">
+            <div class="cp-col-head"><span class="cp-col-name">Rejected</span><span class="cp-col-count" data-count="rejected">0</span></div>
+            <div class="cp-col-body" data-col="rejected"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

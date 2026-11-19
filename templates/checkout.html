@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Secure Checkout — Niter Hub</title>
+    <title>Secure Checkout — Bunk</title>
     <meta name="description" content="Pay securely via bKash, Nagad, or Rocket for club events, transport tickets, and meal tokens.">
 
     <!-- Global design tokens -->
@@ -135,7 +135,7 @@
                         <span class="order-item-icon" id="order-item-icon"><i class="fa-solid fa-ticket"></i></span>
                         <div>
                             <strong id="order-item-name">Annual Hackathon 2026 Ticket</strong>
-                            <span class="order-item-issuer" id="order-item-issuer">NITER Computer Club</span>
+                            <span class="order-item-issuer" id="order-item-issuer">BUNK Computer Club</span>
                             <span class="order-item-meta" id="order-item-meta" style="display:none;"></span>
                         </div>
                     </div>
@@ -227,9 +227,9 @@
         const ORDER = (function () {
             const type = params.get('type') || 'event';
             const defaults = {
-                event:     { item: 'Annual Hackathon 2026 Ticket', issuer: 'NITER Computer Club', fee: 200 },
-                transport: { item: 'Monthly Bus Pass', issuer: 'NITER Transport Cell', fee: 30 },
-                meal:      { item: 'Monthly Meal Subscription', issuer: 'NITER Cafeteria', fee: 2000 },
+                event:     { item: 'Annual Hackathon 2026 Ticket', issuer: 'BUNK Computer Club', fee: 200 },
+                transport: { item: 'Monthly Bus Pass', issuer: 'BUNK Transport Cell', fee: 30 },
+                meal:      { item: 'Monthly Meal Subscription', issuer: 'BUNK Cafeteria', fee: 2000 },
             };
             const def = defaults[type] || defaults.event;
             const feeRaw = parseInt(params.get('fee'), 10);

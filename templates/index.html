@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CampusDash — Public University Information &amp; Medical Services</title>
-    <meta name="description" content="CampusDash — public university information, academic departments, and medical services system.">
+    <title>Bunk — A Global Student Community &amp; AI Career Mentor</title>
+    <meta name="description" content="Bunk — a global student community with peer forums, study & research groups, and an AI guide, consultant, and judge to help you build your career.">
 
     {% include 'partials/pwa_head.html' %}
 
@@ -37,27 +37,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
-<body class="landing" data-app="campusdash-public">
+<body class="landing" data-app="bunk-public">
 
     <!-- ============================================================
          A. Modern Navbar (floating light pill)
     ============================================================ -->
     <nav class="navbar glass-panel" data-widget-id="navbar">
-        <a href="#hero" class="brand" aria-label="CampusDash home">
+        <a href="#hero" class="brand" aria-label="Bunk home">
             <span class="brand-icon" data-widget-id="nav-logo-icon" data-editable-field="icon">
                 <i class="fa-solid fa-graduation-cap"></i>
             </span>
-            <span class="brand-name" data-widget-id="nav-brand-name" data-editable-field="text">CampusDash</span>
+            <span class="brand-name" data-widget-id="nav-brand-name" data-editable-field="text">Bunk</span>
         </a>
 
         <ul class="nav-links" id="nav-links">
-            <li><a href="#about-university">About University</a></li>
-            <li><a href="#faculty-teachers">Faculty &amp; Teachers</a></li>
-            <li><a href="#departments">Departments</a></li>
-            <li><a href="#medical-system">Medical System</a></li>
+            <li><a href="#about-bunk">About Bunk</a></li>
+            <li><a href="#community-goals">Community Goals</a></li>
+            <li><a href="#our-vision">Our Vision</a></li>
+            <li><a href="#student-feedback">Student Feedback</a></li>
             <li><a href="{% url 'login' %}" class="nav-signin">Sign In</a></li>
             <li><a href="{% url 'dashboard' %}" class="btn-dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
-            <li><a href="#medical-emergency" class="btn-emergency"><i class="fa-solid fa-phone-volume"></i> Emergency</a></li>
         </ul>
 
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -83,18 +82,15 @@
 
         <!-- Center hero text -->
         <div class="hero-content">
-            <span class="hero-eyebrow"><i class="fa-solid fa-university"></i> NITER · Est. 1998</span>
-            <h1 class="hero-title" data-widget-id="hero-title" data-editable-field="text">Welcome to CampusDash</h1>
-            <p class="hero-subtitle" data-widget-id="hero-subtitle" data-editable-field="text">Public University Information &amp; Medical Services System</p>
+            <span class="hero-eyebrow"><i class="fa-solid fa-earth-americas"></i> Global Student Community · AI Career Mentor</span>
+            <h1 class="hero-title" data-widget-id="hero-title" data-editable-field="text">Welcome to Bunk</h1>
+            <p class="hero-subtitle" data-widget-id="hero-subtitle" data-editable-field="text">A global student community with peer forums, study &amp; research groups, and an AI guide, consultant, and judge to help you build your career.</p>
             <div class="hero-actions">
                 <a href="{% url 'login' %}" class="hero-btn-primary" data-widget-id="hero-btn-primary" data-editable-field="text">
-                    Login to Dashboard <i class="fa-solid fa-arrow-right"></i>
+                    Join the Community <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="/pharmacy/" class="btn-pharmacy-hero" data-widget-id="hero-btn-pharmacy" data-editable-field="text" style="background: #0284c7; color: #ffffff; padding: 12px 24px; border-radius: 9999px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #38bdf8;">
-                    🛒 Online Pharmacy
-                </a>
-                <a href="#medical-system" class="hero-btn-secondary bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-colors" data-widget-id="hero-btn-secondary" data-editable-field="text">
-                    <i class="fa-solid fa-heart-pulse text-red-500"></i> Medical Services
+                <a href="{% url 'dashboard' %}" class="hero-btn-secondary bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-colors" data-widget-id="hero-btn-secondary" data-editable-field="text">
+                    <i class="fa-solid fa-gauge-high text-red-500"></i> Explore Dashboard
                 </a>
             </div>
         </div>
@@ -102,43 +98,39 @@
         <!-- Bottom floating quick-card deck -->
         <div class="hero-card-deck">
 
-            <!-- Card 1: Emergency Hotline -->
-            <div class="hero-card hero-card-emerg glass-panel" data-widget-id="hero-card-emerg">
-                <div class="card-label">Emergency Hotline</div>
-                <span class="pulse-badge"><span class="pulse-dot"></span> 24/7 Active</span>
-                <div class="hotline" data-widget-id="hero-emerg-number" data-editable-field="text">
-                    +880 1700-000000 <small>— campus emergency</small>
+            <!-- Card 1: AI Mentor Modes -->
+            <div class="hero-card hero-card-emerg glass-panel" data-widget-id="hero-card-ai-mentor">
+                <div class="card-label">AI Mentor Modes</div>
+                <span class="pulse-badge"><span class="pulse-dot"></span> 24/7 Personalized</span>
+                <div class="hotline" data-widget-id="hero-ai-modes" data-editable-field="text">
+                    Guide · Consultant · Judge <small>— career &amp; skill feedback</small>
                 </div>
-                <a href="tel:+8801700000000" class="call-link">
-                    <i class="fa-solid fa-phone"></i> Quick Call
+                <a href="{% url 'dashboard' %}" class="call-link">
+                    <i class="fa-solid fa-comment-dots"></i> Meet your mentor
                 </a>
             </div>
 
-            <!-- Card 2: Medical Center Overview -->
-            <div class="hero-card hero-card-med glass-panel" data-widget-id="hero-card-med">
-                <div class="card-label">Medical Center</div>
-                <div class="incharge">
-                    <span class="incharge-avatar">AM</span>
+            <!-- Card 2: Peer Collaboration -->
+            <div class="hero-card hero-card-med glass-panel" data-widget-id="hero-card-peer-groups">
+                <div class="card-label">Peer Collaboration</div>
+                <div class="incharge" style="display: flex; align-items: center; gap: 0.8rem;">
+                    <span class="incharge-avatar">SR</span>
                     <div>
-                        <div class="incharge-name" data-widget-id="hero-med-incharge" data-editable-field="text">Dr. Alex Mercer</div>
-                        <div class="incharge-role" data-widget-id="hero-med-designation" data-editable-field="text">Medical In-Charge · Chief Medical Officer</div>
+                        <div class="incharge-name" data-widget-id="hero-peer-groups-name" data-editable-field="text">Study &amp; Research Groups</div>
+                        <div class="incharge-role" data-widget-id="hero-peer-groups-role" data-editable-field="text">Connect with like-minded students globally</div>
                     </div>
-                </div>
-                <div class="med-hours">
-                    <i class="fa-solid fa-clock"></i>
-                    <span data-widget-id="hero-med-hours" data-editable-field="text">Sat–Thu · 9:00 AM – 5:00 PM</span>
                 </div>
             </div>
 
-            <!-- Card 3: Academic Departments -->
-            <div class="hero-card hero-card-depts glass-panel" data-widget-id="hero-card-depts">
-                <div class="card-label">Academic Departments</div>
-                <div class="dept-tags">
-                    <a href="#departments" class="dept-tag">CSE</a>
-                    <a href="#departments" class="dept-tag">TEX</a>
-                    <a href="#departments" class="dept-tag">IPE</a>
-                    <a href="#departments" class="dept-tag">FD</a>
-                    <a href="#departments" class="dept-tag">EEE</a>
+            <!-- Card 3: Community Forum -->
+            <div class="hero-card hero-card-depts glass-panel" data-widget-id="hero-card-forum">
+                <div class="card-label">Community Forum</div>
+                <div class="incharge" style="display: flex; align-items: center; gap: 0.8rem;">
+                    <span class="incharge-avatar">CF</span>
+                    <div>
+                        <div class="incharge-name" data-widget-id="hero-forum-name" data-editable-field="text">Shared Insights &amp; Growth</div>
+                        <div class="incharge-role" data-widget-id="hero-forum-role" data-editable-field="text">Real experiences, roadmaps, and peer help</div>
+                    </div>
                 </div>
             </div>
 
@@ -151,108 +143,52 @@
     <main class="landing-main">
 
         <!-- ==========================================================
-             1. About University
+             1. About Bunk & Community Goals
         ========================================================== -->
-        <section class="section" id="about-university" data-widget-id="section-about-university">
+        <section class="section" id="about-bunk" data-widget-id="section-about-bunk">
             <div class="section-inner">
 
                 <div class="section-head">
                     <span class="badge-public">* Visible for Public Only</span>
-                    <h2 class="section-title" data-widget-id="about-title" data-editable-field="text">About University</h2>
-                    <p class="section-lead">Everything public visitors need to know about the institution, its faculty, and its departments.</p>
+                    <h2 class="section-title" data-widget-id="about-title" data-editable-field="text">About Bunk</h2>
+                    <p class="section-lead">A global student community where peer learning, focused research, and AI mentorship turn everyday study into real career progress.</p>
                 </div>
 
-                <!-- Affiliation & Management highlights -->
-                <div class="card glass-panel highlight-card" data-widget-id="niter-highlights">
+                <!-- Mission & Core Pillars highlights -->
+                <div class="card glass-panel highlight-card" data-widget-id="bunk-highlights">
                     <div class="highlight-item">
-                        <span class="highlight-icon"><i class="fa-solid fa-building-columns"></i></span>
+                        <span class="highlight-icon"><i class="fa-solid fa-bullseye"></i></span>
                         <div>
-                            <span class="highlight-label">Affiliation</span>
-                            <span class="highlight-text" data-widget-id="niter-affiliation-text" data-editable-field="text">Constituent Institute of the University of Dhaka (DU)</span>
+                            <span class="highlight-label">Our Mission</span>
+                            <span class="highlight-text" data-widget-id="bunk-mission-text" data-editable-field="text">Empowering students worldwide to learn together and navigate their careers</span>
                         </div>
                     </div>
                     <div class="highlight-item">
-                        <span class="highlight-icon"><i class="fa-solid fa-handshake"></i></span>
+                        <span class="highlight-icon"><i class="fa-solid fa-layer-group"></i></span>
                         <div>
-                            <span class="highlight-label">Governance</span>
-                            <span class="highlight-text" data-widget-id="niter-governance-text" data-editable-field="text">Managed by the Bangladesh Textile Mills Association (BTMA)</span>
+                            <span class="highlight-label">Core Pillars</span>
+                            <span class="highlight-text" data-widget-id="bunk-pillars-text" data-editable-field="text">Peer Forum · Study &amp; Research Pods · Tri-Role AI</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Overview + Emergency Contact & Address -->
+                <!-- About + Community Goals -->
                 <div class="grid-2">
                     <div class="card glass-panel" data-widget-id="about-overview">
-                        <div class="card-icon"><i class="fa-solid fa-landmark"></i></div>
-                        <h3 data-widget-id="niter-overview-title" data-editable-field="text">About NITER</h3>
-                        <p data-widget-id="niter-overview-text" data-editable-field="text">The National Institute of Textile Engineering and Research (NITER) is a premier constituent institute of the University of Dhaka, run under the management of the Bangladesh Textile Mills Association (BTMA) under the Ministry of Textiles and Jute. NITER is dedicated to producing world-class engineers, designers, and industrial leaders across engineering and technological disciplines.</p>
+                        <div class="card-icon"><i class="fa-solid fa-users"></i></div>
+                        <h3 data-widget-id="bunk-overview-title" data-editable-field="text">About Bunk</h3>
+                        <p data-widget-id="bunk-overview-text" data-editable-field="text">Bunk is a global student community where students build living profiles, share real insights in a peer-to-peer forum, form focused study and research groups, and use AI tools to track their career progress. Instead of studying in isolation, members learn together — turning coursework, group projects, and honest peer advice into a visible, verifiable career journey.</p>
                     </div>
 
-                    <div class="card glass-panel" data-widget-id="about-contact">
-                        <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <h3 data-widget-id="niter-address-title" data-editable-field="text">NITER Campus &amp; Contact</h3>
-                        <ul class="info-list">
-                            <li>
-                                <i class="fa-solid fa-map-pin"></i>
-                                <span><strong>Campus Address</strong><br><span data-widget-id="niter-address-text" data-editable-field="text">Nayarhat, Savar, Dhaka-1350, Bangladesh</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-phone"></i>
-                                <span><strong>Campus Phone</strong><br><span data-widget-id="niter-phone-text" data-editable-field="text">+880 2-7791888 / +880 1711-000000</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-envelope"></i>
-                                <span><strong>Official Email</strong><br><span data-widget-id="niter-email-text" data-editable-field="text">info@niter.edu.bd</span></span>
-                            </li>
+                    <div class="card glass-panel" id="community-goals" data-widget-id="about-community-goals">
+                        <div class="card-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+                        <h3 data-widget-id="bunk-goals-title" data-editable-field="text">Community Goals</h3>
+                        <ul class="check-list" data-widget-id="bunk-goals-list">
+                            <li><i class="fa-solid fa-circle-check"></i> <span><strong>Connect</strong> ambitious students across universities into active study &amp; research groups</span></li>
+                            <li><i class="fa-solid fa-circle-check"></i> <span><strong>Replace</strong> isolated studying with open peer-to-peer knowledge and experience sharing</span></li>
+                            <li><i class="fa-solid fa-circle-check"></i> <span><strong>Empower</strong> every student with an AI Guide, Consultant, and Judge to clarify their career path</span></li>
+                            <li><i class="fa-solid fa-circle-check"></i> <span><strong>Validate</strong> everyday learning and group projects as verified career progress</span></li>
                         </ul>
-                    </div>
-                </div>
-
-                <!-- Faculty & Teachers Grid -->
-                <div class="grid-2" id="faculty-teachers" data-widget-id="section-faculty-teachers">
-                    <div class="card glass-panel" data-widget-id="about-faculty">
-                        <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
-                        <h3 data-widget-id="about-faculty-title" data-editable-field="text">About Faculty</h3>
-                        <p data-widget-id="about-faculty-text" data-editable-field="text">A diverse faculty body spans every department, bringing together PhD holders, industry veterans, and researchers who mentor students beyond the classroom.</p>
-                    </div>
-
-                    <div class="card glass-panel" data-widget-id="about-teachers">
-                        <div class="card-icon"><i class="fa-solid fa-user-tie"></i></div>
-                        <h3 data-widget-id="about-teachers-title" data-editable-field="text">About Teachers</h3>
-                        <p style="margin-bottom: 1rem;" data-widget-id="about-teachers-text" data-editable-field="text">Professors and researchers drive our publication record and lab culture, with ongoing work in textiles, computing, and applied engineering.</p>
-                        <div class="card-meta">
-                            <span><span class="stat">120+</span> faculty</span>
-                            <span style="margin-left: 1.2rem;"><span class="stat">85%</span> with advanced degrees</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- About Departments Grid (5 cards) -->
-                <div class="grid-5" id="departments" data-widget-id="section-departments">
-                    <div class="card glass-panel dept-card" data-widget-id="dept-cse">
-                        <div class="card-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                        <h4 data-widget-id="dept-cse-name" data-editable-field="text">CSE</h4>
-                        <p data-widget-id="dept-cse-desc" data-editable-field="text">B.Sc. in Computer Science &amp; Engineering</p>
-                    </div>
-                    <div class="card glass-panel dept-card" data-widget-id="dept-tex">
-                        <div class="card-icon"><i class="fa-solid fa-industry"></i></div>
-                        <h4 data-widget-id="dept-tex-name" data-editable-field="text">TEX</h4>
-                        <p data-widget-id="dept-tex-desc" data-editable-field="text">B.Sc. in Textile Engineering</p>
-                    </div>
-                    <div class="card glass-panel dept-card" data-widget-id="dept-ipe">
-                        <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
-                        <h4 data-widget-id="dept-ipe-name" data-editable-field="text">IPE</h4>
-                        <p data-widget-id="dept-ipe-desc" data-editable-field="text">B.Sc. in Industrial &amp; Production Engineering</p>
-                    </div>
-                    <div class="card glass-panel dept-card" data-widget-id="dept-fd">
-                        <div class="card-icon"><i class="fa-solid fa-shirt"></i></div>
-                        <h4 data-widget-id="dept-fd-name" data-editable-field="text">FD</h4>
-                        <p data-widget-id="dept-fd-desc" data-editable-field="text">B.Sc. in Fashion Design &amp; Technology</p>
-                    </div>
-                    <div class="card glass-panel dept-card" data-widget-id="dept-eee">
-                        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <h4 data-widget-id="dept-eee-name" data-editable-field="text">EEE</h4>
-                        <p data-widget-id="dept-eee-desc" data-editable-field="text">B.Sc. in Electrical &amp; Electronic Engineering</p>
                     </div>
                 </div>
 
@@ -260,97 +196,91 @@
         </section>
 
         <!-- ==========================================================
-             2. Medical Info System
+             2. Our Vision & How Bunk Works
         ========================================================== -->
-        <section class="section section-alt" id="medical-system" data-widget-id="section-medical-system">
+        <section class="section section-alt" id="our-vision" data-widget-id="section-our-vision">
             <div class="section-inner">
 
                 <div class="section-head">
                     <span class="badge-public">* Visible for Public Only</span>
-                    <h2 class="section-title" data-widget-id="medical-title" data-editable-field="text">Medical Info System</h2>
-                    <p class="section-lead">Public health information, facilities, and emergency contacts — managed from the Medical Admin dashboard.</p>
+                    <h2 class="section-title" data-widget-id="vision-title" data-editable-field="text">Our Vision</h2>
+                    <p class="section-lead">Bridging the gap between student life, peer collaboration, and real-world career success.</p>
                 </div>
 
-                <!-- Incharge + Contact -->
                 <div class="grid-2">
-                    <div class="card glass-panel" data-widget-id="med-incharge">
-                        <div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div>
-                        <h3 data-widget-id="med-incharge-title" data-editable-field="text">About Medical In-Charge</h3>
-                        <ul class="info-list">
-                            <li>
-                                <i class="fa-solid fa-user"></i>
-                                <span><strong>Name</strong> — <span data-widget-id="med-incharge-name" data-editable-field="text">Dr. Alex Mercer</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-briefcase"></i>
-                                <span><strong>Designation</strong> — <span data-widget-id="med-incharge-designation" data-editable-field="text">Chief Medical Officer</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-hospital-user"></i>
-                                <span><strong>Department</strong> — <span data-widget-id="med-incharge-dept" data-editable-field="text">Medical Center</span></span>
-                            </li>
-                        </ul>
+                    <div class="card glass-panel" data-widget-id="vision-statement">
+                        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+                        <h3 data-widget-id="vision-statement-title" data-editable-field="text">Our Vision</h3>
+                        <p data-widget-id="vision-statement-text" data-editable-field="text">A world where no student has to figure out their career alone — combining human peer support with intelligent AI mentorship.</p>
                     </div>
 
-                    <div class="card glass-panel" data-widget-id="med-contact">
-                        <div class="card-icon"><i class="fa-solid fa-address-book"></i></div>
-                        <h3 data-widget-id="med-contact-title" data-editable-field="text">Contact Information</h3>
-                        <ul class="info-list">
-                            <li>
-                                <i class="fa-solid fa-phone"></i>
-                                <span><strong>Phone</strong> — <span data-widget-id="med-contact-phone" data-editable-field="text">+880 1700-111111</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-envelope"></i>
-                                <span><strong>Email</strong> — <span data-widget-id="med-contact-email" data-editable-field="text">medical@campusdash.edu.bd</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span><strong>Campus Medical Location</strong> — <span data-widget-id="med-contact-location" data-editable-field="text">Medical Center, Ground Floor, Main Academic Block</span></span>
-                            </li>
-                        </ul>
+                    <div class="card glass-panel" data-widget-id="vision-profiles-forum">
+                        <div class="card-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <h3 data-widget-id="vision-profiles-title" data-editable-field="text">Student Profiles &amp; Forum</h3>
+                        <p data-widget-id="vision-profiles-text" data-editable-field="text">Dynamic profiles that showcase skills and projects alongside an open forum for honest advice and resource sharing.</p>
+                    </div>
+
+                    <div class="card glass-panel" data-widget-id="vision-research-groups">
+                        <div class="card-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <h3 data-widget-id="vision-research-title" data-editable-field="text">Research &amp; Study Groups</h3>
+                        <p data-widget-id="vision-research-text" data-editable-field="text">Structured pods where students team up on coursework, research papers, and portfolio projects.</p>
+                    </div>
+
+                    <div class="card glass-panel" data-widget-id="vision-ai-roles">
+                        <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
+                        <h3 data-widget-id="vision-ai-title" data-editable-field="text">AI Guide, Consultant &amp; Judge</h3>
+                        <p data-widget-id="vision-ai-text" data-editable-field="text">An AI companion that maps your roadmap (Guide), shares live industry insights (Consultant), and evaluates your readiness (Judge).</p>
                     </div>
                 </div>
 
-                <!-- Facilities + Emergency Contacts -->
-                <div class="grid-2">
-                    <div class="card glass-panel" data-widget-id="med-facilities">
-                        <div class="card-icon"><i class="fa-solid fa-kit-medical"></i></div>
-                        <h3 data-widget-id="med-facilities-title" data-editable-field="text">Medical Facilities</h3>
-                        <ul class="check-list" data-widget-id="med-facilities-list">
-                            <li><i class="fa-solid fa-circle-check"></i> On-campus infirmary with 24/7 duty staff</li>
-                            <li><i class="fa-solid fa-circle-check"></i> First-aid room in every academic block</li>
-                            <li><i class="fa-solid fa-circle-check"></i> General physician consultation — daily</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Ambulance coordination with nearby hospitals</li>
-                            <li><i class="fa-solid fa-circle-check"></i> Free health check-up camps each semester</li>
-                        </ul>
-                    </div>
+            </div>
+        </section>
 
-                    <div class="card glass-panel card-emergency" id="medical-emergency" data-widget-id="med-emergency">
-                        <div class="card-icon"><i class="fa-solid fa-truck-medical"></i></div>
-                        <h3 data-widget-id="med-emergency-title" data-editable-field="text">Emergency Contacts</h3>
-                        <ul class="info-list">
-                            <li>
-                                <i class="fa-solid fa-ambulance"></i>
-                                <span><strong>Ambulance</strong> — <span data-widget-id="med-emergency-ambulance" data-editable-field="text">+880 1700-222222</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-house-medical"></i>
-                                <span><strong>ER Hotline</strong> — <span data-widget-id="med-emergency-er" data-editable-field="text">+880 1700-000000</span></span>
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                <span><strong>Emergency Procedure</strong> — <span data-widget-id="med-emergency-procedure" data-editable-field="text">Call the ER hotline, stay with the student, and inform the Medical In-Charge immediately.</span></span>
-                            </li>
-                        </ul>
-                    </div>
+        <!-- ==========================================================
+             3. Student Feedback
+        ========================================================== -->
+        <section class="section" id="student-feedback" data-widget-id="section-student-feedback">
+            <div class="section-inner">
+
+                <div class="section-head">
+                    <span class="badge-public">* Visible for Public Only</span>
+                    <h2 class="section-title" data-widget-id="feedback-title" data-editable-field="text">Student Feedback</h2>
+                    <p class="section-lead">How study groups, the peer forum, and the AI mentor changed the way students plan their careers.</p>
                 </div>
 
-                <!-- Health Tips -->
-                <div class="card glass-panel" data-widget-id="med-health-tips">
-                    <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-                    <h3 data-widget-id="med-health-tips-title" data-editable-field="text">Health Tips</h3>
-                    <p data-widget-id="med-health-tips-text" data-editable-field="text">Stay hydrated, keep a consistent sleep schedule, and use the campus infirmary for routine check-ups. Report any fever, rash, or persistent symptoms to the Medical Center early — early care keeps our campus community healthy.</p>
+                <div class="grid-3">
+                    <div class="card glass-panel" data-widget-id="feedback-card-1">
+                        <div class="incharge" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <span class="incharge-avatar">AM</span>
+                            <div>
+                                <div class="incharge-name" data-widget-id="feedback-1-name" data-editable-field="text">Ayesha Mahmud</div>
+                                <div class="incharge-role" data-widget-id="feedback-1-track" data-editable-field="text">CSE · Final Year</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem;" data-widget-id="feedback-1-quote" data-editable-field="text">"I joined a research pod in my third semester. Reviewing each other's papers weekly is what finally made my thesis proposal feel doable — and my AI Guide helped me pick a topic that matched my skills."</p>
+                    </div>
+
+                    <div class="card glass-panel" data-widget-id="feedback-card-2">
+                        <div class="incharge" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <span class="incharge-avatar">TR</span>
+                            <div>
+                                <div class="incharge-name" data-widget-id="feedback-2-name" data-editable-field="text">Tanvir Rahman</div>
+                                <div class="incharge-role" data-widget-id="feedback-2-track" data-editable-field="text">Textile Engineering · 3rd Year</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem;" data-widget-id="feedback-2-quote" data-editable-field="text">"The forum was the first place I got honest answers about internships instead of vague advice. The Consultant mode showed me which skills the industry actually asks for, so I stopped guessing and started building them."</p>
+                    </div>
+
+                    <div class="card glass-panel" data-widget-id="feedback-card-3">
+                        <div class="incharge" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <span class="incharge-avatar">SK</span>
+                            <div>
+                                <div class="incharge-name" data-widget-id="feedback-3-name" data-editable-field="text">Sadia Karim</div>
+                                <div class="incharge-role" data-widget-id="feedback-3-track" data-editable-field="text">Industrial &amp; Production Engineering · 2nd Year</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1rem;" data-widget-id="feedback-3-quote" data-editable-field="text">"Judge mode told me plainly what was missing from my portfolio before I started applying. That feedback was uncomfortable and exactly what I needed — I knew what to fix instead of sending out applications blindly."</p>
+                    </div>
                 </div>
 
             </div>
@@ -363,13 +293,13 @@
     ============================================================ -->
     <footer class="footer" data-widget-id="footer">
         <div class="footer-links">
-            <a href="#about-university">About University</a>
-            <a href="#faculty-teachers">Faculty &amp; Teachers</a>
-            <a href="#departments">Departments</a>
-            <a href="#medical-system">Medical System</a>
+            <a href="#about-bunk">About Bunk</a>
+            <a href="#community-goals">Community Goals</a>
+            <a href="#our-vision">Our Vision</a>
+            <a href="#student-feedback">Student Feedback</a>
             <a href="{{ ENDPOINTS.dashboard }}" class="footer-dashboard-link"><i class="fa-solid fa-user"></i> Student Dashboard</a>
         </div>
-        <p data-widget-id="footer-text" data-editable-field="text">© 2026 CampusDash. All rights reserved.</p>
+        <p data-widget-id="footer-text" data-editable-field="text">© 2026 Bunk. All rights reserved.</p>
     </footer>
 
     <script>

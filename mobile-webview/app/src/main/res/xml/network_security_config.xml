@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Network security policy for the Niter Dash WebView wrapper.
+  Network security policy for the Bunk WebView wrapper.
 
   The production target (https://niter-centralized-dash.onrender.com) is
   HTTPS-only, so cleartext traffic is forbidden by default (matching the

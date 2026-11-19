@@ -4,7 +4,7 @@ Dedicated Drive module for the Academic Notes side of the portal. Uses the
 **Drive v3 API** (``googleapiclient.discovery.build('drive', 'v3')``) with the
 signed-in user's stored OAuth credentials (``GoogleUserToken``, encrypted at
 rest) and uploads files into a dedicated per-user folder named
-``NITER Centralized Dash Notes``.
+``BUNK Centralized Dash Notes``.
 
 - ``upload_file_to_drive`` uploads a Django ``UploadedFile`` into the notes
   folder and returns ``webViewLink`` + ``webContentLink`` so the caller can
@@ -37,7 +37,11 @@ from core.google_service import (
     map_http_error,
 )
 
-NOTES_FOLDER_NAME = 'NITER Centralized Dash Notes'
+NOTES_FOLDER_NAME = 'BUNK Centralized Dash Notes'
+
+# Folders created before the Bunk rename. Reused when present so existing
+# uploads stay in one place instead of spawning a duplicate folder.
+LEGACY_NOTES_FOLDER_NAMES = ('NITER Centralized Dash Notes',)
 
 
 # ---------------------------------------------------------------------------
@@ -45,14 +49,18 @@ NOTES_FOLDER_NAME = 'NITER Centralized Dash Notes'
 # ---------------------------------------------------------------------------
 def _find_or_create_folder(drive_service, folder_name):
     """Return the ID of ``folder_name`` (non-trashed), creating it if absent."""
-    escaped = folder_name.replace("'", "\\'")
-    query = "name='%s' and mimeType='%s' and trashed=false" % (escaped, FOLDER_MIME_TYPE)
-    result = drive_service.files().list(
-        q=query, spaces='drive', fields='files(id, name)',
-    ).execute()
-    files = result.get('files', [])
-    if files:
-        return files[0]['id']
+    candidates = [folder_name]
+    if folder_name == NOTES_FOLDER_NAME:
+        candidates.extend(LEGACY_NOTES_FOLDER_NAMES)
+    for candidate in candidates:
+        escaped = candidate.replace("'", "\\'")
+        query = "name='%s' and mimeType='%s' and trashed=false" % (escaped, FOLDER_MIME_TYPE)
+        result = drive_service.files().list(
+            q=query, spaces='drive', fields='files(id, name)',
+        ).execute()
+        files = result.get('files', [])
+        if files:
+            return files[0]['id']
     folder = drive_service.files().create(
         body={'name': folder_name, 'mimeType': FOLDER_MIME_TYPE}, fields='id',
     ).execute()

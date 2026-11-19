@@ -9,6 +9,9 @@ from host.views import medical_admin_dashboard
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    # CareerPilot JSON API — mounted before core.urls so its /cv/, /hunter/,
+    # /fit-score/, /chat/, /tracker/ and /calendar/ routes are never shadowed.
+    path('', include('careerpilot.urls')),
     path('', include('core.urls')),
     path('medical/admin/', medical_admin_dashboard, name='medical_admin_dashboard'),
     path('host/', include('host.urls')),

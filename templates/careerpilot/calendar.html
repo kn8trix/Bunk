@@ -1,0 +1,59 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}Calendar{% endblock %}
+{% block heading %}Career Calendar{% endblock %}
+{% block subheading %}Deadlines, interviews, and daily to-dos — one day at a time, with a rolling streak.{% endblock %}
+
+{% block content %}
+<div class="cp-cal-wrap">
+
+    <!-- Month grid -->
+    <section class="cp-card">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-calendar-days"></i> <span id="cp-cal-label">—</span></h2>
+            <div class="cp-spread" style="gap:.35rem;">
+                <button type="button" class="cp-icon-btn" id="cp-cal-prev" aria-label="Previous month">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button type="button" class="cp-icon-btn" id="cp-cal-today" aria-label="Today">
+                    <i class="fa-solid fa-circle-dot"></i>
+                </button>
+                <button type="button" class="cp-icon-btn" id="cp-cal-next" aria-label="Next month">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cp-cal-weekdays">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <div class="cp-cal" id="cp-cal" role="grid" aria-label="Month calendar"></div>
+    </section>
+
+    <!-- Day panel -->
+    <section class="cp-card">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-list-check"></i> <span id="cp-day-label">Today</span></h2>
+            <span class="cp-badge" id="cp-day-count">0</span>
+        </div>
+
+        <div class="cp-field">
+            <label class="cp-label" for="cp-todo-input">Add a to-do…</label>
+            <div class="cp-spread">
+                <input class="cp-input" id="cp-todo-input" type="text" placeholder="Follow up with the recruiter">
+                <button type="button" class="cp-btn" id="cp-todo-add">
+                    <i class="fa-solid fa-plus"></i> Add
+                </button>
+            </div>
+        </div>
+
+        <div class="cp-list cp-mt" id="cp-day-todos">
+            <div class="cp-empty"><i class="fa-regular fa-circle-check"></i> Nothing scheduled for this day.</div>
+        </div>
+
+        <div class="cp-mt" id="cp-day-deadlines"></div>
+    </section>
+
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎓 NITER Campus Hub
+# 🎓 Bunk
 
 ### Centralized Dash — one hub for campus life
 
@@ -15,7 +15,7 @@
 [![Android](https://img.shields.io/badge/Android%20App-WebView-3DDC84?logo=android&logoColor=white)](mobile-webview/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**CampusDash is a web-based campus dashboard — a single Student Hub where every student can access the tools they need for daily campus life.** Instead of jumping between notice groups, paper tickets, phone calls, and scattered files, everything lives in one place.
+**Bunk is a web-based campus dashboard — a single Student Hub where every student can access the tools they need for daily campus life.** Instead of jumping between notice groups, paper tickets, phone calls, and scattered files, everything lives in one place.
 
 </div>
 
@@ -43,9 +43,9 @@
 
 ## 🏛 What is Centralized Dash?
 
-**CampusDash** is a modular, centralized digital hub designed to connect administrators with students, teachers, employees, and staff while bringing essential organizational services into **one secure ecosystem**.
+**Bunk** is a modular, centralized digital hub designed to connect administrators with students, teachers, employees, and staff while bringing essential organizational services into **one secure ecosystem**.
 
-It combines a centralized AI assistant, academic tools, health booking, transport & meal ticketing, official notices, and full club management into one practical platform designed for real use at NITER.
+It combines a centralized AI assistant, academic tools, health booking, transport & meal ticketing, official notices, and full club management into one practical platform designed for real use at BUNK.
 
 ---
 
@@ -67,7 +67,7 @@ Managing daily operations, academic activities, research, and communication acro
 
 ## 💡 The Solution
 
-**NITER Centralized Dash** is a modular central hub paired with a dedicated mobile application, designed to seamlessly connect administrators with students, employees, and staff while streamlining daily life in a **secure ecosystem**. The platform equips users with essential productivity tools right from their phones or browsers — view shift/class routines, track attendance, reserve shuttle bus seats, generate digital meal tokens, book medical center visits, order medicine through an integrated **Online Pharmacy**, manage club activities, pay event fees via an embedded **Payment Gateway**, access live news on the **Global News Hub**, and interact with personalized, **role-restricted Google Drive files and Google Sheets** mapped securely to their authenticated user profile.
+**BUNK Centralized Dash** is a modular central hub paired with a dedicated mobile application, designed to seamlessly connect administrators with students, employees, and staff while streamlining daily life in a **secure ecosystem**. The platform equips users with essential productivity tools right from their phones or browsers — view shift/class routines, track attendance, reserve shuttle bus seats, generate digital meal tokens, book medical center visits, order medicine through an integrated **Online Pharmacy**, manage club activities, pay event fees via an embedded **Payment Gateway**, access live news on the **Global News Hub**, and interact with personalized, **role-restricted Google Drive files and Google Sheets** mapped securely to their authenticated user profile.
 
 For management, it serves as an **all-in-one command center**:
 
@@ -188,8 +188,8 @@ Custom authentication · role-based authorization · controlled document access 
 ### 1. Clone & set up
 
 ```bash
-git clone git@github.com:kn8trix/Niter-centralized-dash.git
-cd Niter-centralized-dash
+git clone git@github.com:kn8trix/Bunk.git
+cd Bunk
 python -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -223,6 +223,22 @@ python manage.py collectstatic --noinput
 python manage.py runserver            # http://127.0.0.1:8000
 ```
 
+### Run with Docker
+
+Docker Compose starts the Django ASGI server, Redis (Channels and Huey), and a Huey worker. Docker reads the existing ignored `.env.docker` file by mounting it directly into the containers, avoiding Compose interpolation of secret values. To configure it from scratch, copy `.env.example` to `.env.docker`, then set `SECRET_KEY` and replace `SUPABASE_DB_URL` with your Supabase PostgreSQL connection string. Leave `SUPABASE_DB_URL` empty to use the local SQLite database.
+
+```bash
+docker compose up --build -d
+```
+
+The app is available at <http://localhost:8000>. The web container applies Django migrations before Daphne starts. After confirming `.env.docker` points to the intended database and that you have a backup, normal startup is:
+
+```bash
+docker compose up --build -d
+```
+
+Create an admin account with `docker compose exec web python manage.py createsuperuser`. Stop the services with `docker compose down`; uploaded media, the vector store, and Redis data are persisted.
+
 ### 5. Run tests
 
 ```bash
@@ -245,7 +261,7 @@ python manage.py seed_demo_users
 | :--- | :--- | :--- | :--- |
 | `admin` | `admin123` | Superuser + staff | Every dashboard — `/dashboard/admin/`, Django `/admin/`, Website Builder |
 | `medical` | `medical123` | Medical staff | `/medical/admin/`, `/host/medical/`, pharmacy admin — **not** the main admin area |
-| `NCC` | `ncc@gmail.com` | Club manager | NITER Computer Club workspace — `/dashboard/club/` (events, members, roles, transactions) |
+| `NCC` | `ncc@gmail.com` | Club manager | BUNK Computer Club workspace — `/dashboard/club/` (events, members, roles, transactions) |
 | `student` | `student123` | Regular student | `/dashboard/`, `/medical/`, `/notes/`, `/study-corner/`, `/research-ai/`, `/pharmacy/` |
 
 **Options:**
@@ -259,7 +275,7 @@ The command is **idempotent** — existing users are never touched or reset.
 ## 📁 Project Structure
 
 ```
-Niter-centralized-dash/
+Bunk/
 ├── config/              # Django settings, ASGI/WSGI, root URLs
 ├── core/                # Main app — views, models, roles, RBAC, APIs
 │   ├── management/      # Custom commands (seed_demo_users, seed_pharmacy_catalog)
@@ -284,7 +300,7 @@ Niter-centralized-dash/
 
 ## 📱 Mobile App
 
-The **NITER Campus Hub Android app** (`mobile-webview/`) is a native WebView wrapper around the platform:
+The **Bunk Android app** (`mobile-webview/`) is a native WebView wrapper around the platform:
 
 - 🏠 Branded splash screen & launcher icons (all mipmap densities)
 - 🔐 **Student-only shell** — admin/builder/medical/club routes blocked with a clean fallback view
@@ -344,7 +360,7 @@ The platform exposes a rich JSON API surface (see `core/urls.py`):
 6. Meal dash — menu updates, meal count & payment
 7. Meal system payment in the dashboard payment section
 
-**Long-term vision** — expand beyond NITER into:
+**Long-term vision** — expand beyond BUNK into:
 - 🏭 **RMG / Factory** — shift schedules, employee attendance, shuttle, cafeteria, health services
 - 🏢 **Corporate** — work schedules, benefits, internal activities, events
 - QR scanning at gates, bus stops, medical/pharmacy counters, club events
@@ -372,7 +388,7 @@ MIT — see [LICENSE](LICENSE).
 
 <div align="center">
 
-**Built with ❤️ for NITER** — a unified digital ecosystem for campus life.
+**Built with ❤️ for BUNK** — a unified digital ecosystem for campus life.
 
 *One platform. Every service. Secure. Modular. Role-aware.*
 

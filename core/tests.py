@@ -168,18 +168,23 @@ class UnifiedHeaderTest(TestCase):
         'pharmacy_request',
     ]
 
-    NAV_LINKS = ['Dashboard', 'Study Corner', 'Departments', 'Research AI', 'Notices', 'Transport', 'Meals', 'Medical', 'Clubs', 'Global News', 'Tickets']
+    # Transport, Meals, Medical, and Attendance are hidden for every role, so
+    # they must not appear in the shared header on any page.
+    NAV_LINKS = ['Dashboard', 'Study Corner', 'Departments', 'Research AI', 'Notices', 'Clubs', 'Global News', 'Tickets']
+    HIDDEN_NAV_LINKS = ['Transport', 'Meals', 'Medical', 'Attendance']
 
     def test_pages_render_shared_header(self):
         for name in self.PAGES:
             with self.subTest(page=name):
                 response = self.client.get(reverse(name))
                 self.assertEqual(response.status_code, 200)
-                self.assertContains(response, 'CampusDash')
+                self.assertContains(response, 'Bunk')
                 self.assertContains(response, 'class="brand"')
                 self.assertContains(response, 'href="/dashboard/" class="brand"')
                 for label in self.NAV_LINKS:
                     self.assertContains(response, label + '</a>')
+                for label in self.HIDDEN_NAV_LINKS:
+                    self.assertNotContains(response, label + '</a>')
                 self.assertContains(response, 'id="avatar-btn"')
                 self.assertContains(response, 'id="profile-popover"')
                 self.assertContains(response, 'data-component="topbar"')
@@ -194,10 +199,7 @@ class UnifiedHeaderTest(TestCase):
     def test_active_pill_tracks_current_page(self):
         expected = {
             'dashboard': '/dashboard/',
-            'transport_dashboard': '/transport/',
-            'meal_dashboard': '/meals/',
             'clubs_dashboard': '/clubs/',
-            'medical': '/medical/',
             'notices': '/notices/',
             'news': '/news/',
             'study_corner': '/study-corner/',
@@ -464,7 +466,7 @@ class DepartmentsPageTest(TestCase):
 
     def test_detail_hub_uses_shared_header(self):
         html = self.client.get(reverse('department_detail', args=['fde'])).content.decode()
-        self.assertIn('CampusDash', html)
+        self.assertIn('Bunk', html)
         self.assertIn('id="avatar-btn"', html)
         self.assertIn('id="profile-popover"', html)
         self.assertIn('href="/departments/" class="active"', html)  # active Departments pill
@@ -662,21 +664,21 @@ class LandingRedirectTest(TestCase):
     def test_anonymous_keeps_hero_landing_page(self):
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Welcome to CampusDash')
-        self.assertContains(response, 'btn-pharmacy-hero')
+        self.assertContains(response, 'Welcome to Bunk')
+        self.assertContains(response, 'Join the Community')
 
     def test_browser_keeps_hero_even_when_logged_in(self):
         # Desktop/mobile browsers must be able to view the public hero page.
         self.client.force_login(self.student)
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Welcome to CampusDash')
+        self.assertContains(response, 'Welcome to Bunk')
 
     def test_staff_browser_keeps_hero_even_when_logged_in(self):
         self.client.force_login(self.staff)
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Welcome to CampusDash')
+        self.assertContains(response, 'Welcome to Bunk')
 
     def test_native_app_student_redirected_to_student_dashboard(self):
         self.client.force_login(self.student)
@@ -1776,7 +1778,7 @@ class LoginFlowTests(TestCase):
     def test_login_page_renders(self):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Niter Hub')
+        self.assertContains(response, 'Bunk')
         self.assertContains(response, 'Skip login')
         self.assertContains(response, reverse('dashboard'))
 
@@ -1839,7 +1841,7 @@ class EditablePageRenderTest(TestCase):
         self.assertContains(response, 'data-editable-id="hero-title"')
         self.assertContains(response, 'data-page-slug="research-ai"')
         # Shared top navigation is present
-        self.assertContains(response, 'CampusDash')
+        self.assertContains(response, 'Bunk')
         self.assertContains(response, 'id="avatar-btn"')
 
     def test_camel_case_styles_are_flattened_to_css(self):
@@ -1876,10 +1878,10 @@ class EditablePageRenderTest(TestCase):
         self.assertContains(response, 'Hello from the database')
 
     def test_seo_description_renders_in_meta(self):
-        self.page.seo_description = 'NITER research assistant page.'
+        self.page.seo_description = 'BUNK research assistant page.'
         self.page.save()
         html = self.client.get(reverse('editable_page', args=[self.page.slug])).content.decode()
-        self.assertIn('name="description" content="NITER research assistant page."', html)
+        self.assertIn('name="description" content="BUNK research assistant page."', html)
 
     def test_page_allows_same_origin_framing(self):
         """The builder editor embeds this page in a same-origin <iframe>
@@ -5396,7 +5398,7 @@ class CheckoutPaymentApiTest(TestCase):
         data = {
             'type': 'event',
             'item': 'CodeStorm 2026 Ticket',
-            'issuer': 'NITER Computer Club',
+            'issuer': 'BUNK Computer Club',
             'fee': '200',
             'method': 'bkash',
             'wallet_no': '01712345678',
@@ -6223,7 +6225,7 @@ class ResearchQueryApiTest(TestCase):
         headers = kwargs['headers']
         self.assertEqual(args[0], 'https://openrouter.ai/api/v1/chat/completions')
         self.assertEqual(headers['Authorization'], 'Bearer test-key')
-        self.assertEqual(headers['X-Title'], 'NITER Centralized Dash')
+        self.assertEqual(headers['X-Title'], 'BUNK Centralized Dash')
         self.assertEqual(headers['HTTP-Referer'], 'https://testserver')
         self.assertEqual(kwargs['timeout'], 30)
         # Default free model sent to the provider.
@@ -6504,14 +6506,14 @@ class OpenRouterServiceTest(TestCase):
         with mock.patch('services.openrouter.requests.post', return_value=_fake_openrouter_response('ok')) as post:
             text, model_used = call_openrouter(
                 [{'role': 'user', 'content': 'hi'}],
-                system_prompt='You are the NITER assistant.',
+                system_prompt='You are the BUNK assistant.',
             )
         self.assertEqual(text, 'ok')
         self.assertEqual(model_used, 'primary-free-model')
         self.assertEqual(post.call_count, 1)
         _, kwargs = post.call_args
         messages = kwargs['json']['messages']
-        self.assertEqual(messages[0], {'role': 'system', 'content': 'You are the NITER assistant.'})
+        self.assertEqual(messages[0], {'role': 'system', 'content': 'You are the BUNK assistant.'})
         self.assertEqual(messages[1], {'role': 'user', 'content': 'hi'})
 
 
@@ -7097,7 +7099,7 @@ class BuilderBlockLibraryTest(TestCase):
         self._block(
             block_type='cta',
             content_json={
-                'headline': 'Ready to join NITER?',
+                'headline': 'Ready to join BUNK?',
                 'subtext': 'Applications open now.',
                 'primary_label': 'Apply Now',
                 'primary_url': '/signup/',
@@ -7107,7 +7109,7 @@ class BuilderBlockLibraryTest(TestCase):
         )
         html = self._render_tag()
         self.assertIn('data-builder-block="cta"', html)
-        self.assertIn('Ready to join NITER?', html)
+        self.assertIn('Ready to join BUNK?', html)
         self.assertIn('href="/signup/"', html)
         self.assertIn('Apply Now', html)
         self.assertIn('Learn More', html)
@@ -8163,7 +8165,7 @@ class BuilderDynamicRenderEditTest(TestCase):
         ContentBlock.objects.create(
             page=self.page, element_id='links1', block_type='links', order=0,
             content_json={
-                'title': 'Explore NITER',
+                'title': 'Explore BUNK',
                 'items': [
                     {'label': 'Admissions', 'url': '/admissions/'},
                     {'label': 'Departments', 'url': '/departments/'},
@@ -8174,7 +8176,7 @@ class BuilderDynamicRenderEditTest(TestCase):
             reverse('editable_page', args=[self.page.slug])
         ).content.decode()
         self.assertIn('data-builder-block="links"', html)
-        self.assertIn('Explore NITER', html)
+        self.assertIn('Explore BUNK', html)
         self.assertIn('Admissions', html)
         self.assertIn('href="/admissions/"', html)
 
@@ -8622,7 +8624,7 @@ class SecurityAuditTest(TestCase):
             with self.assertRaises(Exception, msg=weak):
                 validate_password(weak)
         # …while a genuinely strong password passes.
-        validate_password('Niter#2026!StrongPass')
+        validate_password('Bunk#2026!StrongPass')
 
     # ------------------------------------------------------------------
     # Endpoint authentication matrix
@@ -9332,7 +9334,7 @@ class DriveServiceModuleTest(TestCase):
         self.assertEqual(result['web_content_link'], 'https://drive.google.com/uc?id=file-1')
         # Folder query targets the dedicated notes folder.
         list_kwargs = drive.files().list.call_args.kwargs
-        self.assertIn('NITER Centralized Dash Notes', list_kwargs['q'])
+        self.assertIn('BUNK Centralized Dash Notes', list_kwargs['q'])
 
     def test_storage_info_returns_email_and_quota(self):
         from academic_notes.drive_service import get_drive_storage_info
@@ -9613,7 +9615,7 @@ class SeedDemoUsersCommandTest(TestCase):
         self.assertTrue(account.is_active)
         self.assertEqual(account.role, 'manager')
         self.assertEqual(account.club.slug, 'niter-computer-club')
-        self.assertEqual(account.club.name, 'NITER Computer Club (NCC)')
+        self.assertEqual(account.club.name, 'BUNK Computer Club (NCC)')
         self.assertTrue(account.can_post_events)
         self.assertTrue(account.can_manage_members)
         self.assertTrue(account.can_manage_finances)
@@ -12359,12 +12361,12 @@ class CmsWysiwygIntegrationTest(TestCase):
         it, a student GET to / returns the customized text."""
         page = EditablePage.objects.get(system_key='home')
         block = page.content_blocks.get(element_id='hero-banner')
-        block.content_json['headline'] = 'Welcome to NITER Campus Hub'
+        block.content_json['headline'] = 'Welcome to Bunk'
         block.visible = True
         block.save(update_fields=['content_json', 'visible', 'updated_at'])
         response = self.client.get(reverse('home'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Welcome to NITER Campus Hub')
+        self.assertContains(response, 'Welcome to Bunk')
         self.assertContains(response, 'cms-system-zone')
 
 
@@ -12421,7 +12423,7 @@ class NewsBuilderIntegrationTest(TestCase):
                 'blocks': [{
                     'element_id': 'news-search',
                     'content_json': {
-                        'title': 'NITER News Hub',
+                        'title': 'BUNK News Hub',
                         'placeholder': 'e.g. textile engineering',
                     },
                 }],
@@ -12432,7 +12434,7 @@ class NewsBuilderIntegrationTest(TestCase):
         body = response.json()
         self.assertEqual(body['status'], 'success')
         block.refresh_from_db()
-        self.assertEqual(block.content_json['title'], 'NITER News Hub')
+        self.assertEqual(block.content_json['title'], 'BUNK News Hub')
         self.assertEqual(block.content_json['placeholder'], 'e.g. textile engineering')
 
     # ------------------------------------------------------------------
@@ -12445,7 +12447,7 @@ class NewsBuilderIntegrationTest(TestCase):
         in both the CMS zone and the editable intro section."""
         block = self.page.content_blocks.get(element_id='image-card-grid')
         block.content_json['title'] = 'Campus Headlines'
-        block.content_json['subtitle'] = 'Latest from NITER and beyond'
+        block.content_json['subtitle'] = 'Latest from BUNK and beyond'
         block.visible = True
         block.save(update_fields=['content_json', 'visible', 'updated_at'])
         response = self.client.get(reverse('news'))
@@ -12458,12 +12460,12 @@ class NewsBuilderIntegrationTest(TestCase):
         """After updating the video-feed block title, the student page
         shows the new Video News heading."""
         block = self.page.content_blocks.get(element_id='video-feed')
-        block.content_json['title'] = 'NITER Video Bulletin'
+        block.content_json['title'] = 'BUNK Video Bulletin'
         block.visible = True
         block.save(update_fields=['content_json', 'visible', 'updated_at'])
         response = self.client.get(reverse('news'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'NITER Video Bulletin')
+        self.assertContains(response, 'BUNK Video Bulletin')
 
     # ------------------------------------------------------------------
     # Test 4: Preview mode shows hidden blocks for editors.
@@ -12500,11 +12502,11 @@ class NewsBuilderIntegrationTest(TestCase):
         self.assertContains(response, 'Global News')
         # Now set a custom title via the news-search block.
         block = self.page.content_blocks.get(element_id='news-search')
-        block.content_json['title'] = 'NITER Daily News'
+        block.content_json['title'] = 'BUNK Daily News'
         block.visible = True
         block.save(update_fields=['content_json', 'visible', 'updated_at'])
         response = self.client.get(reverse('news'))
-        self.assertContains(response, 'NITER Daily News')
+        self.assertContains(response, 'BUNK Daily News')
 
     # ------------------------------------------------------------------
     # Test 7: X-Frame-Options header allows same-origin iframe embedding.

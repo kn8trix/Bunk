@@ -1,4 +1,4 @@
-"""Seed a realistic NITER campus demo dataset.
+"""Seed a realistic BUNK campus demo dataset.
 
 Populates the documented mock dataset — demo accounts, transport routes &
 bookings, medical center, cafeteria menu & meal tokens, academic courses &
@@ -57,7 +57,7 @@ DEMO_PASSWORD = 'password123'
 def _placeholder_pdf(title):
     """A tiny but valid single-page PDF so seeded demo materials are
     downloadable instead of carrying an empty ``file`` field."""
-    text = (title or 'Niter Hub demo material').encode('latin-1', 'replace')
+    text = (title or 'Bunk demo material').encode('latin-1', 'replace')
     stream = b'BT /F1 14 Tf 72 720 Td (%s) Tj ET\n' % text
     content = (
         b'%PDF-1.4\n'
@@ -77,7 +77,7 @@ def _placeholder_pdf(title):
 
 
 class Command(BaseCommand):
-    help = 'Seed a realistic NITER campus demo dataset (idempotent).'
+    help = 'Seed a realistic BUNK campus demo dataset (idempotent).'
 
     def _created(self, label):
         self.stdout.write(self.style.SUCCESS('created: %s' % label))
@@ -233,14 +233,14 @@ class Command(BaseCommand):
 
         routes = []
         route_specs = [
-            ('NITER Campus ↔ Mirpur 10 / Farmgate (Bus #01)',
-             'NITER Campus, Savar', 'Mirpur 10 / Farmgate', 40, '50.00', drivers[0],
+            ('BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)',
+             'BUNK Campus, Savar', 'Mirpur 10 / Farmgate', 40, '50.00', drivers[0],
              ['07:30 AM', '04:30 PM']),
-            ('NITER Campus ↔ Uttara / Gazipur (Bus #02)',
-             'NITER Campus, Savar', 'Uttara / Gazipur', 40, '60.00', drivers[1],
+            ('BUNK Campus ↔ Uttara / Gazipur (Bus #02)',
+             'BUNK Campus, Savar', 'Uttara / Gazipur', 40, '60.00', drivers[1],
              ['08:00 AM', '05:00 PM']),
-            ('NITER Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)',
-             'NITER Campus, Savar', 'Baipal / Nabinagar', 30, '30.00', drivers[2],
+            ('BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)',
+             'BUNK Campus, Savar', 'Baipal / Nabinagar', 30, '30.00', drivers[2],
              ['09:00 AM', '06:00 PM']),
         ]
         for name, origin, destination, capacity, fare, driver, departures in route_specs:
@@ -266,9 +266,9 @@ class Command(BaseCommand):
 
         # 3 active sample seat reservations (paid, with boarding QR).
         bookings = [
-            (kn8trix, 'NITER Campus ↔ Mirpur 10 / Farmgate (Bus #01)', '07:30 AM', 5),
-            (student2, 'NITER Campus ↔ Mirpur 10 / Farmgate (Bus #01)', '04:30 PM', 8),
-            (kn8trix, 'NITER Campus ↔ Uttara / Gazipur (Bus #02)', '08:00 AM', 12),
+            (kn8trix, 'BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)', '07:30 AM', 5),
+            (student2, 'BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)', '04:30 PM', 8),
+            (kn8trix, 'BUNK Campus ↔ Uttara / Gazipur (Bus #02)', '08:00 AM', 12),
         ]
         for user, route_name, departure_time, seat in bookings:
             booking, created = TransportBooking.objects.get_or_create(
@@ -439,10 +439,10 @@ class Command(BaseCommand):
     def _seed_clubs(self, admin, kn8trix):
         clubs = []
         club_specs = [
-            ('NITER Computer Club (NCC)',
-             'The official programming & tech community of NITER — hackathons, '
+            ('BUNK Computer Club (NCC)',
+             'The official programming & tech community of BUNK — hackathons, '
              'competitive programming practice, and industry workshops.'),
-            ('NITER Robotics Society',
+            ('BUNK Robotics Society',
              'Hands-on robotics, IoT, and automation projects — from line '
              'followers to campus automation demos.'),
         ]
@@ -463,11 +463,11 @@ class Command(BaseCommand):
         events = [
             (clubs[0], 'NCC Annual Hackathon 2026',
              '24-hour coding marathon — form teams of up to 4 and build for '
-             'the campus.', today + timedelta(days=14), 'NITER Campus, Savar', 120),
+             'the campus.', today + timedelta(days=14), 'BUNK Campus, Savar', 120),
             (clubs[1], 'Robotics Workshop: Line Follower Basics',
              'Intro session on sensors, motor drivers, and building a line '
              'follower from scratch.', today + timedelta(days=7),
-             'EEE Lab 2, NITER Campus', 60),
+             'EEE Lab 2, BUNK Campus', 60),
         ]
         for club, title, description, event_date, location, capacity in events:
             event, created = ClubEvent.objects.get_or_create(
@@ -484,11 +484,11 @@ class Command(BaseCommand):
 
         notices = [
             ('Hackathon 2026: registrations now open',
-             'NITER Computer Club invites all students to register for the '
+             'BUNK Computer Club invites all students to register for the '
              'annual 24-hour Hackathon 2026. Teams of up to 4. Register at '
              'the club desk before the deadline.', 'event'),
             ('Robotics workshop: line follower basics',
-             'Join the NITER Robotics Society this Saturday for a hands-on '
+             'Join the BUNK Robotics Society this Saturday for a hands-on '
              'workshop on building line-follower robots. No prior experience '
              'required.', 'event'),
             ('Mid-term examination schedule published',

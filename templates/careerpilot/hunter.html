@@ -1,0 +1,61 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}Job Hunter{% endblock %}
+{% block heading %}Job Hunter{% endblock %}
+{% block subheading %}Search live boards and get roles ranked against your active CV — deduplicated, scored, and ready to track.{% endblock %}
+
+{% block head_actions %}
+<div class="cp-tabs" role="tablist">
+    <button type="button" class="cp-tab is-active" data-hunt-tab="search" role="tab">Search</button>
+    <button type="button" class="cp-tab" data-hunt-tab="saved" role="tab">Saved</button>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="cp-card" id="cp-hunt-panel">
+    <div class="cp-card-head">
+        <h2 class="cp-card-title"><i class="fa-solid fa-magnifying-glass"></i> Find roles</h2>
+        <span class="cp-faint" id="cp-hunt-status">Ready</span>
+    </div>
+
+    <div class="cp-spread">
+        <input class="cp-input" id="cp-hunt-q" type="search"
+               placeholder="e.g. backend engineer in dhaka, or data analyst remote"
+               aria-label="Job search query">
+        <button type="button" class="cp-btn" id="cp-hunt-btn">
+            <i class="fa-solid fa-crosshairs"></i> Hunt
+        </button>
+    </div>
+
+    <div class="cp-chip-row cp-mt-sm">
+        <button type="button" class="cp-chip" data-q="backend engineer in dhaka">Backend · Dhaka</button>
+        <button type="button" class="cp-chip" data-q="frontend developer remote">Frontend · Remote</button>
+        <button type="button" class="cp-chip" data-q="data analyst">Data analyst</button>
+        <button type="button" class="cp-chip" data-q="textile engineer">Textile engineer</button>
+        <button type="button" class="cp-chip" data-q="machine learning internship">ML internship</button>
+    </div>
+</section>
+
+<!-- Search results -->
+<section class="cp-card cp-mt" id="cp-hunt-results-card">
+    <div class="cp-card-head">
+        <h2 class="cp-card-title"><i class="fa-solid fa-briefcase"></i> Results</h2>
+        <span class="cp-faint" id="cp-hunt-count">No search yet</span>
+    </div>
+    <div id="cp-hunt-results">
+        <div class="cp-empty"><i class="fa-solid fa-satellite-dish"></i> Run a hunt to pull roles from RemoteOK, Arbeitnow, The Muse and more.</div>
+    </div>
+</section>
+
+<!-- Saved jobs -->
+<section class="cp-card cp-mt cp-hide" id="cp-hunt-saved-card">
+    <div class="cp-card-head">
+        <h2 class="cp-card-title"><i class="fa-solid fa-bookmark"></i> Saved jobs</h2>
+        <span class="cp-badge" id="cp-hunt-saved-count">0</span>
+    </div>
+    <div id="cp-hunt-saved">
+        <div class="cp-empty"><i class="fa-regular fa-bookmark"></i> Nothing saved yet.</div>
+    </div>
+</section>
+{% endblock %}

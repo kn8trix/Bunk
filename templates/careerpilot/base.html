@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Career{% endblock %} — Bunk</title>
+    <meta name="description" content="{% block description %}Bunk career tools — CV, job hunting, fit score, AI assistant, tracker, and calendar.{% endblock %}">
+
+    {% include 'partials/pwa_head.html' %}
+
+    <!-- Bunk design tokens (dark charcoal + warm amber) -->
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/topbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/careerpilot.css' %}">
+
+    <!-- Permanent dark surface for the career surfaces (same choice as the
+         public landing page) — stamped before first paint to avoid a flash. -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            root.setAttribute('data-theme', 'dark');
+            root.setAttribute('data-theme-mode', 'dark');
+            root.classList.add('dark');
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body class="cp" data-page="{{ cp_page }}">
+
+    {% include 'partials/topbar.html' with active=cp_active %}
+
+    <div class="cp-shell">
+
+        <header class="cp-head">
+            <div>
+                <h1 class="cp-title"><i class="fa-solid {{ cp_icon|default:'fa-compass' }}"></i> {% block heading %}Career{% endblock %}</h1>
+                <p class="cp-sub">{% block subheading %}{% endblock %}</p>
+            </div>
+            <div class="cp-spread">{% block head_actions %}{% endblock %}</div>
+        </header>
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+    <div id="cp-toast" class="cp-toast" role="status" aria-live="polite"></div>
+
+    <script>
+        window.CP_CONFIG = {
+            apiBase: '/api',
+            page: '{{ cp_page }}',
+            urls: {
+                cvList: '{% url "careerpilot:cv_list" %}',
+                cvUpload: '{% url "careerpilot:cv_upload" %}',
+                hunt: '{% url "careerpilot:hunt_search" %}',
+                huntSaved: '{% url "careerpilot:hunt_saved_list" %}',
+                huntSave: '{% url "careerpilot:hunt_save" %}',
+                fit: '{% url "careerpilot:fit_score" %}',
+                threads: '{% url "careerpilot:chat_threads" %}',
+                applications: '{% url "careerpilot:applications" %}',
+                appStats: '{% url "careerpilot:tracker_stats" %}',
+                calendar: '{% url "careerpilot:calendar" %}',
+                todos: '{% url "careerpilot:todos" %}'
+            }
+        };
+    </script>
+    <script src="{% static 'js/careerpilot.js' %}" defer></script>
+</body>
+</html>

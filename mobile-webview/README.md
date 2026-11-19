@@ -1,6 +1,6 @@
-# Niter Campus Hub — Student Edition (Android)
+# Bunk — Student Edition (Android)
 
-A full-fledged, **student-only** native Android app for **Niter Centralized
+A full-fledged, **student-only** native Android app for **Bunk Centralized
 Dash**. It renders the campus portal (`https://niter-centralized-dash.onrender.com`)
 in a full-screen `WebView` and adds native polish on top: a branded splash +
 launcher icon, persistent login, direct dashboard landing, native permissions,
@@ -11,7 +11,7 @@ siren** that breaks through silent mode.
 
 | Requirement | Implementation |
 |---|---|
-| Branded splash | `SplashActivity` — charcoal screen with the campus-hub logo + "NITER Campus Hub — Student Edition", then a hand-off to the WebView shell |
+| Branded splash | `SplashActivity` — charcoal screen with the campus-hub logo + "Bunk — Student Edition", then a hand-off to the WebView shell |
 | Custom app icon | PNG `ic_launcher` / `ic_launcher_round` at every mipmap density (mdpi→xxxhdpi) — charcoal rounded square/circle with a beige "N" monogram (regenerate with `scripts/generate_assets.py`) |
 | Persistent login | The 1-year Django session cookie (`SESSION_COOKIE_AGE = 31536000`) is stored by `CookieManager`, so students stay signed in between launches until they tap **Log Out** |
 | Direct dashboard landing | The app's UA carries a `NiterApp/<version>` marker; the server (`public_home`) bounces **native-app-only** authenticated sessions straight to the role dashboard, while desktop/mobile browsers keep the public hero page |

@@ -43,10 +43,10 @@ SYSTEM_PAGES = [
                 'element_id': 'hero-banner',
                 'block_type': 'hero',
                 'content_json': {
-                    'headline': 'Welcome to CampusDash',
-                    'subheadline': 'Public University Information & Medical Services System',
+                    'headline': 'Welcome to Bunk',
+                    'subheadline': 'A global student community with peer forums, study & research groups, and an AI career mentor.',
                     'image_url': '',
-                    'primary_label': 'Login to Dashboard',
+                    'primary_label': 'Join the Community',
                     'primary_url': '/dashboard/',
                 },
             },
@@ -66,8 +66,8 @@ SYSTEM_PAGES = [
                 'element_id': 'feature-grid',
                 'block_type': 'features',
                 'content_json': {
-                    'title': 'Why CampusDash',
-                    'subtitle': 'Everything your campus needs in one portal',
+                    'title': 'Why Bunk',
+                    'subtitle': 'Everything a student community needs in one place',
                     'items': [
                         {'icon': 'fa-book-open', 'title': 'Study Corner', 'text': 'Notes, lectures and an AI study assistant.'},
                         {'icon': 'fa-prescription-bottle-medical', 'title': 'Online Pharmacy', 'text': 'Order medicines with prescription verification.'},
@@ -246,7 +246,7 @@ SYSTEM_PAGES = [
                 'element_id': 'welcome-banner',
                 'block_type': 'hero',
                 'content_json': {
-                    'headline': 'Welcome to CampusDash',
+                    'headline': 'Welcome to Bunk',
                     'subheadline': 'Your central campus overview',
                     'primary_label': 'View Profile',
                     'primary_url': '/profile/',

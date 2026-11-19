@@ -42,7 +42,7 @@ _TEXT_EXTENSIONS = {'.pdf', '.docx'}
 _IMAGE_MIMES = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg'}
 
 _SYSTEM_PROMPT = (
-    'You are a precise schedule parser for NITER (a Bangladeshi engineering '
+    'You are a precise schedule parser for BUNK (a Bangladeshi engineering '
     'institute). You convert class routine images or text into strict JSON. '
     'The campus week starts on Saturday and ends on Friday. Extract every '
     'period: the day, start and end time, course code/name, and room. '

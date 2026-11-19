@@ -189,14 +189,14 @@ class ContentBlock(models.Model):
             ],
         },
         'hero': {
-            'headline': 'Welcome to NITER',
+            'headline': 'Welcome to BUNK',
             'subheadline': 'A supporting line under the headline',
             'image_url': 'https://…',
             'primary_label': 'Explore',
             'primary_url': '/departments/',
         },
         'features': {
-            'title': 'Why NITER',
+            'title': 'Why BUNK',
             'subtitle': 'Optional intro line',
             'items': [
                 {'icon': 'fa-laptop-code', 'title': 'Feature', 'text': '…'},
@@ -229,7 +229,7 @@ class ContentBlock(models.Model):
             ],
         },
         'cta': {
-            'headline': 'Ready to join NITER?',
+            'headline': 'Ready to join BUNK?',
             'subtext': 'Optional supporting line',
             'primary_label': 'Apply Now',
             'primary_url': '/signup/',

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">NITER Campus Hub</string>
+    <string name="app_name">Bunk</string>
 
     <!-- Splash screen -->
-    <string name="splash_title">NITER Campus Hub</string>
+    <string name="splash_title">Bunk</string>
     <string name="splash_subtitle">Student Edition</string>
 
     <!-- Native notifications -->

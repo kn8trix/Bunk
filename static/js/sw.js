@@ -1,4 +1,4 @@
-/* Niter Hub service worker — offline-first caching for the PWA shell.
+/* Bunk service worker — offline-first caching for the PWA shell.
  *
  * Strategy:
  *   - install:  precache the core static assets (theme/topbar/page CSS) plus

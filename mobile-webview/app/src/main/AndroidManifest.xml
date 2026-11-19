@@ -34,7 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NiterDash">
 
-        <!-- Splash — the launcher entry point. Shows the "NITER Campus Hub —
+        <!-- Splash — the launcher entry point. Shows the "Bunk —
              Student Edition" splash, then hands off to the WebView shell. -->
         <activity
             android:name=".SplashActivity"

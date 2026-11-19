@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate native assets for the Niter Campus Hub Android wrapper.
+"""Generate native assets for the Bunk Android wrapper.
 
 Produces:
   * ``ic_launcher.png`` / ``ic_launcher_round.png`` at every mipmap density

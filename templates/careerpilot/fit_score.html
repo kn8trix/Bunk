@@ -1,0 +1,49 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}Fit Score{% endblock %}
+{% block heading %}Fit Score{% endblock %}
+{% block subheading %}Paste a job description and get a transparent 0–100 match: what you cover, what you're missing, and why.{% endblock %}
+
+{% block content %}
+<div class="cp-split">
+
+    <!-- Input -->
+    <section class="cp-card">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-file-lines"></i> Job description</h2>
+            <span class="cp-faint">Grounded in your active CV</span>
+        </div>
+
+        <div class="cp-field">
+            <label class="cp-label" for="cp-fit-role">Target role (optional)</label>
+            <input class="cp-input" id="cp-fit-role" type="text" placeholder="e.g. Backend Engineer">
+        </div>
+
+        <div class="cp-field cp-mt">
+            <label class="cp-label" for="cp-fit-jd">Paste the job description</label>
+            <textarea class="cp-textarea" id="cp-fit-jd"
+                      placeholder="Requirements&#10;- Strong Python&#10;- Django&#10;- PostgreSQL&#10;&#10;Nice to have&#10;- Kubernetes"></textarea>
+        </div>
+
+        <div class="cp-spread cp-mt">
+            <span class="cp-faint">Repeats reuse the stored result unless you force a recompute.</span>
+            <button type="button" class="cp-btn" id="cp-fit-run">
+                <i class="fa-solid fa-gauge-high"></i> Compute fit
+            </button>
+        </div>
+    </section>
+
+    <!-- Result -->
+    <section class="cp-card" id="cp-fit-panel">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-chart-simple"></i> Breakdown</h2>
+            <span class="cp-faint" id="cp-fit-status">No score yet</span>
+        </div>
+        <div id="cp-fit-result">
+            <div class="cp-empty"><i class="fa-solid fa-bullseye"></i> Compute a fit to see your score, strengths, and gaps.</div>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

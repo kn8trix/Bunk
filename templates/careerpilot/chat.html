@@ -1,0 +1,58 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}Assistant{% endblock %}
+{% block heading %}Assistant{% endblock %}
+{% block subheading %}Your guide, consultant, and judge — every answer cites the CV lines it used.{% endblock %}
+
+{% block content %}
+<div class="cp-chat">
+
+    <!-- Threads -->
+    <aside class="cp-card cp-chat-side">
+        <button type="button" class="cp-btn" id="cp-chat-new">
+            <i class="fa-solid fa-plus"></i> New chat
+        </button>
+        <div class="cp-threads" id="cp-chat-threads">
+            <div class="cp-empty"><i class="fa-regular fa-comments"></i> No conversations yet.</div>
+        </div>
+    </aside>
+
+    <!-- Chat -->
+    <section class="cp-card cp-chat-main">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-comments"></i> <span id="cp-chat-title">New chat</span></h2>
+            <span class="cp-faint" id="cp-chat-engine">offline fallback</span>
+        </div>
+
+        <div class="cp-chip-row" id="cp-chat-modes">
+            <button type="button" class="cp-chip" data-mode="readiness">Readiness</button>
+            <button type="button" class="cp-chip" data-mode="gap_analysis">Skill gaps</button>
+            <button type="button" class="cp-chip" data-mode="roadmap">Roadmap</button>
+            <button type="button" class="cp-chip" data-mode="cover_letter">Cover letter</button>
+            <button type="button" class="cp-chip" data-mode="guide">Guide</button>
+            <button type="button" class="cp-chip" data-mode="consultant">Consultant</button>
+            <button type="button" class="cp-chip" data-mode="judge">Judge</button>
+            <button type="button" class="cp-chip" data-mode="general">General</button>
+        </div>
+
+        <div class="cp-field cp-mt-sm">
+            <label class="cp-label" for="cp-chat-role">Target role (optional context)</label>
+            <input class="cp-input" id="cp-chat-role" type="text" placeholder="e.g. Data Engineer at a product company">
+        </div>
+
+        <div class="cp-messages" id="cp-chat-messages">
+            <div class="cp-empty"><i class="fa-solid fa-wand-magic-sparkles"></i> Ask anything — “Am I ready for a backend role?”, “What are my gaps?”, “Build me a 6-week roadmap”.</div>
+        </div>
+
+        <div class="cp-composer">
+            <textarea class="cp-textarea" id="cp-chat-input" rows="2"
+                      placeholder="Ask your career assistant…"></textarea>
+            <button type="button" class="cp-btn" id="cp-chat-send">
+                <i class="fa-solid fa-paper-plane"></i> Send
+            </button>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

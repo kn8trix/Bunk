@@ -1,4 +1,4 @@
-"""Django settings for the Niter Centralized Dash portal.
+"""Django settings for the Bunk portal.
 
 Configuration is environment-driven: secrets and deployment-specific values
 are read from environment variables (optionally sourced from a local ``.env``
@@ -31,9 +31,13 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     CSRF_TRUSTED_ORIGINS=(list, []),
 )
-_env_file = BASE_DIR / '.env'
-if _env_file.exists():
-    environ.Env.read_env(str(_env_file))
+# Prefer the conventional .env for normal local runs. Docker uses .env.docker
+# because it can contain $ characters that Compose would otherwise interpolate.
+for _env_name in ('.env', '.env.docker'):
+    _env_file = BASE_DIR / _env_name
+    if _env_file.exists():
+        environ.Env.read_env(str(_env_file))
+        break
 
 # Hard default to False — production must opt into DEBUG explicitly.
 DEBUG = env('DEBUG')
@@ -42,7 +46,7 @@ SECRET_KEY = env('SECRET_KEY', default='')
 if DEBUG:
     # Local convenience: a fresh checkout runs without a .env. The fallback
     # key is dev-only and never used in production.
-    SECRET_KEY = SECRET_KEY or 'django-insecure-niter-centralized-dash-dev-key'
+    SECRET_KEY = SECRET_KEY or 'django-insecure-bunk-dev-key'
 elif not SECRET_KEY:
     if env.bool('RENDER_BUILD', default=False):
         # Build phase only: ``build.sh`` runs ``collectstatic`` and ``migrate``
@@ -120,6 +124,9 @@ INSTALLED_APPS = [
 
     'core',
     'payments',
+    # CareerPilot port: CV intelligence, job hunter, fit score, career
+    # assistant, and the application tracker (JSON API only so far).
+    'careerpilot',
 
     # Huey background task queue (djhuey registers the ``run_huey`` command)
     'huey.contrib.djhuey',
@@ -374,9 +381,12 @@ CHANNEL_LAYERS = {'default': _default_channel_layer()}
 # (``manage.py run_huey``).
 _redis_url = env('REDIS_URL', default='')
 HUEY = {
-    'name': 'niter-centralized-dash',
+    'name': 'bunk',
     'url': _redis_url or 'redis://127.0.0.1:6379/1',
-    'immediate': _running_tests() or DEBUG or not _redis_url,
+    'immediate': (
+        _running_tests()
+        or env.bool('HUEY_IMMEDIATE', default=(DEBUG or not _redis_url))
+    ),
     'consumer': {
         'workers': 2,
         'worker_type': 'thread',
@@ -507,6 +517,13 @@ OPENROUTER_FALLBACK_MODEL = 'openrouter/free'
 OPENROUTER_VISION_MODEL = env(
     'OPENROUTER_VISION_MODEL', default='meta-llama/llama-3.2-11b-vision-instruct:free'
 )
+# CareerPilot job sources. All optional — a missing key just skips that
+# source (the hunter still returns results from the keyless boards).
+CAREERPILOT_ADZUNA_APP_ID = env('ADZUNA_APP_ID', default='')
+CAREERPILOT_ADZUNA_APP_KEY = env('ADZUNA_APP_KEY', default='')
+CAREERPILOT_THEMUSE_API_KEY = env('THEMUSE_API_KEY', default='')
+CAREERPILOT_TAVILY_API_KEY = env('TAVILY_API_KEY', default='')
+
 OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1/chat/completions'
 # Convenience flag — mirrors whether a key is configured (used by the view to
 # decide between the live provider and the offline engine).

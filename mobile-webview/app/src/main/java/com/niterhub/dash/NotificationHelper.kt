@@ -19,7 +19,7 @@ import java.net.URL
 import java.util.concurrent.Executors
 
 /**
- * Native notification plumbing for the Niter Campus Hub wrapper.
+ * Native notification plumbing for the Bunk wrapper.
  *
  * Two channels:
  *  - ``emergency_alerts`` — IMPORTANCE_HIGH, plays the bundled siren

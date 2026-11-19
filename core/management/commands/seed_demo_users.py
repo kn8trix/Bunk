@@ -13,7 +13,7 @@ Creates, when missing:
 - ``medical`` / ``medical123`` — dedicated medical staff (the separate
   medical dashboards at /medical/admin/ and /host/medical/ only — NOT the
   main admin area).
-- ``NCC`` / ``ncc@gmail.com`` — club manager of the NITER Computer Club
+- ``NCC`` / ``ncc@gmail.com`` — club manager of the BUNK Computer Club
   (active ClubAccount with full manager capabilities → the club workspace at
   /dashboard/club/).
 - ``student`` / ``student123`` — regular student (all student-facing pages).
@@ -95,7 +95,7 @@ class Command(BaseCommand):
         ensure('student', 'student123', is_staff=False, is_superuser=False,
                first_name='Demo', last_name='Student')
 
-        # Club manager demo — ``NCC`` (NITER Computer Club). The account links
+        # Club manager demo — ``NCC`` (BUNK Computer Club). The account links
         # to the NCC club through an active ClubAccount, so RBAC routes the
         # user to the club workspace (/dashboard/club/) after login. All
         # manager capabilities are enabled so the demo can explore the full
@@ -107,8 +107,8 @@ class Command(BaseCommand):
         club, club_created = Club.objects.get_or_create(
             slug='niter-computer-club',
             defaults={
-                'name': 'NITER Computer Club (NCC)',
-                'description': 'The official programming & tech community of NITER — '
+                'name': 'BUNK Computer Club (NCC)',
+                'description': 'The official programming & tech community of BUNK — '
                                'hackathons, competitive programming practice, and '
                                'industry workshops.',
                 'lead_user': ncc_user,

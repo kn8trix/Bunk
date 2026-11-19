@@ -1,9 +1,15 @@
-# Niter Centralized Dash - Handover Document
+# Bunk - Handover Document
 
-## Changelog — Recent Work (Aug 2026)
+## Changelog — Recent Work (Aug–Nov 2026)
 
 | § | Title | Commit(s) |
 |---|---|---|
+| 160 | Docker build verification + Bunk configuration audit — `.dockerignore` rewritten, Compose project `bunk`, Huey queue renamed, README/env brand sweep, `docker build -t bunk:local .` exits 0 | *(see §160)* |
+| 159 | CareerPilot dark UI — six career pages, shared `careerpilot.css`/`careerpilot.js`, six topbar pills, dashboard Career Momentum cards | *(see §159)* |
+| 158 | CareerPilot backend port — `careerpilot` Django app: 10 models, JSON API, CV / hunter / fit-score / assistant / tracker services | *(see §158)* |
+| 157 | Dashboard modules hidden for all roles — Transport, Meals, Medical, Attendance unlinked and their dashboard queries removed | *(see §157)* |
+| 156 | Landing page → Bunk community — hero, About Bunk, Our Vision, Student Feedback; medical/faculty/department sections removed | *(see §156)* |
+| 155 | Bunk rebrand — Niter → Bunk across templates, docs, seeds, PWA manifest and emails, with protocol identifiers preserved | *(see §155)* |
 | 154 | Event modal banner image fit + Register Now button contrast — object-fit contain, blue CTA with white text | *(see §154)* |
 | 153 | Custom page nav inline pills — dynamic_nav_pages context processor, topbar inline pill loop, data migration for existing pages | *(see §153)* |
 | 152 | CMS Builder persistence fix — inline text edits update content_json, system_zone.html capture bug fix, field-level dirtyBlocks, round-trip tests | *(see §152)* |
@@ -29,7 +35,7 @@
 | 132 | Study Corner PDF-preview overlap fix (`[hidden]` display guard) + case-insensitive Student/Staff ID login (`StudentIdAuthenticationForm` on `RoleAwareLoginView`) | *(see §132)* |
 | 131 | Meals remaining-count fix + news response caching; Study Corner PDF preview box, Google Drive removal, direct local/DB uploads; embedded ChromaDB vector store + RAG retrieval wired into Study Corner & Research AI | *(see §131)* |
 | 130 | Navbar underline fix, modal button contrast (Rx Upload / Checkout), mobile WebView responsiveness for /news/ /attendance/ /pharmacy/ | *(see §130)* |
-| 129 | NCC club-manager demo account — `NCC`/`ncc@gmail.com` linked to the NITER Computer Club (active ClubAccount, full manager capabilities) + README/handover updates | *(see §129)* |
+| 129 | NCC club-manager demo account — `NCC`/`ncc@gmail.com` linked to the BUNK Computer Club (active ClubAccount, full manager capabilities) + README/handover updates | *(see §129)* |
 | 128 | README solution section — official project description (modular hub + mobile app, sub-dashboards, Website Builder, Emergency Siren & Broadcast) | *(see §128)* |
 | 127 | App notifications + sound without Firebase — EmergencyPollWorker (30s poll of `/api/emergency/active/`), native siren JS bridge in the dashboard banner, silence persistence | *(see §127)* |
 | 126 | Repo branding & README — banner asset, feature/comprehensive README from the hackathon doc | *(see §126)* |
@@ -53,7 +59,7 @@
 | 108 | Builder routes locked to Admin Console layout — no student nav on admin pages | `ace3441` |
 | 107 | Builder edit page — auto-opening Delete Section modal fix ([hidden] vs display:grid) | `acd73c0` |
 | 106 | Builder iframe fix — public pages frameable same-origin (X-Frame-Options SAMEORIGIN) | `f007cbf` |
-| 105 | `seed_demo_data` command — realistic NITER demo dataset (+ MealMenu model) | `39f3488` |
+| 105 | `seed_demo_data` command — realistic BUNK demo dataset (+ MealMenu model) | `39f3488` |
 | 104 | Global News & Search widget (NewsAPI service + student/admin dashboards + search API) | `991c4f8` |
 | 103 | Emergency alarm persistent-silence fix + WYSIWYG student-view editor overlay | `991c4f8` |
 | 102 | dash-data CI failure root cause — ALLOWED_HOSTS vs localhost host fix | `a7b0243` |
@@ -83,7 +89,7 @@ in §1–§82.
 ---
 
 ## 1. Project Overview
-The **Niter Centralized Dash** is a student-centric dashboard designed to provide a unified interface for academic management, official notices, and campus services. It follows a "Warm Minimal Notion-style" aesthetic, focusing on readability, clean layouts, and subtle interactions.
+The **Bunk** is a student-centric dashboard designed to provide a unified interface for academic management, official notices, and campus services. It follows a "Warm Minimal Notion-style" aesthetic, focusing on readability, clean layouts, and subtle interactions.
 
 ## 2. Design System
 
@@ -275,7 +281,7 @@ To create a new page, extend the base template:
 ```html
 {% extends "base.html" %}
 
-{% block title %}Page Name - Niter Hub{% endblock %}
+{% block title %}Page Name - Bunk{% endblock %}
 
 {% block header %}Page Header{% endblock %}
 
@@ -319,8 +325,8 @@ To create a new page, extend the base template:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/kn8trix/Niter-centralized-dash.git
-cd Niter-centralized-dash
+git clone https://github.com/kn8trix/Bunk.git
+cd Bunk
 
 # 2. Create and activate virtual environment
 python3 -m venv venv
@@ -350,7 +356,7 @@ python manage.py check --deploy
 ### Available Pages
 | Page | URL | Description |
 | :--- | :--- | :--- |
-| **Public Homepage** | [http://127.0.0.1:8000/](http://127.0.0.1:8000/) | Warm light landing page (public nodes, NITER content) |
+| **Public Homepage** | [http://127.0.0.1:8000/](http://127.0.0.1:8000/) | Warm light landing page (public nodes, BUNK content) |
 | **Dashboard** | [http://127.0.0.1:8000/dashboard/](http://127.0.0.1:8000/dashboard/) | Main student dashboard (moved from `/`) |
 | **Academic & Notes** | [http://127.0.0.1:8000/academic-notes/](http://127.0.0.1:8000/academic-notes/) | Courses & assignments |
 | **Official Notices** | [http://127.0.0.1:8000/notices/](http://127.0.0.1:8000/notices/) | Announcements & events |
@@ -386,7 +392,7 @@ python manage.py check --deploy
 
 ## 8. File Structure
 ```
-Niter-centralized-dash/
+Bunk/
 ├── manage.py                    # Django management script
 ├── requirements.txt             # Python dependencies
 ├── .gitignore                   # Git ignore rules
@@ -529,7 +535,7 @@ CSRF_COOKIE_SECURE=True
 ```
 
 ## 10. Git Repository
-- **Repository:** [https://github.com/kn8trix/Niter-centralized-dash](https://github.com/kn8trix/Niter-centralized-dash)
+- **Repository:** [https://github.com/kn8trix/Bunk](https://github.com/kn8trix/Bunk)
 - **Branch:** `main` (work-in-progress lives on `taj` and gets merged into `main`)
 - **Git Ignore:** `venv/`, `.venv/`, `__pycache__/`, `*.pyc`, `.env`, `db.sqlite3`
 
@@ -855,7 +861,7 @@ Built the public-facing homepage (`templates/index.html`) with a full-screen dyn
 - **Footer** — `footer-text` tag + dashboard link.
 
 ### Visual Builder Readiness
-- The homepage is the first page fully tagged with the builder's canonical attributes: **77 `data-widget-id`** and **51 `data-editable-field`** elements after the NITER content pass (all required per spec: `nav-logo-icon`, `nav-brand-name`, `hero-bg`, `hero-title`, `hero-subtitle`, `hero-btn-primary`, `hero-btn-secondary`, `footer-text`, `niter-*` content fields, plus cards and text nodes).
+- The homepage is the first page fully tagged with the builder's canonical attributes: **77 `data-widget-id`** and **51 `data-editable-field`** elements after the BUNK content pass (all required per spec: `nav-logo-icon`, `nav-brand-name`, `hero-bg`, `hero-title`, `hero-subtitle`, `hero-btn-primary`, `hero-btn-secondary`, `footer-text`, `niter-*` content fields, plus cards and text nodes).
 
 ### Styling (`static/css/main.css`)
 - Glassmorphism primitives (`.glass-panel` with `backdrop-filter: blur(16px)`), full-screen hero classes, grid helpers `.grid-2` / `.grid-3` / `.grid-5` (collapse to `1fr` below 768px), `.badge-public`, pulse/zoom/fadeUp animations, `prefers-reduced-motion` support.
@@ -875,18 +881,18 @@ Built the public-facing homepage (`templates/index.html`) with a full-screen dyn
 
 ---
 
-## 18. Real-World NITER Content (About University Section)
+## 18. Real-World BUNK Content (About University Section)
 
 **Date:** 08 August 2026  
 **Branch:** main (working tree, uncommitted)
 
 ### Overview
 
-Replaced the placeholder "About University" content on the public homepage with accurate NITER (National Institute of Textile Engineering and Research) information, and added an affiliation/governance highlight band.
+Replaced the placeholder "About University" content on the public homepage with accurate BUNK (National Institute of Textile Engineering and Research) information, and added an affiliation/governance highlight band.
 
 ### Updated Content (`templates/index.html`)
-- **Varsity Overview → "About NITER"** — `niter-overview-title` / `niter-overview-text`: NITER is a constituent institute of the University of Dhaka, run under the Bangladesh Textile Mills Association (BTMA) under the Ministry of Textiles and Jute.
-- **Address & Emergency Contact → "NITER Campus & Contact"** — `niter-address-title`, `niter-address-text` (Nayarhat, Savar, Dhaka-1350), `niter-phone-text` (+880 2-7791888 / +880 1711-000000), `niter-email-text` (info@niter.edu.bd).
+- **Varsity Overview → "About BUNK"** — `niter-overview-title` / `niter-overview-text`: BUNK is a constituent institute of the University of Dhaka, run under the Bangladesh Textile Mills Association (BTMA) under the Ministry of Textiles and Jute.
+- **Address & Emergency Contact → "BUNK Campus & Contact"** — `niter-address-title`, `niter-address-text` (Nayarhat, Savar, Dhaka-1350), `niter-phone-text` (+880 2-7791888 / +880 1711-000000), `niter-email-text` (info@niter.edu.bd).
 - **Affiliation & Management Highlights** — new `highlight-card` band (`niter-highlights`) with two pill items: `niter-affiliation-text` (Constituent Institute of the University of Dhaka) and `niter-governance-text` (Managed by BTMA).
 - **Department cards** — `dept-*-desc` fields now state full B.Sc. programs: CSE (Computer Science & Engineering), TEX (Textile Engineering), IPE (Industrial & Production Engineering), FD (Fashion Design & Technology), EEE (Electrical & Electronic Engineering).
 
@@ -906,12 +912,12 @@ Replaced the placeholder "About University" content on the public homepage with 
 
 ### Overview
 
-Final release pass: full error check, mobile-viewport audit, and push of the accumulated work (mobile responsiveness, public homepage + route change, NITER content) to `main`.
+Final release pass: full error check, mobile-viewport audit, and push of the accumulated work (mobile responsiveness, public homepage + route change, BUNK content) to `main`.
 
 ### Final Verification (before push)
 - `python manage.py check` ✔ (no issues), `python manage.py test` ✔ (4 tests pass — including `home` route coverage).
 - **Mobile @390px (9 pages):** `/`, `/dashboard/`, `/notes/`, `/tickets/`, `/host/medical/`, `/medical/admin/`, `/medical/`, `/academic-notes/`, `/notices/` — zero horizontal overflow; hamburger drawer opens/closes via backdrop and nav-link tap on the moved `/dashboard/` (backdrop opacity 1 → 0, sidebar returns to `-256`).
-- **Homepage @1280px/390px:** hero full-screen, 19 glass panels, 3-col deck on desktop / 1-col on mobile, all sections present, NITER content exact, **77 widget ids / 51 editable fields**, no overflow, no console errors (favicon 404 only).
+- **Homepage @1280px/390px:** hero full-screen, 19 glass panels, 3-col deck on desktop / 1-col on mobile, all sections present, BUNK content exact, **77 widget ids / 51 editable fields**, no overflow, no console errors (favicon 404 only).
 - **Desktop:** sticky header, fixed sidebar, hamburger hidden on lg+.
 
 ### Committed
@@ -932,7 +938,7 @@ Added a warm light-themed login page (`templates/login.html`) and wired Django's
 
 1. **Login Template (`templates/login.html`) + `static/css/auth.css`**
    - Standalone page matching the warm beige design system (`#faf9f6` bg, `#ffffff` card, `#f0ebe1` borders, `#e8e2d8` primary button).
-   - Heading "Niter Hub" with subtext "Sign in to access your portal & dashboard"; Student/Staff ID + Password fields, CSRF token, error alert container, "Sign In" submit, and a "Skip login & view Dashboard demo →" fallback link.
+   - Heading "Bunk" with subtext "Sign in to access your portal & dashboard"; Student/Staff ID + Password fields, CSRF token, error alert container, "Sign In" submit, and a "Skip login & view Dashboard demo →" fallback link.
 
 2. **Auth Routes (`config/urls.py`)**
    - `/login/` → `LoginView.as_view(template_name='login.html', redirect_authenticated_user=True)`
@@ -1607,7 +1613,7 @@ WhiteNoise (`CompressedStaticFilesStorage`, middleware) already serves collected
 
 ### Deploying (First Launch)
 
-1. Commit and push `render.yaml` + `build.sh` (plus the settings/requirements changes) to the GitHub repo (`kn8trix/Niter-centralized-dash`).
+1. Commit and push `render.yaml` + `build.sh` (plus the settings/requirements changes) to the GitHub repo (`kn8trix/Bunk`).
 2. In the Render dashboard: **New + → Blueprint → select the repo** → Render validates the Blueprint and creates all three resources.
 3. First deploy runs `build.sh`: pip install → collectstatic → migrate (seeded departments/clubs come via migration `0009`) → `seed_demo_users` (demo accounts, §69).
 4. Open `https://niter-centralized-dash.onrender.com`. The build seeds the demo accounts `admin`/`admin123` and `student`/`student123` automatically (§76) — use `python manage.py createsuperuser` (Render **Shell** tab) only for additional accounts.
@@ -1957,7 +1963,7 @@ endpoint lets students disconnect their Google account.
 
 ### Overview
 
-The left-sidebar "Niter Hub" refactor from an earlier session was **reverted**
+The left-sidebar "Bunk" refactor from an earlier session was **reverted**
 and the app is back on the standalone **CampusDash top-pill** layout for every
 student page. The Notes Engine — the last page still rendering inside the
 left-sidebar shell — was converted to the shared top-pill layout so it matches
@@ -1973,7 +1979,7 @@ more, and `core/tests/test_navigation.py` was removed.
 ### Notes Engine (`templates/notes/notes_engine.html`, `/notes/`)
 
 - **Removed the left vertical sidebar** — the template no longer extends
-  `base.html` (no `Niter Hub` sidebar column, no mobile drawer).
+  `base.html` (no `Bunk` sidebar column, no mobile drawer).
 - **Includes `partials/topbar.html`** (`active='notes'`) at the top of the
   standard `.shell` container, exactly like `dashboard.html` / `notices.html`.
 - Added the shared `.intro` header (styled by `topbar.css`).
@@ -2125,7 +2131,7 @@ validation into a clean, reusable form and added the missing cross-links.
 - `/login/` uses Django's built-in `auth_views.LoginView` (which authenticates
   against stored users via `authenticate()` + `login()`), `template_name='login.html'`,
   `redirect_authenticated_user=True`. `/logout/` uses `LogoutView`.
-- `templates/login.html` gained a **"New to Niter Hub? Create an account"**
+- `templates/login.html` gained a **"New to Bunk? Create an account"**
   link to `/signup/` (styled `.auth-switch` in `auth.css`).
 
 ### Tests (`core/tests.py`)
@@ -3293,7 +3299,7 @@ Scopes configured: `drive.file` + `spreadsheets` (also mirrored in
 
 ### Google Drive v3 (`academic_notes/drive_service.py`)
 
-- `upload_file_to_drive` — creates/reuses the **"NITER Centralized Dash Notes"**
+- `upload_file_to_drive` — creates/reuses the **"BUNK Centralized Dash Notes"**
   folder and uploads notes/PDFs (`drive.file` scope), returning `webViewLink` +
   `webContentLink`.
 - `get_drive_storage_info` — account email + storage quota (limit/usage/remaining).
@@ -3362,7 +3368,7 @@ when `OPENROUTER_API_KEY` is not configured.
 
 - **`services/openrouter.py`** (new package) — `requests.post` to OpenRouter
   with `Authorization: Bearer <key>`, `HTTP-Referer: https://<request host>`
-  (fallback `https://niter.edu.bd`), and `X-Title: NITER Centralized Dash`;
+  (fallback `https://niter.edu.bd`), and `X-Title: BUNK Centralized Dash`;
   30s timeout cap. `build_system_prompt(style, document_text)` injects the
   selected citation style (IEEE / APA 7 / Harvard / Chicago) and the extracted
   reference text. Typed error hierarchy
@@ -6065,12 +6071,12 @@ deterministic sample headlines.
 
 ---
 
-## 105. `seed_demo_data` — Realistic NITER Demo Dataset (run against Supabase)
+## 105. `seed_demo_data` — Realistic BUNK Demo Dataset (run against Supabase)
 
 **Date:** 14 August 2026  
 **Branch:** main
 
-A management command that populates a realistic NITER campus mock dataset —
+A management command that populates a realistic BUNK campus mock dataset —
 run against the live Supabase database on request:
 
     python manage.py seed_demo_data
@@ -6090,7 +6096,7 @@ breakfast / lunch / evening-snacks menu is actually seedable.
   (Ahsanul Haque, EEE, `2026-EEE-01`), `student2@niter.edu.bd` (CSE).
 - **Departments** CSE / EEE (get_or_create by code) and **Teachers** linked
   to their courses.
-- **Transport**: 3 routes — NITER Campus ↔ Mirpur 10 / Farmgate (Bus #01,
+- **Transport**: 3 routes — BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01,
   07:30 AM & 04:30 PM), ↔ Uttara / Gazipur (Bus #02, 08:00 AM & 05:00 PM),
   ↔ Baipal / Nabinagar Shuttle (Bus #03); 3 drivers; 3 paid seat bookings
   with boarding QR tokens.
@@ -6103,7 +6109,7 @@ breakfast / lunch / evening-snacks menu is actually seedable.
   (`#MEAL-1001/1002/2001/2002`).
 - **Academic**: 3 courses (EEE-2101, CSE-1101, EEE-3105) + 5
   `CourseMaterial` rows (PDF notes, lab manual, lecture slides, study guide).
-- **Clubs**: NITER Computer Club (NCC) + NITER Robotics Society; 2 upcoming
+- **Clubs**: BUNK Computer Club (NCC) + BUNK Robotics Society; 2 upcoming
   `ClubEvent`s; 3 published `Notice` announcements.
 
 ### Notes
@@ -6187,7 +6193,7 @@ asserts both backdrops render with the `hidden` attribute.
 
 **Goal:** every admin route (`/dashboard/admin/*`, `/builder/*`,
 `/builder/edit/*`, `/builder/visual/*`) must render the dark Admin Console
-sidebar ("Niter Hub / Admin Console") — never the student top navigation.
+sidebar ("Bunk / Admin Console") — never the student top navigation.
 
 **Audit result:** `/dashboard/admin/*` already extended
 `admin/admin_base.html`. The one violation was the builder **console** at
@@ -6977,7 +6983,7 @@ unchanged until `google-services.json` is dropped in.
 ### Native app (`mobile-webview`)
 
 - **Splash (`SplashActivity.kt`, `layout/activity_splash.xml`)** — launcher
-  entry: charcoal screen with the campus-hub logo + "NITER Campus Hub —
+  entry: charcoal screen with the campus-hub logo + "Bunk —
   Student Edition", then a hand-off to the WebView shell (`Theme.NiterDash.Splash`
   prevents any white flash).
 - **Launcher icons (`scripts/generate_assets.py`)** — PNG `ic_launcher` /
@@ -7231,7 +7237,7 @@ model on the wrong project.
 - **Removed the open-app-as-root artifacts** — `app/.idea/` and
   `app/local.properties` deleted (both gitignored, nothing tracked touched).
 - **Aligned `rootProject.name`** in `mobile-webview/settings.gradle.kts` from
-  `NiterDash` → `NiterCentralizedDash` (matches the requested spec). The
+  `NiterDash` → `BunkCentralizedDash` (matches the requested spec). The
   file already had the required `pluginManagement` (google/mavenCentral/
   gradlePluginPortal) + `dependencyResolutionManagement`
   (google/mavenCentral/jitpack.io) + `include(":app")` structure.
@@ -7331,7 +7337,7 @@ Added a dedicated club-manager demo account so the club workspace
 ### Changes
 - **`core/management/commands/seed_demo_users.py`** — now also creates:
   - User **`NCC`** / **`ncc@gmail.com`** (regular user, not staff);
-  - the **NITER Computer Club (NCC)** (`slug=niter-computer-club`) if missing;
+  - the **BUNK Computer Club (NCC)** (`slug=niter-computer-club`) if missing;
   - an **active `ClubAccount`** linking `NCC` to that club as **manager** with
     all capabilities enabled (`can_post_events`, `can_manage_members`,
     `can_manage_finances`) — RBAC routes the account to the club workspace
@@ -9371,6 +9377,331 @@ modal (`/clubs/`):
 ### Verification
 
 - Banner images display fully inside the modal header without
-  cropping (tested with the "15th Batch NITER" event banner)
+  cropping (tested with the "15th Batch BUNK" event banner)
 - "Register Now" button shows crisp white text on solid blue
   background, with darker blue on hover
+
+## 155. Bunk Rebrand (Niter → Bunk)
+
+### Date
+November 2026
+
+### Summary
+Rebranded the platform from Niter to **Bunk** across user-facing copy,
+documentation, seed data, the PWA manifest, attendance emails and the
+Android display strings — while deliberately leaving every protocol and
+infrastructure identifier untouched so nothing silently breaks.
+
+### Changes
+
+#### 1. Copy replaced (78 tracked files)
+
+- `Niter Hub`, `Niter Campus Hub`, `Niter Centralized Dash`, `Niter Dash`,
+  `NITER` → **Bunk** in templates, views, services, emails, docs, seeds,
+  `static/css/*` comments and `static/js/sw.js`.
+- PWA manifest (`core/views.py: pwa_manifest`): `name` → `Bunk — CampusDash`,
+  `short_name` → `Bunk`.
+- Android user-visible strings (`values/strings.xml`): `app_name` and
+  `splash_title` → `Bunk`.
+- CMS seeded copy (`core/system_pages.py`): home + dashboard block headlines
+  → `Welcome to Bunk` / `Why Bunk`.
+
+#### 2. Preserved identifiers (intentionally NOT renamed)
+
+| Identifier | Where | Why |
+|---|---|---|
+| `window.NiterHub` JS bridge | `MainActivity.kt`, `attendance.html`, `emergency_banner.html` | Shipped APKs call it; renaming breaks QR scanning + siren |
+| `NiterApp/<version>` UA token and lowercase `niterapp` check | Android shell + `core/views.py` | Server detects native app via this token |
+| `com.niterhub.dash` applicationId | Gradle / Kotlin packages | Renaming re-registers the app and invalidates FCM |
+| `Theme.NiterDash` | `values/themes.xml`, `AndroidManifest.xml` | Theme style names are referenced by the manifest |
+| `niter.edu.bd` | `ALLOWED_HOSTS`, `render.yaml`, OpenRouter referer | Live production domain |
+| `niter-centralized-dash` | `render.yaml` services/database | Matches the deployed Render resources |
+| `niter-computer-club`, `niter-*` CMS keys | seeds, migrations, builder | Persisted data keys |
+
+#### 3. Google Drive folder compatibility
+
+`academic_notes/drive_service.py` gained `LEGACY_NOTES_FOLDER_NAMES`.
+`NOTES_FOLDER_NAME` is now `BUNK Centralized Dash Notes`, and the lookup
+falls back to the older `NITER Centralized Dash Notes` folder when present
+— otherwise every existing user would have had a duplicate notes folder
+created on next upload.
+
+### Files Modified
+
+- `config/settings.py`, `core/{views,models,tests,system_pages,study_service}.py`
+- `services/{attendance_email,openrouter,routine_parser}.py`, `academic_notes/drive_service.py`
+- `core/management/commands/seed_demo_{data,users}.py`, `core/migrations/0009_*.py`
+- `templates/**` (48 templates), `static/css/{main,auth}.css`, `static/js/sw.js`
+- `mobile-webview/app/src/main/AndroidManifest.xml`, `.../values/strings.xml`, Kotlin comments
+- `README.md`, `docs/HANDOVER.md`, `mobile-webview/README.md`
+
+### Verification
+
+- `python manage.py check` → no issues
+- `LoginFlowTests`, `StaffAdminBackendTest`, `PwaTests`,
+  `CmsWysiwygIntegrationTest` → 35 tests pass (brand assertions updated)
+- No leftover `Niter`/`NITER` outside the preserved identifiers above
+
+## 156. Landing Page → Bunk Community Experience
+
+### Date
+November 2026
+
+### Summary
+Rebuilt the public landing page (`/`) around Bunk's positioning — global
+student community, peer forum, study & research groups, and the tri-role
+AI mentor — with **zero CSS changes**. Every section reuses the existing
+dark charcoal theme, glass panels, floating pill navbar and gold accents.
+
+### Changes
+
+- **Navbar:** brand → Bunk (graduation-cap icon kept); links now About Bunk,
+  Community Goals, Our Vision, Student Feedback, Sign In, Dashboard. The
+  old Emergency button was removed.
+- **Hero:** eyebrow `Global Student Community · AI Career Mentor`;
+  headline `Welcome to Bunk`; community pitch; two CTAs (`Join the
+  Community`, `Explore Dashboard`) reusing `hero-btn-primary` /
+  `hero-btn-secondary`; three glass cards (AI Mentor Modes, Peer
+  Collaboration, Community Forum).
+- **Section 1 — About Bunk:** mission + core-pillars highlight strip, then
+  the 2-column card grid for About Bunk and Community Goals (4 goals).
+  NITER/BTMA/DU/campus address/faculty/department content removed.
+- **Section 2 — Our Vision:** the entire Medical Info System block replaced
+  by a 2×2 `grid-2` (Vision, Profiles & Forum, Research & Study Groups,
+  AI Guide/Consultant/Judge).
+- **Section 3 — Student Feedback:** new `grid-3` section above the footer
+  with `incharge-avatar` initials badges, names, tracks and quotes.
+- **Footer:** new section links, `© 2026 Bunk. All rights reserved.`
+- `templates/partials/topbar.html` + `templates/editable_page.html` brand
+  strings updated to Bunk.
+
+### Files Modified
+
+- `templates/index.html` (rewritten), `templates/partials/topbar.html`,
+  `templates/editable_page.html`
+- `core/system_pages.py` (home CMS seed copy), `core/tests.py`
+
+### Verification
+
+- `python manage.py check` → no issues
+- `LandingRedirectTest`, `UnifiedHeaderTest`, `EditablePageRenderTest` → 26 pass
+- Live `/` → 200; rendered HTML contains no `Medical Info System`,
+  `About University`, `NITER`, `CampusDash` or `Departments` strings
+- `DepartmentsPageTest.test_directory_renders_hero_search_and_quick_jump`
+  fails identically on a clean `HEAD` worktree — pre-existing, unrelated
+
+## 157. Dashboard Modules Hidden for All Roles
+
+### Date
+November 2026
+
+### Summary
+Removed Transport, Meals, Medical and Attendance from the dashboard for
+every role (anonymous, student, club, medical, staff, admin, superuser),
+and disconnected the database work those four modules were costing on
+every dashboard render. Apps, models, migrations and routes were kept
+intact — the modules are simply unlinked.
+
+### Changes
+
+#### UI removed
+
+| File | Removed |
+|---|---|
+| `templates/partials/topbar.html` | 4 tabs × desktop `navlinks` and mobile `profile-links` |
+| `templates/dashboard/home.html` | Meals, Transport, Medical quick-action tiles |
+| `templates/base.html` | Transport Tickets, Meal System, Medical Booking sidebar links |
+
+#### Backend disconnected
+
+- `core/views.py → _recent_activity()`: dropped the
+  `transport_bookings`, `medical_appointments` and `meal_tickets` queries
+  (three ORM hits per dashboard load).
+- The dashboard view had no other queries, API calls, background tasks or
+  WebSocket subscriptions for those modules; the only client intervals are
+  the Dhaka clock (1s) and routine re-highlight (30s).
+
+### Files Modified
+
+- `templates/partials/topbar.html`, `templates/dashboard/home.html`,
+  `templates/base.html`, `core/views.py`, `core/tests.py`
+
+### Verification
+
+- `python manage.py check` → no issues
+- Query capture on `/dashboard/`: **6 queries total, 0** touching
+  `transport` / `meal` / `medical` / `attendance` tables
+- 22 tests pass; `UnifiedHeaderTest` now asserts the four tabs are absent
+  (`HIDDEN_NAV_LINKS`) so they cannot silently return
+
+## 158. CareerPilot Backend Ported to Django
+
+### Date
+November 2026
+
+### Summary
+Ported the CareerPilot (Next.js + Supabase) backend into a new
+`careerpilot` Django app, reusing this project's existing embedding and
+OpenRouter layers instead of Gemini. JSON-first: no templates in this step.
+
+### Models (`careerpilot/models.py`, migration `0001_initial`)
+
+| Model | Purpose |
+|---|---|
+| `Cv` | CV version; `is_active` enforces one active CV per user (partial unique constraint) |
+| `CvChunk` | section-scoped chunk with JSON embedding, ordinality, token count |
+| `JobHunt` | cached hunt result keyed by query hash, 30-minute expiry |
+| `SavedJob` | bookmark, unique per `(user, url)` |
+| `FitScore` | one row per `(user, jd_hash)` for repeat-run dedupe |
+| `ChatThread` / `ChatMessage` | threads and turns with `mode`, `citations`, `structured_result` |
+| `Goal` | weekly/deadline goals (count or one-shot) |
+| `Application` | Kanban pipeline with append-only `history` |
+| `Todo` | dated to-dos with optional goal/application link and dedupe key |
+
+### Services
+
+| Module | Responsibility |
+|---|---|
+| `services/cv.py` | pypdf / python-docx extraction, section detection (ported `SECTION_RULES`), ~1000-char chunks, embedding, cosine retrieval |
+| `services/sources.py` | RemoteOK, Arbeitnow, The Muse, Adzuna (+ optional Tavily), fan-out, URL + fuzzy dedupe, location ranking |
+| `services/fit_score.py` | skill vocabulary, must/nice-to-have split, transparent 0.7/0.3 scoring, verdict bands 80/65/45 |
+| `services/assistant.py` | intent routing, RAG citations, Guide/Consultant/Judge + readiness/gap/roadmap/cover-letter modes, offline fallback |
+| `services/stats.py` | streak, weekly progress, dashboard summary |
+
+### API
+
+Auth-scoped JSON endpoints under `/api/` (later moved there when the
+HTML pages took the clean URLs — see §159): CV list/upload/detail/chunks/
+activate; hunter search/saved/save/delete; fit-score + history; chat
+threads, thread detail, messages, modes; tracker applications + stats;
+calendar, todos, todo done, goals.
+
+### Decisions
+
+- **No pgvector:** embeddings are JSON lists with cosine similarity in
+  Python — keeps SQLite dev and plain Postgres working without an extension.
+- **Synchronous ingestion:** chunk counts are in the tens; switch to Huey if
+  CVs grow large.
+- **Graceful degradation:** every job source swallows its own errors, and
+  the assistant falls back to a grounded deterministic reply when no
+  OpenRouter key is configured.
+- Optional provider keys wired through settings: `ADZUNA_APP_ID`,
+  `ADZUNA_APP_KEY`, `THEMUSE_API_KEY`, `TAVILY_API_KEY`.
+
+### Files Added
+
+- `careerpilot/{__init__,apps,models,views,urls}.py`, `careerpilot/migrations/0001_initial.py`
+- `careerpilot/services/{__init__,cv,sources,fit_score,assistant,stats}.py`
+- `config/settings.py` (`INSTALLED_APPS`, provider keys), `config/urls.py`
+
+### Verification
+
+- `python manage.py check` → no issues
+- `makemigrations --check --dry-run` → No changes detected
+- End-to-end smoke test (temp suite, removed): CV upload → chunks by section,
+  mocked hunt → scored + saved idempotently, fit score 70/good with correct
+  must/nice bucketing and cache hit, chat readiness/gap with citations,
+  tracker move, todo done, stats/streak — 3/3 pass
+
+## 159. CareerPilot Dark UI (Bunk Design System)
+
+### Date
+November 2026
+
+### Summary
+Built the HTML/JS surfaces for all six career features in Bunk's charcoal
++ amber design. No existing page styles were altered; the new CSS is
+scoped to `body.cp`.
+
+### Templates (`templates/careerpilot/`)
+
+| File | Contents |
+|---|---|
+| `base.html` | Dark shell, shared top bar, page heading, URL map, toast host |
+| `cv.html` | Drag/choose upload, CV list with Refresh, chunk inspector |
+| `hunter.html` | Query + Hunt, Search/Saved pills, quick chips, result cards |
+| `fit_score.html` | JD textarea + target role ⟷ score ring, breakdown, gaps |
+| `chat.html` | Threads sidebar + New chat, 8 mode pills, citations, composer |
+| `tracker.html` | Stat cards, add form, four Kanban columns |
+| `calendar.html` | Month grid ⟷ day panel with to-dos and deadlines |
+
+### Assets
+
+- `static/css/careerpilot.css` — `#141414` page, `#1c1c1c` cards,
+  `#2e2a24` borders, amber `#e0b15c` accents, score ring, Kanban, chat,
+  calendar, toasts; responsive at 980px / 620px.
+- `static/js/careerpilot.js` — one dispatcher on `body[data-page]` with
+  `CV`, `HUNT`, `FIT`, `CHAT`, `TRACKER`, `CAL` modules + shared helpers.
+
+### Navigation & dashboard
+
+- Six new topbar pills in **both** desktop and mobile navs: My CV, Job
+  Hunter, Fit Score, Assistant, Tracker, Calendar.
+- `templates/dashboard/home.html`: **Career Momentum** panel (Applications,
+  Saved jobs, Streak, This week applied/done) using the existing
+  `quick-grid` / `quick-tile` pattern.
+- `core/views.py: student_dashboard` supplies `career_stats`, wrapped in
+  try/except so an un-migrated dev database renders zeros instead of a 500.
+
+### Routing change
+
+Pages now own `/cv/`, `/hunter/`, `/fit-score/`, `/chat/`, `/tracker/`,
+`/calendar/` (login required); the JSON API moved to `/api/…`. Anything
+that called the old clean URLs as an API must be updated.
+
+### Verification
+
+- `python manage.py check` → no issues
+- Temp UI suite (6 tests): every page renders 200, dark shell + topbar,
+  all six pills, per-page mount IDs, all 8 chat modes, dashboard momentum,
+  anonymous redirect to `/login/`
+- Existing `UnifiedHeaderTest`, `DashboardWidgetsTest`,
+  `StudentPagesSmokeTest`, `LandingRedirectTest` → 19 pass
+- All 29 `careerpilot:` URL names reverse; `findstatic` resolves both assets
+
+## 160. Docker Build Verification + Bunk Configuration Audit
+
+### Date
+November 2026
+
+### Summary
+Audited the repository for stale branding and prepared the Docker image,
+then verified `docker build -t bunk:local .` succeeds with exit code 0.
+
+### Configuration audit
+
+| File | Change |
+|---|---|
+| `README.md` | Remaining `CampusDash` prose → Bunk |
+| `config/settings.py` | Huey queue `niter-centralized-dash` → `bunk`; dev `SECRET_KEY` placeholder → `django-insecure-bunk-dev-key` |
+| `core/system_pages.py` | Seeded dashboard headline `Welcome to CampusDash` → `Welcome to Bunk` |
+| `.env.example` | Local Postgres example user/db `niter` → `bunk` |
+| `docker-compose.yml` | Top-level `name: bunk` |
+| `.dockerignore` | Rewritten (below) |
+
+### `.dockerignore`
+
+Excludes `.git/`, `.github/`, `.env`/`.env.*`, `venv/`/`.venv/`,
+`**/__pycache__/`, `*.py[cod]`, `db.sqlite3`/`*.sqlite3`, `media/`,
+`vector_store/`, `staticfiles/`, `*.log`, `*.apk`, `.freebuff/`,
+`.vscode/`, `.idea/`, `.pytest_cache/`, `CareerPilot/` (reference clone),
+`mobile-webview/` (separate Gradle toolchain) and `docs/`.
+
+### Docker build result
+
+- `docker build -t bunk:local .` → **exit 0**
+- `collectstatic`: 175 files copied, 163 post-processed
+- Image: `bunk:local` (1.17 GB — dominated by chromadb/onnxruntime)
+- `docker run … manage.py check` inside the image → no issues
+- In-container URL resolution: `/cv/` and `/api/cv/` both reverse, apps
+  `core`, `careerpilot`, `payments` load
+- `docker compose config --quiet` → exit 0 (services `web`, `worker`, `redis`)
+- Image contents verified: no `CareerPilot`, `.env`, `db.sqlite3`, `venv` or
+  `mobile-webview`; `staticfiles` collected at build time
+
+### Deliberately left alone
+
+`niter.edu.bd` hosts, Render service/database names, the Android
+applicationId, `NiterHub` bridge, and the `CampusDash Notes` Drive folder
+name — all functional identifiers whose rename would break deployments,
+the shipped APK, or existing users' Drive folders.

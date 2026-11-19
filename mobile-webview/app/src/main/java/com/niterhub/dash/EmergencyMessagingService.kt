@@ -5,7 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 /**
- * Firebase Cloud Messaging service for the Niter Campus Hub wrapper.
+ * Firebase Cloud Messaging service for the Bunk wrapper.
  *
  * The backend (``services/emergency_push.py``) broadcasts campus emergencies
  * to the ``emergency_alerts`` topic; this service:

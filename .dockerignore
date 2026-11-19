@@ -1,0 +1,53 @@
+# Build context hygiene for the Bunk image.
+#
+# Everything below is either machine-local, secret, regenerated, or belongs to
+# a different toolchain. The app only needs source, templates, static/ (for
+# collectstatic), requirements.txt and build-time config.
+
+# --- Version control & tooling ---------------------------------------------
+.git/
+.github/
+.gitignore
+.gitattributes
+.freebuff/
+.vscode/
+.idea/
+**/.idea/
+
+# --- Secrets & local env ----------------------------------------------------
+.env
+.env.*
+**/.env
+
+# --- Python environments & caches ------------------------------------------
+venv/
+.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+# --- Local state (mounted at runtime by docker-compose) ---------------------
+db.sqlite3
+*.sqlite3
+media/
+vector_store/
+staticfiles/
+
+# --- Logs & binaries --------------------------------------------------------
+*.log
+*.apk
+daphne.log
+server.log
+
+# --- Android wrapper (separate Gradle toolchain, not part of the image) -----
+mobile-webview/
+
+# --- Reference clone of CareerPilot (independent git repo, not shipped) -----
+CareerPilot/
+
+# --- Docs & handover material (not used at runtime) ------------------------
+docs/

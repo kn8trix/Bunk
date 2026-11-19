@@ -1,6 +1,6 @@
 {% comment %}
 ============================================================================
-CampusDash — Shared Top Navigation Header
+Bunk — Shared Top Navigation Header
 --------------------------------------------------------------------------
 Used by every standalone public page (dashboard, departments, transport,
 meals, clubs, medical, notices, notes, research ai). One source of truth
@@ -20,7 +20,7 @@ active: dashboard | study | notes | departments | research | notices | news | tr
     <div class="topbar-row">
         <a href="{% url 'dashboard' %}" class="brand" data-component="brand">
             <span class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-            <span>CampusDash</span>
+            <span>Bunk</span>
         </a>
 
         <div class="topbar-right">
@@ -75,10 +75,12 @@ active: dashboard | study | notes | departments | research | notices | news | tr
                         <a href="{% url 'departments' %}" class="{% if active == 'departments' %}active{% endif %}"><i class="fa-solid fa-building-columns"></i> Departments</a>
                         <a href="{% url 'research_ai' %}" class="{% if active == 'research' %}active{% endif %}"><i class="fa-solid fa-robot"></i> Research AI</a>
                         <a href="{% url 'notices' %}" class="{% if active == 'notices' %}active{% endif %}"><i class="fa-solid fa-bullhorn"></i> Notices</a>
-                        <a href="{% url 'transport_dashboard' %}" class="{% if active == 'transport' %}active{% endif %}"><i class="fa-solid fa-bus"></i> Transport</a>
-                        <a href="{% url 'meal_dashboard' %}" class="{% if active == 'meals' %}active{% endif %}"><i class="fa-solid fa-utensils"></i> Meals</a>
-                        <a href="{% url 'medical' %}" class="{% if active == 'medical' %}active{% endif %}"><i class="fa-solid fa-stethoscope"></i> Medical</a>
-                        <a href="{% url 'attendance' %}" class="{% if active == 'attendance' %}active{% endif %}"><i class="fa-solid fa-clipboard-check"></i> Attendance</a>
+                        <a href="{% url 'careerpilot:cv_page' %}" class="{% if active == 'cv' %}active{% endif %}"><i class="fa-solid fa-file-lines"></i> My CV</a>
+                        <a href="{% url 'careerpilot:hunter_page' %}" class="{% if active == 'hunter' %}active{% endif %}"><i class="fa-solid fa-briefcase"></i> Job Hunter</a>
+                        <a href="{% url 'careerpilot:fit_page' %}" class="{% if active == 'fit' %}active{% endif %}"><i class="fa-solid fa-gauge-high"></i> Fit Score</a>
+                        <a href="{% url 'careerpilot:chat_page' %}" class="{% if active == 'chat' %}active{% endif %}"><i class="fa-solid fa-comments"></i> Assistant</a>
+                        <a href="{% url 'careerpilot:tracker_page' %}" class="{% if active == 'tracker' %}active{% endif %}"><i class="fa-solid fa-table-columns"></i> Tracker</a>
+                        <a href="{% url 'careerpilot:calendar_page' %}" class="{% if active == 'calendar' %}active{% endif %}"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
                         <a href="{% url 'clubs_dashboard' %}" class="{% if active == 'clubs' %}active{% endif %}"><i class="fa-solid fa-user-group"></i> Clubs</a>
                         <a href="{% url 'news' %}" class="{% if active == 'news' %}active{% endif %}"><i class="fa-solid fa-newspaper"></i> Global News</a>
                         <a href="{% url 'tickets' %}"><i class="fa-solid fa-ticket"></i> Tickets</a>
@@ -117,10 +119,12 @@ active: dashboard | study | notes | departments | research | notices | news | tr
         <a href="{% url 'departments' %}" class="{% if active == 'departments' %}active{% endif %}"><i class="fa-solid fa-building-columns"></i> Departments</a>
         <a href="{% url 'research_ai' %}" class="{% if active == 'research' %}active{% endif %}"><i class="fa-solid fa-robot"></i> Research AI</a>
         <a href="{% url 'notices' %}" class="{% if active == 'notices' %}active{% endif %}"><i class="fa-solid fa-bullhorn"></i> Notices</a>
-        <a href="{% url 'transport_dashboard' %}" class="{% if active == 'transport' %}active{% endif %}"><i class="fa-solid fa-bus"></i> Transport</a>
-        <a href="{% url 'meal_dashboard' %}" class="{% if active == 'meals' %}active{% endif %}"><i class="fa-solid fa-utensils"></i> Meals</a>
-        <a href="{% url 'medical' %}" class="{% if active == 'medical' %}active{% endif %}"><i class="fa-solid fa-stethoscope"></i> Medical</a>
-        <a href="{% url 'attendance' %}" class="{% if active == 'attendance' %}active{% endif %}"><i class="fa-solid fa-clipboard-check"></i> Attendance</a>
+        <a href="{% url 'careerpilot:cv_page' %}" class="{% if active == 'cv' %}active{% endif %}"><i class="fa-solid fa-file-lines"></i> My CV</a>
+        <a href="{% url 'careerpilot:hunter_page' %}" class="{% if active == 'hunter' %}active{% endif %}"><i class="fa-solid fa-briefcase"></i> Job Hunter</a>
+        <a href="{% url 'careerpilot:fit_page' %}" class="{% if active == 'fit' %}active{% endif %}"><i class="fa-solid fa-gauge-high"></i> Fit Score</a>
+        <a href="{% url 'careerpilot:chat_page' %}" class="{% if active == 'chat' %}active{% endif %}"><i class="fa-solid fa-comments"></i> Assistant</a>
+        <a href="{% url 'careerpilot:tracker_page' %}" class="{% if active == 'tracker' %}active{% endif %}"><i class="fa-solid fa-table-columns"></i> Tracker</a>
+        <a href="{% url 'careerpilot:calendar_page' %}" class="{% if active == 'calendar' %}active{% endif %}"><i class="fa-solid fa-calendar-days"></i> Calendar</a>
         <a href="{% url 'clubs_dashboard' %}" class="{% if active == 'clubs' %}active{% endif %}"><i class="fa-solid fa-user-group"></i> Clubs</a>
         <a href="{% url 'news' %}" class="{% if active == 'news' %}active{% endif %}"><i class="fa-solid fa-newspaper"></i> Global News</a>
         {% for page in dynamic_nav_pages %}

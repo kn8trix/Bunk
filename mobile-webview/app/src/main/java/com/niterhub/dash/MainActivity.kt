@@ -26,7 +26,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 /**
- * WebView shell for the Niter Campus Hub — Student Edition.
+ * WebView shell for the Bunk — Student Edition.
  *
  * - Renders [startUrl] full-screen (no ActionBar / status bar — the dashboard
  *   IS the interface). A logged-in student lands straight on the dashboard:

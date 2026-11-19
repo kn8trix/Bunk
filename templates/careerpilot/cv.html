@@ -1,0 +1,69 @@
+{% extends 'careerpilot/base.html' %}
+{% load static %}
+
+{% block title %}My CV{% endblock %}
+{% block heading %}My CV{% endblock %}
+{% block subheading %}Upload a CV once — Bunk chunks it by section and grounds every score, hunt, and assistant answer in it.{% endblock %}
+
+{% block head_actions %}
+<button type="button" class="cp-btn cp-btn--ghost cp-btn--sm" id="cp-cv-refresh">
+    <i class="fa-solid fa-rotate"></i> Refresh
+</button>
+{% endblock %}
+
+{% block content %}
+<div class="cp-split">
+
+    <!-- Upload -->
+    <section class="cp-card">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-cloud-arrow-up"></i> Upload a CV</h2>
+            <span class="cp-badge">PDF · DOCX · TXT</span>
+        </div>
+
+        <div class="cp-drop" id="cp-cv-drop" role="button" tabindex="0"
+             aria-label="Choose or drop a CV file">
+            <i class="fa-solid fa-file-arrow-up"></i>
+            <strong>Drop your CV here, or click to choose</strong>
+            <span>Max 20 MB. Scanned PDFs without a text layer can't be parsed.</span>
+        </div>
+        <input type="file" id="cp-cv-file" accept=".pdf,.docx,.txt" class="cp-hide">
+
+        <div class="cp-field cp-mt">
+            <label class="cp-label" for="cp-cv-name">Display name (optional)</label>
+            <input class="cp-input" id="cp-cv-name" type="text" placeholder="e.g. Backend CV — 2026">
+        </div>
+
+        <div class="cp-spread cp-mt">
+            <span class="cp-faint" id="cp-cv-file-label">No file selected</span>
+            <button type="button" class="cp-btn" id="cp-cv-upload-btn" disabled>
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Upload &amp; index
+            </button>
+        </div>
+    </section>
+
+    <!-- CV list -->
+    <section class="cp-card">
+        <div class="cp-card-head">
+            <h2 class="cp-card-title"><i class="fa-solid fa-folder-open"></i> Your CVs</h2>
+            <span class="cp-badge" id="cp-cv-count">0</span>
+        </div>
+
+        <div class="cp-list" id="cp-cv-list">
+            <div class="cp-empty"><i class="fa-regular fa-folder"></i> No CVs yet — upload one to get started.</div>
+        </div>
+    </section>
+
+</div>
+
+<!-- Chunk inspector -->
+<section class="cp-card cp-mt">
+    <div class="cp-card-head">
+        <h2 class="cp-card-title"><i class="fa-solid fa-layer-group"></i> <span id="cp-chunk-title">Chunk inspector</span></h2>
+        <span class="cp-faint" id="cp-chunk-meta">Select “Inspect” on a CV</span>
+    </div>
+    <div id="cp-chunks">
+        <div class="cp-empty"><i class="fa-solid fa-scissors"></i> Pick a CV above to inspect how it was split into embedded chunks.</div>
+    </div>
+</section>
+{% endblock %}

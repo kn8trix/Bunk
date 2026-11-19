@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Launcher splash — a clean charcoal screen with the campus hub logo and
- * "NITER Campus Hub — Student Edition", then a hand-off to the WebView shell.
+ * "Bunk — Student Edition", then a hand-off to the WebView shell.
  *
  * Kept deliberately dependency-free: the charcoal theme (``Theme.NiterDash.Splash``)
  * draws instantly, the layout renders the logo + titles, and a short handler

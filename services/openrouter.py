@@ -37,7 +37,7 @@ REQUEST_TIMEOUT_SECONDS = 30
 DEFAULT_REFERER = 'https://niter.edu.bd'
 
 # Branding shown on the OpenRouter dashboard for this integration.
-APP_TITLE = 'NITER Centralized Dash'
+APP_TITLE = 'BUNK Centralized Dash'
 
 # Maximum characters of extracted document text injected into the system
 # prompt — keeps the prompt context bounded for very long PDFs.
@@ -141,7 +141,7 @@ def build_system_prompt(citation_style, document_text=''):
     style = (citation_style or 'IEEE').strip() or 'IEEE'
     parts = [
         (
-            'You are the NITER Academic Research & Thesis Assistant, a precise '
+            'You are the BUNK Academic Research & Thesis Assistant, a precise '
             'research helper for engineering and textile students. You draft '
             'literature reviews, break down methodology sections, check and '
             'format citations, and edit academic drafts.'

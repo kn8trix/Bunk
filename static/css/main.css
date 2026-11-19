@@ -26,7 +26,7 @@
    1. Landing-page tokens (extend :root from theme.css)
 --------------------------------------------------------------------------- */
 :root {
-    /* Light theme palette — matches the Niter Hub dashboard design system */
+    /* Light theme palette — matches the Bunk dashboard design system */
     --bg-main: #faf9f6;              /* page base                          */
     --bg-card: #ffffff;              /* cards / panels                     */
     --bg-sidebar: #ffffff;           /* sidebar (kept for parity)          */

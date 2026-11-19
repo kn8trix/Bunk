@@ -188,8 +188,8 @@ def pwa_manifest(request):
     ``scripts/generate_pwa_icons.py`` into ``static/pwa/``.
     """
     return JsonResponse({
-        'name': 'Niter Hub — CampusDash',
-        'short_name': 'Niter Hub',
+        'name': 'Bunk — CampusDash',
+        'short_name': 'Bunk',
         'description': 'Unified campus dashboard: academic notes, transport, meals, medical and more.',
         'start_url': '/dashboard/',
         'scope': '/',
@@ -263,32 +263,18 @@ def _time_ago(dt):
 def _recent_activity(user):
     """The signed-in student's most recent portal actions, newest first.
 
-    Pulls the newest rows across notes / transport / medical / meals / clubs
-    (bounded per source) and merges them into one reverse-chronological feed.
+    Pulls the newest rows across notes and clubs (bounded per source) and
+    merges them into one reverse-chronological feed.
+
+    Transport, medical, and meals are deliberately excluded: those modules are
+    hidden on the dashboard, so querying their tables here would be pure
+    overhead on every page load.
     """
     items = []
     for note in user.notes.all()[:2]:
         items.append({
             'icon': 'fa-note-sticky', 'tone': 'blue',
             'text': 'Edited note “%s”' % note.title, 'at': note.updated_at,
-        })
-    for booking in user.transport_bookings.all()[:2]:
-        items.append({
-            'icon': 'fa-bus', 'tone': 'green',
-            'text': 'Booked a seat on %s' % booking.route_name,
-            'at': booking.booked_at,
-        })
-    for appt in user.medical_appointments.all()[:2]:
-        items.append({
-            'icon': 'fa-stethoscope', 'tone': 'amber',
-            'text': 'Booked %s · %s' % (appt.doctor_name, appt.appointment_date),
-            'at': appt.created_at,
-        })
-    for ticket in user.meal_tickets.all()[:2]:
-        items.append({
-            'icon': 'fa-utensils', 'tone': 'violet',
-            'text': 'Claimed a %s meal ticket' % ticket.get_meal_type_display(),
-            'at': ticket.claimed_at,
         })
     for reg in user.club_registrations.all()[:2]:
         items.append({
@@ -425,7 +411,22 @@ def student_dashboard(request):
         'calendar': month_state,
     }
 
+    # CareerPilot momentum cards. Wrapped so a database that hasn't run the
+    # careerpilot migration yet still renders the dashboard (zeros instead of
+    # a 500) — the rest of the page is unaffected.
+    try:
+        from careerpilot.services import stats as career_stats
+        career = career_stats.summary(request.user)
+    except Exception:  # noqa: BLE001 - missing tables must never break /dashboard/
+        career = {
+            'applications_count': 0, 'saved_jobs_count': 0, 'streak_days': 0,
+            'open_todos': 0, 'by_status': {},
+            'weekly': {'apps_sent': 0, 'todos_done': 0, 'goals_total': 0,
+                       'goals_done': 0, 'roadmap_pct': 0, 'weekly_progress': 0},
+        }
+
     return render(request, 'dashboard/home.html', {
+        'career_stats': career,
         # Dict for both template access ({{ dash_data.today.label }}) and the
         # |json_script filter, which serialises it for the embedded script.
         'dash_data': dash_data,
@@ -6713,7 +6714,7 @@ def upload_note_view(request):
     """Upload a note file into the user's Google Drive notes folder.
 
     Uses ``academic_notes.drive_service`` (Drive v3 API) which stores the file
-    in the dedicated ``NITER Centralized Dash Notes`` folder and returns both
+    in the dedicated ``BUNK Centralized Dash Notes`` folder and returns both
     the ``webViewLink`` and ``webContentLink``. When a ``note_id`` (UserNote)
     or ``material_id`` (CourseMaterial) is provided, the links are persisted
     onto that row so students can open/download from the drive.

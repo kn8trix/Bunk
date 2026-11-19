@@ -22,7 +22,7 @@ DEPARTMENTS = [
         'office_location': 'Room D-205, Academic Block D',
         'description': (
             'Programming, artificial intelligence, software engineering, and '
-            'computer networks — NITER’s largest undergraduate program. '
+            'computer networks — BUNK’s largest undergraduate program. '
             'Learning by building: every theory course has a companion '
             'project track so the classroom and the lab stay connected.'
         ),

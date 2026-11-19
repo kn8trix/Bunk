@@ -19,3 +19,7 @@ staticfiles/
 
 # Android APK build artifacts (mobile-webview/)
 *.apk
+
+# Reference clone of the CareerPilot project (independent git repo)
+CareerPilot/
+.vscode/

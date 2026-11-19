@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Transport Tickets — Niter Hub</title>
+    <title>Transport Tickets — Bunk</title>
     <meta name="description" content="Book campus transport seats online — routes, schedules, and digital boarding passes.">
 
     {% include 'partials/pwa_head.html' %}
@@ -620,7 +620,7 @@
                     body: new URLSearchParams({
                         type: 'transport',
                         item: bookingData.route_name,
-                        issuer: 'NITER Transport',
+                        issuer: 'BUNK Transport',
                         fee: fee,
                         method: method,
                         wallet_no: wallet,

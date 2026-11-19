@@ -1,0 +1,53 @@
+name: bunk
+
+x-django: &django
+  build: .
+  environment:
+    DEBUG: "True"
+    ALLOWED_HOSTS: localhost,127.0.0.1
+    CSRF_TRUSTED_ORIGINS: http://localhost:8000,http://127.0.0.1:8000
+    REDIS_URL: redis://redis:6379/0
+    HUEY_IMMEDIATE: "False"
+  volumes:
+    - ./.env.docker:/app/.env:ro
+    - ./media:/app/media
+    - ./vector_store:/app/vector_store
+  restart: unless-stopped
+
+services:
+  web:
+    <<: *django
+    command: ["sh", "-c", "python manage.py migrate --noinput && daphne -b 0.0.0.0 -p 8000 config.asgi:application"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('127.0.0.1', 8000), timeout=2).close()"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+
+  worker:
+    <<: *django
+    command: ["python", "manage.py", "run_huey"]
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  redis_data:

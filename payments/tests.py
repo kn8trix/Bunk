@@ -343,7 +343,7 @@ class PaidFlowViewTests(TestCase):
         response = self.client.post(reverse('checkout'), {
             'type': 'transport',
             'item': 'Route 1: Main Campus Loop',
-            'issuer': 'NITER Transport',
+            'issuer': 'BUNK Transport',
             'fee': '20.00',
             'method': 'bkash',
             'wallet_no': '01712345678',
