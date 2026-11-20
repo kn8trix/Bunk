@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Direct Messages - Bunk{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Page Header -->
+    <div class="mb-4 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-semibold text-base-1">Messages</h1>
+            <p class="text-sm text-muted-foreground">1-on-1 conversations</p>
+        </div>
+    </div>
+
+    <!-- Threads List -->
+    {% if page_obj %}
+    <div class="space-y-4">
+        {% for thread in page_obj %}
+        <article class="border rounded-lg p-4 hover:border-gold hover:transition-colors cursor-pointer">
+            <div class="flex items-start">
+                <!-- Avatar -->
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background-color: #e8e2d8;">
+                    <i class="fa-solid fa-user text-main"></i>
+                </div>
+                <div class="ml-3 flex-1">
+                    <h3 class="text-base font-medium">{{ thread.other_participant.username }}</h3>
+                    <p class="text-xs text-muted-foreground line-clamp-1">
+                        {{ thread.last_message_at|date:"M d H:i" }}
+                    </p>
+                </div>
+                <div class="ml-4 text-right text-xs">
+                    {% if thread.is_active %}
+                    <span class="text-gold">Active</span>
+                    {% endif %}
+                    <span class="separator mx-1">|</span>
+                    {% if message_count > 0 %}
+                    <span class="text-gold font-medium">{{ message_count }} new</span>
+                    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'social:dm_thread_detail' thread.pk %}" class="mt-2 inline-block text-gold font-medium hover:underline">
+                View conversation
+                <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-8 text-muted-foreground">
+            No conversations yet. <a href="{% url 'social:dm_start' %}" class="text-gold hover:underline">Start a new conversation</a>.
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <!-- Start New Conversation CTA -->
+    {% if user.is_authenticated %}
+    <div class="mt-8 p-4 bg-card rounded-lg border border-border text-left">
+        <h3 class="font-medium mb-2">Start a new conversation</h3>
+        <p class="text-sm text-muted-foreground mb-3">Message a student or staff member</p>
+        <form action="" method="GET" id="dm-start-form">
+            <input type="hidden" name="recipient_id" id="recipient-id-input" value="">
+            <select name="recipient_id" class="w-full px-3 py-2 rounded-lg border border-border focus:ring-2 focus:ring-gold focus:border-gold placeholder-gray-300 text-sm mb-3 outline-none" onchange="document.getElementById('recipient-id-input').value = this.value; document.getElementById('dm-start-form').action = '/forum/dm/start/' + this.value;">
+                <option value="">Select recipient...</option>
+                {% for user in all_users %}
+                <option value="{{ user.id }}">{{ user.get_full_name|default:user.username }}</option>
+                {% empty %}
+                <option disabled>No users found</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="w-full px-4 py-2 bg-gold text-main rounded-lg hover:bg-gold/90 transition-colors font-medium">
+                Start Conversation
+            </button>
+        </form>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

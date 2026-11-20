@@ -26,6 +26,21 @@ class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_profile')
     student_id = models.CharField(max_length=20, unique=True)
     department = models.CharField(max_length=10, choices=DEPARTMENT_CHOICES)
+    bio = models.TextField(
+        blank=True,
+        help_text='Short biography or about me text',
+    )
+    skills = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text='Comma-separated list of skills (e.g. Python, Django, React)',
+    )
+    interests = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text='Comma-separated list of interests (e.g. Machine Learning, Web Development)',
+    )
+    # Activity summary is derived from user actions across the portal
 
     def get_department_display_name(self):
         return dict(self.DEPARTMENT_CHOICES).get(self.department, self.department)

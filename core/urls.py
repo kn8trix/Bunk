@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import RedirectView
 
 from . import views
@@ -60,6 +60,9 @@ urlpatterns = [
     path('academic-notes/', RedirectView.as_view(pattern_name='study_corner', permanent=True), name='academic_notes'),
     path('notices/', views.notices, name='notices'),
     path('news/', views.news_page, name='news'),
+
+    # Social features
+    path('forum/', include('social.urls', namespace='social')),
 
     # Account & profile pages
     path('signup/', views.signup_view, name='signup'),

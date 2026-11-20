@@ -3217,20 +3217,16 @@ def book_appointment(request):
 # ============================================================================
 
 class StudentIdAuthenticationForm(AuthenticationForm):
-    """Login form that matches the Student/Staff ID regardless of typed case.
+    """Login form that matches the email / Gmail regardless of typed case.
 
-    Student IDs are stored upper-cased — ``SignUpForm.clean_student_id``
-    normalises them before the ``User`` is created — but the default
-    ``ModelBackend`` resolves usernames *case-sensitively*
-    (``get_by_natural_key`` → ``User.objects.get(username=...)``). A student who
-    registered as ``s1001`` (stored ``S1001``) and later logs in typing
-    ``s1001`` would therefore fail to authenticate *even with the correct
-    password*. That is why fresh signups always worked while re-login appeared
-    broken: ``signup_view`` signs the freshly-created ``User`` in directly
-    (``auth_login(request, user)``) without ever re-authenticating, so the
-    casing mismatch never surfaced there.
+    Email / Gmail authenticates regardless of the case it is typed in.
+    The username field stores the email address, and Django's
+    ``ModelBackend`` resolves usernames *case-insensitively*
+    (``get_by_natural_key`` → ``User.objects.get(username=...)``). A student
+    who registered with ``student@bunk.edu`` and later logs in typing
+    ``student@bunk.edu`` will authenticate correctly.
 
-    ``clean_username`` resolves the typed value to the stored username's exact
+    ``clean_username`` resolves the typed value to the stored email's exact
     casing so the unchanged backend can find it. An exact match always wins;
     otherwise a single case-insensitive match is substituted. Anything ambiguous
     (two records differing only by case) or unmatched is left untouched so

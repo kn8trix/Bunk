@@ -38,6 +38,13 @@
     function api(url, options) {
         options = options || {};
         var init = { method: options.method || 'GET', headers: {}, credentials: 'same-origin' };
+
+        // Get CSRF token from meta tag
+        var csrfToken = document.querySelector('meta[name="csrftoken"]');
+        if (csrfToken) {
+            init.headers['X-CSRFToken'] = csrfToken.content;
+        }
+
         if (options.body instanceof FormData) {
             init.body = options.body;
         } else if (options.body !== undefined) {

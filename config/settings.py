@@ -124,6 +124,7 @@ INSTALLED_APPS = [
 
     'core',
     'payments',
+    'social.apps.SocialConfig',
     # CareerPilot port: CV intelligence, job hunter, fit score, career
     # assistant, and the application tracker (JSON API only so far).
     'careerpilot',

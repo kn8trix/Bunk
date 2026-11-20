@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ profile_user.username }}'s Profile - Bunk{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Profile Header -->
+    <div class="mb-8">
+        <!-- User avatar and info -->
+        <div class="flex items-baseline space-x-3">
+            <div class="w-24 h-24 rounded-full flex items-center justify-center" style="background-color: #e8e2d8;">
+                <i class="fa-solid fa-user text-3xl text-gold"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-base-1">{{ profile_user.get_full_name|default:profile_user.username }}</h2>
+                <p class="text-muted-foreground">{{ profile_user.email }}</p>
+
+                {% if request.user == profile_user %}
+                <div class="mt-2">
+                    <a href="{% url 'social:profile_edit' %}" class="text-gold font-medium hover:underline">Edit profile</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Profile stats -->
+        <div class="grid grid-cols-3 gap-6 mt-6 pt-6 border-t border-border">
+            <div>
+                <div class="text-2xl font-bold text-gold">{{ profile_user.forum_posts.count }}</div>
+                <div class="text-sm text-muted-foreground">Forum posts</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gall">{{ profile_user.joined_study_groups.count }}</div>
+                <div class="text-sm text-muted-foreground">Study groups</div>
+            </div>
+            <div>
+                <div class="text-2xl font-bold text-gold">{{ profile_user.sent_direct_messages.count }}</div>
+                <div class="text-sm text-muted-foreground">Messages sent</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bio & Skills -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Bio -->
+        <div class="rounded-lg p-4 bg-card border border-border">
+            <h3 class="font-medium mb-2">About</h3>
+            <p class="text-muted-foreground">{{ profile.bio|default:'No bio yet. Add one to introduce yourself.' }}</p>
+        </div>
+
+        <!-- Skills -->
+        {% if profile.skills %}
+        <div class="rounded-lg p-4 bg-card border border-border">
+            <h3 class="font-medium mb-2">Skills</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for skill in profile.skills.split|default:',' %}
+                <span class="text-xs px-2 py-1 bg-gold/10 text-gold rounded-full capitalize">{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Interests -->
+        {% if profile.interests %}
+        <div class="rounded-lg p-4 bg-card border border-border">
+            <h3 class="font-medium mb-2">Interests</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for interest in profile.interests.split|default:',' %}
+                <span class="text-xs px-2 py-1 bg-gold/10 text-gold rounded-full capitalize">{{ interest }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="mt-8 rounded-lg p-4 bg-card border border-border">
+        <h3 class="font-medium mb-3">Recent Activity</h3>
+
+        <div class="space-y-3">
+            <!-- Recent forum posts -->
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Forum posts</p>
+                <ul class="list-disc pl-3 space-y-1 text-sm text-muted-foreground">
+                    {% for post in forum_posts %}
+                    <li>{{ post.thread.category.name }} - {{ post.created_at|timesince }} ago</li>
+                    {% empty %}
+                    <li>No forum activity yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Study groups -->
+            {% if study_groups %}
+            <div>
+                <p class="text-sm font-medium text-muted-foreground">Study groups</p>
+                <ul class="list-disc pl-3 space-y-1 text-sm text-muted-foreground">
+                    {% for group in study_groups %}
+                    <li>{{ group.name }}</li>
+                    {% empty %}
+                    <li>No study groups joined.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

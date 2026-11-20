@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ group.name }} - Bunk Study Group{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Group Header -->
+    <div class="mb-6 border-b border-border pb-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-semibold text-base-1">{{ group.name }}</h1>
+                <p class="text-muted-foreground">{{ group.description|truncatewords:20 }}</p>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="px-2 py-1 text-xs font-medium rounded {% if group.is_public %}bg-gold/10 text-gold{% else %}bg-main/10 text-main{% endif %}">
+                    {% if group.is_public %}Public{% else %}Private{% endif %}
+                </span>
+                <span class="text-xs text-muted-foreground">{{ group.members.count }}/{{ group.max_members }} members</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs: Posts + Notes -->
+    <div class="mb-6">
+        <button class="inline-flex rounded-lg bg-white px-4 py-2 text-sm font-medium border border-border hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold transition-colors"
+                onclick="event.preventDefault(); document.getElementById('postsTab').click()">Posts
+        </button>
+        <button class="inline-flex rounded-lg bg-white px-4 py-2 text-sm font-medium border border-border hover:border-gold focus:outline-none focus:ring-2 focus:ring-gold transition-colors"
+                onclick="event.preventDefault(); document.getElementById('notesTab').click()">Notes
+        </button>
+    </div>
+
+    <!-- Posts Tab -->
+    <div>
+        <ul id="postsTab" class="hidden">
+            {% include "social/study_groups/posts.html" with group=group %}
+        </ul>
+    </div>
+
+    <!-- Notes Tab -->
+    <div>
+        <ul id="notesTab">
+            {% include "social/study_groups/notes.html" with group=group %}
+        </ul>
+    </div>
+
+    <!-- Group Actions -->
+    {% if user.is_authenticated and user in group.members.all %}
+    <div class="mt-8 flex gap-3">
+        {% if group.creator == user %}
+        <a href="#" class="flex-1 px-4 py-2 bg-gold text-main rounded-lg hover:bg-gold/90 transition-colors font-medium">
+            Group Settings
+        </a>
+        {% else %}
+        <a href="{% url 'social:study_group_leave' group.slug %}" class="flex-1 px-4 py-2 bg-main/5 text-main rounded-lg hover:bg-main/10 transition-colors font-medium">
+            Leave Group
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+    // Show first tab by default
+    document.addEventListener('DOMContentLoaded', function() {
+        var buttons = document.querySelectorAll('#postsTab, #notesTab');
+        var activeTab = location.hash.substring(1) || 'postsTab';
+
+        buttons.forEach(function(tab) {
+            tab.style.display = 'none';
+        });
+
+        var active = document.getElementById(activeTab);
+        if (active) {
+            active.style.display = 'block';
+        }
+    });
+</script>
+{% endblock %}

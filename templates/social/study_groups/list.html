@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Study Groups - Bunk{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Page Header -->
+    <div class="mb-4 flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-semibold text-base-1">Study Groups</h1>
+            <p class="text-sm text-muted-foreground">Find and join study groups</p>
+        </div>
+        <a href="{% url 'social:study_group_create' %}" class="text-gold font-medium hover:underline">Create group</a>
+    </div>
+
+    <!-- Filters -->
+    <div class="mb-4 flex flex-wrap gap-2">
+        <select id="subjectFilter" class="px-3 py-1 rounded-lg border border-border focus:ring-2 focus:ring-gold focus:border-gold bg-white text-sm outline-none">
+            <option value="">All subjects</option>
+            <option value="Mathematics" {% if subject_filter == 'Mathematics'|lower %}selected{% endif %}>Mathematics</option>
+            <option value="Physics" {% if subject_filter == 'Physics'|lower %}selected{% endif %}>Physics</option>
+            <option value="Programming" {% if subject_filter == 'Programming'|lower %}selected{% endif %}>Programming</option>
+            <option value="Engineering" {% if subject_filter == 'Engineering'|lower %}selected{% endif %}>Engineering</option>
+        </select>
+
+        <label class="text-xs text-muted-foreground">Public</label>
+        <select id="isPublicFilter" class="px-3 py-1 rounded-lg border border-border focus:ring-2 focus:ring-gold focus:border-gold bg-white text-sm outline-none">
+            <option value="">All</option>
+            <option value="1" {% if is_public_filter == '1' %}selected{% endif %}>Public</option>
+            <option value="0" {% if is_public_filter == '0' %}selected{% endif %}>Private</option>
+        </select>
+    </div>
+
+    <!-- Groups List -->
+    <div grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {% for group in page_obj %}
+        <article class="group border rounded-lg p-4 hover:border-gold hover:transition-colors cursor-pointer">
+            <div class="flex items-start">
+                <span class="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:text-gold transition-colors bg-gold/5" style="background-color: #fffbeb;">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </span>
+                <div class="ml-3 flex-1">
+                    <h3 class="text-base font-medium group-hover:text-gold transition-colors">{{ group.name }}</h3>
+                    <p class="text-xs text-muted-foreground line-clamp-2">{{ group.description|truncatewords:20 }}</p>
+                </div>
+                <div class="ml-4 text-right text-xs">
+                    <span class="text-gold font-medium">{{ group.subject }}</span>
+                    <span class="separator mx-1">|</span>
+                    <span>{{ group.members.count }}/{{ group.max_members }} members</span>
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'social:study_group_join' group.slug %}" class="mt-2 inline-flex items-center text-gold text-sm font-medium hover:underline group-hoveropacity-80 transition-colors">
+                Join
+                <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+            {% endif %}
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-8 text-muted-foreground">
+            No study groups found. <a href="{% url 'social:study_group_create' %}" class="text-gold hover:underline">Create your first group</a>.
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- Filters JS -->
+<script>
+document.getElementById('subjectFilter').addEventListener('change', function() {
+    window.location.search = '?subject=' + this.value + (document.getElementById('isPublicFilter').value ? '&is_public=' + document.getElementById('isPublicFilter').value : '');
+});
+
+document.getElementById('isPublicFilter').addEventListener('change', function() {
+    var subject = document.getElementById('subjectFilter').value;
+    window.location.search = '?is_public=' + this.value + (subject ? '&subject=' + subject : '');
+});
+</script>
+{% endblock %}

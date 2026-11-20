@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Forum - Bunk{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Page Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-semibold text-base-1 mb-2">Forum</h1>
+        <p class="text-sm text-muted-foreground">Discuss topics with the community</p>
+    </div>
+
+    <!-- Categories Grid -->
+    <div grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {% for category in categories %}
+        <article class="group border rounded-lg p-4 hover:border-gold hover:transition-colors cursor-pointer">
+            <div class="flex items-start">
+                <span class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:text-gold transition-colors">
+                    <i class="fa-solid fa-folder"></i>
+                </span>
+                <div class="ml-3 flex-1">
+                    <h3 class="text-base font-medium group-hover:text-gold transition-colors">{{ category.name }}</h3>
+                    <p class="text-xs text-muted-foreground line-clamp-2">{{ category.description|truncatewords:30 }}</p>
+                </div>
+            </div>
+            <a href="{% url 'social:forum_category_threads' category.slug %}" class="mt-2 inline-flex items-center text-sm font-medium text-gold group-hoveropacity-80 transition-colors">
+                View threads
+                <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+        </article>
+        {% empty %}
+        <div class="col-span-full text-center py-8 text-muted-foreground">
+            No active categories yet. Be the first to start a discussion!
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
