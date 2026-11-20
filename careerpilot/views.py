@@ -2,7 +2,9 @@
 
 Every view returns JSON and is scoped to ``request.user`` — there is no
 cross-user read path. Authentication failures return 401 JSON instead of
-redirecting, because these endpoints are called by fetch/XHR.
+redirecting, because these endpoints are called by fetch/XHR. Read-only
+list endpoints answer anonymous GETs with an empty collection + 200 (see
+``api_login_required(empty=...)``); writes still require a session.
 
 Routes live in ``careerpilot/urls.py`` and are mounted from
 ``config/urls.py`` at /cv/, /hunter/, /fit-score/, /chat/, /tracker/, and
@@ -49,17 +51,34 @@ HUNT_CACHE_MINUTES = 30
 # Helpers
 # ---------------------------------------------------------------------------
 
-def api_login_required(view):
-    """Return 401 JSON for anonymous callers instead of redirecting."""
-    @wraps(view)
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse(
-                {'error': 'Authentication required.', 'authenticated': False},
-                status=401,
-            )
-        return view(request, *args, **kwargs)
-    return wrapper
+def api_login_required(view=None, *, empty=None):
+    """Return 401 JSON for anonymous callers instead of redirecting.
+
+    Read-only list endpoints can pass ``empty``: anonymous GET/HEAD requests
+    then get that payload (a dict, or a callable taking ``request``) with a
+    200 instead of a 401. That keeps the HTML pages' first paint from
+    surfacing a hard error when a session expires mid-view, and gives
+    anonymous callers a clean empty collection rather than a server error.
+
+    Write endpoints keep the 401 — anonymous callers must never write.
+    """
+    def decorate(fn):
+        @wraps(fn)
+        def wrapper(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                if empty is not None and request.method in ('GET', 'HEAD'):
+                    payload = empty(request) if callable(empty) else dict(empty)
+                    return JsonResponse(payload)
+                return JsonResponse(
+                    {'error': 'Authentication required.', 'authenticated': False},
+                    status=401,
+                )
+            return fn(request, *args, **kwargs)
+        return wrapper
+
+    if view is None:
+        return decorate
+    return decorate(view)
 
 
 def _payload(request):
@@ -164,7 +183,7 @@ def calendar_page(request):
 # CV
 # ---------------------------------------------------------------------------
 
-@api_login_required
+@api_login_required(empty={'active_cv_id': None, 'count': 0, 'cvs': []})
 def cv_list(request):
     """GET /cv/ — list the user's CVs (newest first)."""
     if not _method(request, 'GET'):
@@ -378,7 +397,7 @@ def hunt_search(request):
     return JsonResponse({**payload, 'cached': False})
 
 
-@api_login_required
+@api_login_required(empty={'count': 0, 'jobs': []})
 def hunt_saved_list(request):
     """GET /hunter/saved/ — bookmarked jobs."""
     if not _method(request, 'GET'):
@@ -528,7 +547,7 @@ def fit_score_view(request):
     }, status=201)
 
 
-@api_login_required
+@api_login_required(empty={'count': 0, 'results': []})
 def fit_score_history(request):
     """GET /fit-score/history/ — recent computations for the dashboard."""
     if not _method(request, 'GET'):
@@ -565,7 +584,7 @@ def _message_json(message):
     }
 
 
-@api_login_required
+@api_login_required(empty={'count': 0, 'threads': []})
 def chat_threads(request):
     """GET /chat/threads/ (list) or POST /chat/threads/ (create + first turn)."""
     if request.method == 'GET':
@@ -708,7 +727,11 @@ def _application_json(application):
     }
 
 
-@api_login_required
+@api_login_required(empty={
+    'count': 0,
+    'by_status': {value: 0 for value, _ in APPLICATION_STATUSES},
+    'applications': [],
+})
 def applications(request):
     """GET /tracker/applications/ (list) or POST (create)."""
     if request.method == 'GET':
@@ -806,7 +829,7 @@ def application_detail(request, application_id):
     return JsonResponse({'application': _application_json(application)})
 
 
-@api_login_required
+@api_login_required(empty=lambda request: stats_service.summary(None))
 def tracker_stats(request):
     """GET /tracker/stats/ — dashboard stat cards."""
     if not _method(request, 'GET'):
@@ -839,7 +862,20 @@ def _parse_date(value, fallback=None):
         return None
 
 
-@api_login_required
+def _empty_calendar(request):
+    day = _parse_date(request.GET.get('date'), date.today()) or date.today()
+    return {
+        'date': day.isoformat(),
+        'prev_date': _neighbour_of(day.isoformat(), -1).isoformat(),
+        'next_date': _neighbour_of(day.isoformat(), 1).isoformat(),
+        'todos': [],
+        'goal_due': [],
+        'application_deadlines': [],
+        'counts': {'todos': 0, 'todos_done': 0, 'deadlines': 0},
+    }
+
+
+@api_login_required(empty=_empty_calendar)
 def calendar(request):
     """GET /calendar/?date=YYYY-MM-DD — one day's agenda plus counts."""
     if not _method(request, 'GET'):
@@ -873,7 +909,7 @@ def calendar(request):
     })
 
 
-@api_login_required
+@api_login_required(empty={'count': 0, 'todos': []})
 def todos(request):
     """GET /calendar/todos/ (list) or POST (create)."""
     if request.method == 'GET':
@@ -961,7 +997,7 @@ def todo_done(request, todo_id):
     return JsonResponse({'todo': _todo_json(todo)})
 
 
-@api_login_required
+@api_login_required(empty={'count': 0, 'goals': []})
 def goals(request):
     """GET /calendar/goals/ (list) or POST (create)."""
     if request.method == 'GET':

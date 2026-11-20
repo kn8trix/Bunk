@@ -1,49 +1,51 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{% block title %}Career{% endblock %} — Bunk</title>
     <meta name="description" content="{% block description %}Bunk career tools — CV, job hunting, fit score, AI assistant, tracker, and calendar.{% endblock %}">
 
     {% include 'partials/pwa_head.html' %}
 
-    <!-- Bunk design tokens (dark charcoal + warm amber) -->
+    <!-- Global design tokens -->
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <!-- Global display preferences (theme / timezone / density) -- no-flash driver.
+         Same include as /notices/ and /dashboard/ so the shell + topbar follow
+         the visitor's theme instead of being pinned dark. -->
+    {% include 'partials/display_prefs.html' %}
+    <!-- Shared top navigation (same partial as /notices/ and /dashboard/) -->
     <link rel="stylesheet" href="{% static 'css/topbar.css' %}">
+    <!-- CareerPilot page styles (dark charcoal/amber cards on the shared shell) -->
     <link rel="stylesheet" href="{% static 'css/careerpilot.css' %}">
 
-    <!-- Permanent dark surface for the career surfaces (same choice as the
-         public landing page) — stamped before first paint to avoid a flash. -->
-    <script>
-        (function () {
-            var root = document.documentElement;
-            root.setAttribute('data-theme', 'dark');
-            root.setAttribute('data-theme-mode', 'dark');
-            root.classList.add('dark');
-        })();
-    </script>
-
+    <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 
-<body class="cp" data-page="{{ cp_page }}">
+<body class="cp" data-app="campusdash-public" data-page="{{ cp_page }}">
 
-    {% include 'partials/topbar.html' with active=cp_active %}
+    <div class="shell">
 
-    <div class="cp-shell">
+        {% include 'partials/topbar.html' with active=cp_active %}
 
-        <header class="cp-head">
-            <div>
-                <h1 class="cp-title"><i class="fa-solid {{ cp_icon|default:'fa-compass' }}"></i> {% block heading %}Career{% endblock %}</h1>
-                <p class="cp-sub">{% block subheading %}{% endblock %}</p>
-            </div>
-            <div class="cp-spread">{% block head_actions %}{% endblock %}</div>
-        </header>
+        <!-- ============================================================
+             Intro — the same centred hero used by every native page
+        ============================================================ -->
+        <div class="intro">
+            <h1><i class="fa-solid {{ cp_icon|default:'fa-compass' }}"></i> {% block heading %}Career{% endblock %}</h1>
+            <p>{% block subheading %}{% endblock %}</p>
+        </div>
+
+        <!-- Page-level actions (tabs / refresh / add) sit in the same
+             container flow as the native pages — no full-width header. -->
+        <div class="cp-actions">{% block head_actions %}{% endblock %}</div>
 
         {% block content %}{% endblock %}
 

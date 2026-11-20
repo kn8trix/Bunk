@@ -42,7 +42,7 @@
 
             <!-- Heading -->
             <h1 class="auth-title">Create Account</h1>
-            <p class="auth-subtitle">Create your account to access your campus portal</p>
+            <p class="auth-subtitle">Create your account to join Bunk</p>
 
             <!-- Error container -->
             {% if errors %}
@@ -62,35 +62,11 @@
 
                 <div class="form-row">
                     <div class="field">
-                        <label for="id_student_id" class="field-label">Student ID</label>
-                        <div class="field-input">
-                            <i class="fa-solid fa-id-card"></i>
-                            <input type="text" id="id_student_id" name="student_id" placeholder="e.g. S1024"
-                                   value="{{ form_data.student_id|default:'' }}" required>
-                        </div>
-                    </div>
-
-                    <div class="field">
                         <label for="id_full_name" class="field-label">Full Name</label>
                         <div class="field-input">
                             <i class="fa-solid fa-user"></i>
                             <input type="text" id="id_full_name" name="full_name" placeholder="Your full name"
                                    value="{{ form_data.full_name|default:'' }}" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="field">
-                        <label for="id_department" class="field-label">Department</label>
-                        <div class="field-input">
-                            <i class="fa-solid fa-building-columns"></i>
-                            <select id="id_department" name="department" required>
-                                <option value="" disabled {% if not form_data.department %}selected{% endif %}>Select department…</option>
-                                {% for code, label in departments %}
-                                <option value="{{ code }}" {% if form_data.department == code %}selected{% endif %}>{{ label }} ({{ code }})</option>
-                                {% endfor %}
-                            </select>
                         </div>
                     </div>
 

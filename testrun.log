@@ -1,0 +1,863 @@
+Creating test database for alias 'default'...
+Found 1081 test(s).
+System check identified no issues (0 silenced).
+...............................................................................................................EEE.................................................Builder block hero (stats): content_json is list, not a dict
+.......................................................................................................................................................................................................................F................Google Drive OAuth callback failed for user 1
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/views.py", line 5127, in drive_callback
+    flow = Flow.from_client_config(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effect
+RuntimeError: bad config
+.......GOOGLE_REDIRECT_URI points at http://localhost:8000/drive/callback/ but the request host is niter-centralized-dash.onrender.com — using the request origin for the OAuth callback.
+.Google OAuth application credentials are not configured (GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET unset) — the Drive/Sheets connect flow is unavailable.
+......F.............................................................News API fetch error: boom
+..News API returned status 429 for https://newsapi.org/v2/top-headlines — using fallback feed.
+....YouTube API fetch error: boom
+...................................................Google access-token refresh failed for user google_user: revoked
+.........................................................................................analyze_note_content failed for analysis 1
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tasks.py", line 124, in analyze_note_content
+    analysis.summary = extract_summary(analysis.content)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effect
+RuntimeError: boom
+...analyze_note_content failed for analysis 1
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tasks.py", line 124, in analyze_note_content
+    analysis.summary = extract_summary(analysis.content)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/unittest/mock.py", line 1193, in _execute_mock_call
+    raise effect
+RuntimeError: boom
+....Google access-token refresh failed for user authstatus: revoked
+......................F..................................notify_user: channel layer push failed for user 1
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/consumers.py", line 78, in notify_user
+    async_to_sync(channel_layer.group_send)(
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/asgiref/sync.py", line 332, in __call__
+    return call_result.result()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/asgiref/sync.py", line 372, in main_wrap
+    result = await awaitable
+             ^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 6641, in group_send
+    raise ConnectionError('redis is down')
+ConnectionError: redis is down
+....................................Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+Exists (skipped): Napa Extra 500mg/65mg
+Exists (skipped): Seclo 20mg
+Exists (skipped): Sergel 20mg
+Exists (skipped): Ace Plus 500mg
+Exists (skipped): Entacyd —
+Exists (skipped): Savlon Antiseptic Liquid 100ml
+Exists (skipped): Ceevit 250mg
+Exists (skipped): Monas 10mg
+Pharmacy catalog seeded — 0 new medicine(s), re-run safe.
+.Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+Exists (skipped): Napa Extra 500mg/65mg
+Exists (skipped): Seclo 20mg
+Exists (skipped): Sergel 20mg
+Exists (skipped): Ace Plus 500mg
+Exists (skipped): Entacyd —
+Exists (skipped): Savlon Antiseptic Liquid 100ml
+Exists (skipped): Ceevit 250mg
+Exists (skipped): Monas 10mg
+Pharmacy catalog seeded — 0 new medicine(s), re-run safe.
+.Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+.Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+............................................................System pages registered: 13 new page(s); 13 total spec pages available.
+..................................................Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+..Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+..Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+....Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+..Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+OpenRouter request timed out after 30s.
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+OpenRouter transport error: no route
+.Number of requested results 4 is greater than number of elements in index 1, updating n_results = 1
+...................................bKash callback for unknown order: paymentID='' invoice=''
+.FF..created: admin / admin@niter.edu.bd
+created: dr.chen / dr.chen@niter.edu.bd
+created: prof.rahman / prof.rahman@niter.edu.bd
+created: kn8trix / kn8trix@niter.edu.bd
+created: StudentProfile 2026-EEE-01 (kn8trix)
+created: student2 / student2@niter.edu.bd
+created: StudentProfile 2026-CSE-02 (student2)
+exists (skipped): Department CSE
+exists (skipped): Department EEE
+created: Course EEE-2101
+created: Course CSE-1101
+created: Course EEE-3105
+created: Material EEE-2101 — Circuit Analysis Lecture Notes (Superposition)
+created: Material EEE-2101 — Circuit Analysis Lab Manual
+created: Material CSE-1101 — C Programming Lecture Slides — Arrays & Pointers
+created: Material CSE-1101 — Digital Logic Design Notes
+created: Material EEE-3105 — Power Systems Study Guide (BMS Configurations)
+created: Teacher Dr. Michael Chen (CSE)
+created: Teacher Prof. Rafiq Rahman (EEE)
+created: Driver Md. Karim
+created: Driver Abdul Hossain
+created: Driver Jahangir Islam
+created: Route BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 07:30 AM
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 04:30 PM
+created: Route BUNK Campus ↔ Uttara / Gazipur (Bus #02)
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 08:00 AM
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 05:00 PM
+created: Route BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 09:00 AM
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 06:00 PM
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 5
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 8
+created: Booking BUNK Campus ↔ Uttara / Gazipur (Bus #02) · seat 12
+updated: Doctor Dr. Michael Chen (General Physician)
+updated: Doctor Dr. Emily Johnson (Dentist)
+created: Appointment Dr. Michael Chen 2026-11-21 10:00 AM
+created: Appointment Dr. Emily Johnson 2026-11-22 11:00 AM
+created: Appointment Dr. Michael Chen 2026-11-17 09:30 AM
+created: MealMenu breakfast
+created: MealMenu lunch
+created: MealMenu snacks
+created: MealSubscription kn8trix
+created: MealSubscription student2
+created: MealTicket #MEAL-1001 (kn8trix)
+created: MealTicket #MEAL-1002 (kn8trix)
+created: MealTicket #MEAL-2001 (student2)
+created: MealTicket #MEAL-2002 (student2)
+created: Club BUNK Computer Club (NCC)
+created: Club BUNK Robotics Society
+created: Event BUNK Computer Club (NCC) — NCC Annual Hackathon 2026
+created: Event BUNK Robotics Society — Robotics Workshop: Line Follower Basics
+created: Notice Hackathon 2026: registrations now open
+created: Notice Robotics workshop: line follower basics
+created: Notice Mid-term examination schedule published
+Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+Demo dataset seeded — all rows created idempotently (re-run safe).
+.exists (skipped): admin / admin@niter.edu.bd
+created: dr.chen / dr.chen@niter.edu.bd
+created: prof.rahman / prof.rahman@niter.edu.bd
+created: kn8trix / kn8trix@niter.edu.bd
+created: StudentProfile 2026-EEE-01 (kn8trix)
+created: student2 / student2@niter.edu.bd
+created: StudentProfile 2026-CSE-02 (student2)
+exists (skipped): Department CSE
+exists (skipped): Department EEE
+created: Course EEE-2101
+created: Course CSE-1101
+created: Course EEE-3105
+created: Material EEE-2101 — Circuit Analysis Lecture Notes (Superposition)
+created: Material EEE-2101 — Circuit Analysis Lab Manual
+created: Material CSE-1101 — C Programming Lecture Slides — Arrays & Pointers
+created: Material CSE-1101 — Digital Logic Design Notes
+created: Material EEE-3105 — Power Systems Study Guide (BMS Configurations)
+created: Teacher Dr. Michael Chen (CSE)
+created: Teacher Prof. Rafiq Rahman (EEE)
+created: Driver Md. Karim
+created: Driver Abdul Hossain
+created: Driver Jahangir Islam
+created: Route BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 07:30 AM
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 04:30 PM
+created: Route BUNK Campus ↔ Uttara / Gazipur (Bus #02)
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 08:00 AM
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 05:00 PM
+created: Route BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 09:00 AM
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 06:00 PM
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 5
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 8
+created: Booking BUNK Campus ↔ Uttara / Gazipur (Bus #02) · seat 12
+updated: Doctor Dr. Michael Chen (General Physician)
+updated: Doctor Dr. Emily Johnson (Dentist)
+created: Appointment Dr. Michael Chen 2026-11-21 10:00 AM
+created: Appointment Dr. Emily Johnson 2026-11-22 11:00 AM
+created: Appointment Dr. Michael Chen 2026-11-17 09:30 AM
+created: MealMenu breakfast
+created: MealMenu lunch
+created: MealMenu snacks
+created: MealSubscription kn8trix
+created: MealSubscription student2
+created: MealTicket #MEAL-1001 (kn8trix)
+created: MealTicket #MEAL-1002 (kn8trix)
+created: MealTicket #MEAL-2001 (student2)
+created: MealTicket #MEAL-2002 (student2)
+created: Club BUNK Computer Club (NCC)
+created: Club BUNK Robotics Society
+created: Event BUNK Computer Club (NCC) — NCC Annual Hackathon 2026
+created: Event BUNK Robotics Society — Robotics Workshop: Line Follower Basics
+created: Notice Hackathon 2026: registrations now open
+created: Notice Robotics workshop: line follower basics
+created: Notice Mid-term examination schedule published
+Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+Demo dataset seeded — all rows created idempotently (re-run safe).
+.created: admin / admin@niter.edu.bd
+created: dr.chen / dr.chen@niter.edu.bd
+created: prof.rahman / prof.rahman@niter.edu.bd
+created: kn8trix / kn8trix@niter.edu.bd
+created: StudentProfile 2026-EEE-01 (kn8trix)
+created: student2 / student2@niter.edu.bd
+created: StudentProfile 2026-CSE-02 (student2)
+exists (skipped): Department CSE
+exists (skipped): Department EEE
+created: Course EEE-2101
+created: Course CSE-1101
+created: Course EEE-3105
+created: Material EEE-2101 — Circuit Analysis Lecture Notes (Superposition)
+created: Material EEE-2101 — Circuit Analysis Lab Manual
+created: Material CSE-1101 — C Programming Lecture Slides — Arrays & Pointers
+created: Material CSE-1101 — Digital Logic Design Notes
+created: Material EEE-3105 — Power Systems Study Guide (BMS Configurations)
+created: Teacher Dr. Michael Chen (CSE)
+created: Teacher Prof. Rafiq Rahman (EEE)
+created: Driver Md. Karim
+created: Driver Abdul Hossain
+created: Driver Jahangir Islam
+created: Route BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 07:30 AM
+created: Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 04:30 PM
+created: Route BUNK Campus ↔ Uttara / Gazipur (Bus #02)
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 08:00 AM
+created: Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 05:00 PM
+created: Route BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 09:00 AM
+created: Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 06:00 PM
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 5
+created: Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 8
+created: Booking BUNK Campus ↔ Uttara / Gazipur (Bus #02) · seat 12
+updated: Doctor Dr. Michael Chen (General Physician)
+updated: Doctor Dr. Emily Johnson (Dentist)
+created: Appointment Dr. Michael Chen 2026-11-21 10:00 AM
+created: Appointment Dr. Emily Johnson 2026-11-22 11:00 AM
+created: Appointment Dr. Michael Chen 2026-11-17 09:30 AM
+created: MealMenu breakfast
+created: MealMenu lunch
+created: MealMenu snacks
+created: MealSubscription kn8trix
+created: MealSubscription student2
+created: MealTicket #MEAL-1001 (kn8trix)
+created: MealTicket #MEAL-1002 (kn8trix)
+created: MealTicket #MEAL-2001 (student2)
+created: MealTicket #MEAL-2002 (student2)
+created: Club BUNK Computer Club (NCC)
+created: Club BUNK Robotics Society
+created: Event BUNK Computer Club (NCC) — NCC Annual Hackathon 2026
+created: Event BUNK Robotics Society — Robotics Workshop: Line Follower Basics
+created: Notice Hackathon 2026: registrations now open
+created: Notice Robotics workshop: line follower basics
+created: Notice Mid-term examination schedule published
+Created Napa Extra 500mg/65mg (Square Pharmaceuticals)
+Created Seclo 20mg (Square Pharmaceuticals)
+Created Sergel 20mg (Incepta Pharmaceuticals)
+Created Ace Plus 500mg (Beximco Pharmaceuticals)
+Created Entacyd — (Square Pharmaceuticals)
+Created Savlon Antiseptic Liquid 100ml (ACI Limited)
+Created Ceevit 250mg (Square Pharmaceuticals)
+Created Monas 10mg (Acme Laboratories)
+Pharmacy catalog seeded — 8 new medicine(s), re-run safe.
+Demo dataset seeded — all rows created idempotently (re-run safe).
+exists (skipped): admin / admin@niter.edu.bd
+exists (skipped): dr.chen / dr.chen@niter.edu.bd
+exists (skipped): prof.rahman / prof.rahman@niter.edu.bd
+exists (skipped): kn8trix / kn8trix@niter.edu.bd
+exists (skipped): StudentProfile 2026-EEE-01 (kn8trix)
+exists (skipped): student2 / student2@niter.edu.bd
+exists (skipped): StudentProfile 2026-CSE-02 (student2)
+exists (skipped): Department CSE
+exists (skipped): Department EEE
+exists (skipped): Course EEE-2101
+exists (skipped): Course CSE-1101
+exists (skipped): Course EEE-3105
+exists (skipped): Material EEE-2101 — Circuit Analysis Lecture Notes (Superposition)
+exists (skipped): Material EEE-2101 — Circuit Analysis Lab Manual
+exists (skipped): Material CSE-1101 — C Programming Lecture Slides — Arrays & Pointers
+exists (skipped): Material CSE-1101 — Digital Logic Design Notes
+exists (skipped): Material EEE-3105 — Power Systems Study Guide (BMS Configurations)
+exists (skipped): Teacher Dr. Michael Chen (CSE)
+exists (skipped): Teacher Prof. Rafiq Rahman (EEE)
+exists (skipped): Driver Md. Karim
+exists (skipped): Driver Abdul Hossain
+exists (skipped): Driver Jahangir Islam
+exists (skipped): Route BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01)
+exists (skipped): Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 07:30 AM
+exists (skipped): Schedule BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) @ 04:30 PM
+exists (skipped): Route BUNK Campus ↔ Uttara / Gazipur (Bus #02)
+exists (skipped): Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 08:00 AM
+exists (skipped): Schedule BUNK Campus ↔ Uttara / Gazipur (Bus #02) @ 05:00 PM
+exists (skipped): Route BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03)
+exists (skipped): Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 09:00 AM
+exists (skipped): Schedule BUNK Campus ↔ Baipal / Nabinagar Local Shuttle (Bus #03) @ 06:00 PM
+exists (skipped): Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 5
+exists (skipped): Booking BUNK Campus ↔ Mirpur 10 / Farmgate (Bus #01) · seat 8
+exists (skipped): Booking BUNK Campus ↔ Uttara / Gazipur (Bus #02) · seat 12
+updated: Doctor Dr. Michael Chen (General Physician)
+updated: Doctor Dr. Emily Johnson (Dentist)
+exists (skipped): Appointment Dr. Michael Chen 2026-11-21 10:00 AM
+exists (skipped): Appointment Dr. Emily Johnson 2026-11-22 11:00 AM
+exists (skipped): Appointment Dr. Michael Chen 2026-11-17 09:30 AM
+exists (skipped): MealMenu breakfast
+exists (skipped): MealMenu lunch
+exists (skipped): MealMenu snacks
+exists (skipped): MealSubscription kn8trix
+exists (skipped): MealSubscription student2
+exists (skipped): MealTicket #MEAL-1001 (kn8trix)
+exists (skipped): MealTicket #MEAL-1002 (kn8trix)
+exists (skipped): MealTicket #MEAL-2001 (student2)
+exists (skipped): MealTicket #MEAL-2002 (student2)
+exists (skipped): Club BUNK Computer Club (NCC)
+exists (skipped): Club BUNK Robotics Society
+exists (skipped): Event BUNK Computer Club (NCC) — NCC Annual Hackathon 2026
+exists (skipped): Event BUNK Robotics Society — Robotics Workshop: Line Follower Basics
+exists (skipped): Notice Hackathon 2026: registrations now open
+exists (skipped): Notice Robotics workshop: line follower basics
+exists (skipped): Notice Mid-term examination schedule published
+Exists (skipped): Napa Extra 500mg/65mg
+Exists (skipped): Seclo 20mg
+Exists (skipped): Sergel 20mg
+Exists (skipped): Ace Plus 500mg
+Exists (skipped): Entacyd —
+Exists (skipped): Savlon Antiseptic Liquid 100ml
+Exists (skipped): Ceevit 250mg
+Exists (skipped): Monas 10mg
+Pharmacy catalog seeded — 0 new medicine(s), re-run safe.
+Demo dataset seeded — all rows created idempotently (re-run safe).
+.created: admin
+created: medical
+created: student
+created: NCC
+created: club BUNK Computer Club (NCC)
+created: club account NCC -> BUNK Computer Club (NCC) (manager)
+.created: admin
+created: medical
+created: student
+created: NCC
+created: club BUNK Computer Club (NCC)
+created: club account NCC -> BUNK Computer Club (NCC) (manager)
+exists (skipped): admin
+exists (skipped): medical
+exists (skipped): student
+exists (skipped): NCC
+exists (skipped): club BUNK Computer Club (NCC)
+exists (skipped): club account NCC
+.created: admin
+created: medical
+created: student
+created: NCC
+created: club BUNK Computer Club (NCC)
+created: club account NCC -> BUNK Computer Club (NCC) (manager)
+created: staff1
+created: staff2
+.created: admin
+created: medical
+created: student
+created: NCC
+created: club BUNK Computer Club (NCC)
+created: club account NCC -> BUNK Computer Club (NCC) (manager)
+exists (skipped): admin
+exists (skipped): medical
+exists (skipped): student
+exists (skipped): NCC
+exists (skipped): club BUNK Computer Club (NCC)
+exists (skipped): club account NCC
+.created: admin
+created: medical
+created: student
+created: NCC
+created: club BUNK Computer Club (NCC)
+created: club account NCC -> BUNK Computer Club (NCC) (manager)
+.............................................................F.......F...................................................Rejected SUCCESS callback for PINV-9128CD: amount mismatch
+.bKash callback for non-bKash order PINV-5B2D17
+.......bKash callback for unknown order: paymentID='BKA1234567890ABCD' invoice='PINV-NOPE'
+.Rejected SUCCESS callback for PINV-BBDE28: unparseable amount 'not-a-number'
+.........bKash callback for non-bKash order PINV-A05C89
+...Nagad callback signature mismatch for order_id=PINV-D45595
+.Nagad callback for non-Nagad order PINV-F8BB7A
+..Nagad callback signature mismatch for order_id=PINV-1B048C
+...Nagad callback for unknown order: order_id='PINV-NOPE' ref='NGX987654'
+.............................
+======================================================================
+ERROR: test_builder_dashboard_has_create_page_modal (core.tests.BuilderBackendTest.test_builder_dashboard_has_create_page_modal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 918, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+core.models.EditablePage.DoesNotExist: EditablePage matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 2088, in test_builder_dashboard_has_create_page_modal
+    response = self.client.get(reverse('builder_dashboard'))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 930, in get
+    response = super().get(path, data=data, secure=secure, headers=headers, **extra)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 457, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 609, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 894, in request
+    self.check_exception(response)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 741, in check_exception
+    raise exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/decorators.py", line 42, in _wrapped_view
+    return _redirect_to_login(view_func)(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/views.py", line 5942, in builder_dashboard
+    register_system_pages()
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/system_pages.py", line 466, in register_system_pages
+    page, created = EditablePage.objects.get_or_create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 925, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 660, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1020, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1061, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1810, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+======================================================================
+ERROR: test_builder_dashboard_lists_pages_and_templates (core.tests.BuilderBackendTest.test_builder_dashboard_lists_pages_and_templates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 918, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+core.models.EditablePage.DoesNotExist: EditablePage matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 2079, in test_builder_dashboard_lists_pages_and_templates
+    response = self.client.get(reverse('builder_dashboard'))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 930, in get
+    response = super().get(path, data=data, secure=secure, headers=headers, **extra)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 457, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 609, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 894, in request
+    self.check_exception(response)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 741, in check_exception
+    raise exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/decorators.py", line 42, in _wrapped_view
+    return _redirect_to_login(view_func)(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/views.py", line 5942, in builder_dashboard
+    register_system_pages()
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/system_pages.py", line 466, in register_system_pages
+    page, created = EditablePage.objects.get_or_create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 925, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 660, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1020, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1061, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1810, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+======================================================================
+ERROR: test_builder_dashboard_uses_admin_console_layout (core.tests.BuilderBackendTest.test_builder_dashboard_uses_admin_console_layout)
+Admin routes must never render the student navigation — the builder
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 918, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 639, in get
+    raise self.model.DoesNotExist(
+core.models.EditablePage.DoesNotExist: EditablePage matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 2101, in test_builder_dashboard_uses_admin_console_layout
+    response = self.client.get(reverse('builder_dashboard'))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 930, in get
+    response = super().get(path, data=data, secure=secure, headers=headers, **extra)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 457, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 609, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 894, in request
+    self.check_exception(response)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/client.py", line 741, in check_exception
+    raise exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/decorators.py", line 42, in _wrapped_view
+    return _redirect_to_login(view_func)(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/views.py", line 5942, in builder_dashboard
+    register_system_pages()
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/system_pages.py", line 466, in register_system_pages
+    page, created = EditablePage.objects.get_or_create(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 925, in get_or_create
+    return self.create(**params), True
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 660, in create
+    obj.save(force_insert=True, using=self.db)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1020, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/base.py", line 1061, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/query.py", line 1810, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: core_editablepage.slug
+
+======================================================================
+FAIL: test_directory_renders_hero_search_and_quick_jump (core.tests.DepartmentsPageTest.test_directory_renders_hero_search_and_quick_jump)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 425, in test_directory_renders_hero_search_and_quick_jump
+    self.assertContains(response, needle, msg_prefix=needle)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/testcases.py", line 660, in assertContains
+    self.assertTrue(
+AssertionError: False is not true : Academic Departments &amp; Faculties: Couldn't find 'Academic Departments &amp; Faculties' in response
+
+======================================================================
+FAIL: test_upload_returns_view_and_content_links (core.tests.DriveServiceModuleTest.test_upload_returns_view_and_content_links)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 9364, in test_upload_returns_view_and_content_links
+    self.assertIn('BUNK Centralized Dash Notes', list_kwargs['q'])
+AssertionError: 'BUNK Centralized Dash Notes' not found in "name='NITER Centralized Dash Notes' and mimeType='application/vnd.google-apps.folder' and trashed=false"
+
+======================================================================
+FAIL: test_uses_campusdash_top_pill_header (core.tests.NotesEnginePageTest.test_uses_campusdash_top_pill_header)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 4390, in test_uses_campusdash_top_pill_header
+    self.assertContains(response, 'CampusDash')
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/testcases.py", line 660, in assertContains
+    self.assertTrue(
+AssertionError: False is not true : Couldn't find 'CampusDash' in response
+
+======================================================================
+FAIL: test_production_mode_emits_security_headers (core.tests.SecurityAuditTest.test_production_mode_emits_security_headers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/utils.py", line 461, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 8631, in test_production_mode_emits_security_headers
+    self.assertEqual(response['X-Frame-Options'], 'DENY')
+AssertionError: 'SAMEORIGIN' != 'DENY'
+- SAMEORIGIN
++ DENY
+
+
+======================================================================
+FAIL: test_production_settings_force_secure_defaults (core.tests.SecurityAuditTest.test_production_settings_force_secure_defaults)
+Loading the real settings with DEBUG unset (a fresh production
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 8563, in test_production_settings_force_secure_defaults
+    self.assertFalse(values['debug'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_renders_study_corner_heading_and_modules (core.tests.StudyCornerPageTest.test_renders_study_corner_heading_and_modules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 4289, in test_renders_study_corner_heading_and_modules
+    self.assertContains(response, 'Video Tutorials &amp; Lectures')
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/testcases.py", line 660, in assertContains
+    self.assertTrue(
+AssertionError: False is not true : Couldn't find 'Video Tutorials &amp; Lectures' in response
+
+======================================================================
+FAIL: test_all_pages_render_defaults_when_content_empty (core.tests.SystemPageCmsBindingsTest.test_all_pages_render_defaults_when_content_empty) (view='student_dashboard')
+When CMS content_json has no headline/title, hardcoded fallback appears.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/core/tests.py", line 5211, in test_all_pages_render_defaults_when_content_empty
+    self.assertContains(response, needle)
+  File "/media/kn8/D_Drive/Projects/Niter Centralized Dash/venv/lib/python3.12/site-packages/django/test/testcases.py", line 660, in assertContains
+    self.assertTrue(
+AssertionError: False is not true : Couldn't find 'Your campus day at a glance' in response
+
+----------------------------------------------------------------------
+Ran 1081 tests in 334.348s
+
+FAILED (failures=7, errors=3)
+Destroying test database for alias 'default'...
+EXIT=1

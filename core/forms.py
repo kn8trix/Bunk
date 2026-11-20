@@ -1,4 +1,4 @@
-"""Form definitions for the campus portal.
+"""Form definitions for the Bunk portal.
 
 ``SignUpForm`` validates self-registration input — Student ID, full name,
 department, email, password + confirmation — and persists the ``User`` and
@@ -9,6 +9,8 @@ department, email, password + confirmation — and persists the ``User`` and
 fallback, published/draft flag, and the standard event fields.
 """
 
+import re
+
 from django import forms
 from django.contrib.auth.models import User
 
@@ -18,8 +20,14 @@ from .models import ClubEvent, Course, CourseMaterial, StudentProfile
 class SignUpForm(forms.Form):
     """Self-registration form.
 
+    The Create Account page only asks for a full name, email and password.
+    Student ID and department are optional and may be omitted entirely — a
+    unique Student ID is derived from the email local part, and a missing
+    department is stored blank. Values supplied by other clients (admin
+    tooling, tests) are still validated and honoured.
+
     Enforces:
-      * duplicate Student ID / email checks,
+      * duplicate Student ID / email checks (when an ID is supplied),
       * password length (>= 8) and confirmation match,
       * department must be one of the seeded ``StudentProfile`` choices.
     """
@@ -27,6 +35,7 @@ class SignUpForm(forms.Form):
     student_id = forms.CharField(
         label='Student ID',
         max_length=30,
+        required=False,
         widget=forms.TextInput(attrs={'placeholder': 'e.g. S1024'}),
     )
     full_name = forms.CharField(
@@ -37,6 +46,7 @@ class SignUpForm(forms.Form):
     department = forms.ChoiceField(
         label='Department',
         choices=StudentProfile.DEPARTMENT_CHOICES,
+        required=False,
     )
     email = forms.EmailField(
         label='Email',
@@ -54,12 +64,35 @@ class SignUpForm(forms.Form):
 
     def clean_student_id(self):
         # Student IDs are stored uppercase (S1001-style) so `s7777` and
-        # `S7777` can never become two separate accounts.
-        student_id = self.cleaned_data['student_id'].strip().upper()
+        # `S7777` can never become two separate accounts. The field is
+        # optional — the Create Account page does not ask for it.
+        student_id = (self.cleaned_data.get('student_id') or '').strip().upper()
+        if not student_id:
+            return ''
         if (User.objects.filter(username=student_id).exists()
                 or StudentProfile.objects.filter(student_id=student_id).exists()):
             raise forms.ValidationError('An account with this Student ID already exists.')
         return student_id
+
+    @staticmethod
+    def _derive_student_id(email):
+        """Build a unique Student ID from the email local part (S1024-style).
+
+        Signup no longer asks for an ID, but ``StudentProfile.student_id`` is
+        unique and non-null, so one is generated: the email local part,
+        upper-cased and stripped to letters/digits, with a numeric suffix if
+        that value is already taken.
+        """
+        base = re.sub(r'[^A-Z0-9]', '', email.split('@')[0].upper())[:16] or 'BUNK'
+        candidate = base
+        suffix = 1
+        while (
+            User.objects.filter(username__iexact=candidate).exists()
+            or StudentProfile.objects.filter(student_id__iexact=candidate).exists()
+        ):
+            suffix += 1
+            candidate = '%s%d' % (base, suffix)
+        return candidate
 
     def clean_email(self):
         # Normalize to lowercase so stored emails match the case-insensitive
@@ -82,8 +115,13 @@ class SignUpForm(forms.Form):
         data = self.cleaned_data
         full_name = data['full_name'].strip()
         name_parts = full_name.split(' ', 1)
+        # Without a supplied Student ID the email is the login identifier
+        # (the only thing the person typed that identifies the account), and
+        # a display ID is derived for the profile row.
+        username = data['student_id'] or data['email']
+        student_id = data['student_id'] or self._derive_student_id(data['email'])
         user = User.objects.create_user(
-            username=data['student_id'],
+            username=username,
             email=data['email'],
             password=data['password'],
             first_name=name_parts[0],
@@ -91,8 +129,8 @@ class SignUpForm(forms.Form):
         )
         StudentProfile.objects.create(
             user=user,
-            student_id=data['student_id'],
-            department=data['department'],
+            student_id=student_id,
+            department=data.get('department') or '',
         )
         return user
 

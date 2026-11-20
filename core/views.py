@@ -349,43 +349,22 @@ def dashboard(request):
 
 @xframe_options_sameorigin
 def student_dashboard(request):
-    """Student dashboard — BST clock, class routine, academic calendar, feeds.
+    """Student dashboard — BST clock, academic calendar, feeds.
 
-    The live Asia/Dhaka clock and the NOW / NEXT-UP class highlighting run
-    entirely client-side against the user's Routine schedule embedded as JSON
-    (the server is UTC and must not guess what time it is in Dhaka). The
-    server supplies the schedule, today's slots for the initial render, the
-    current month's academic events, the user's recent activity, and the
-    compact notices / courses feeds.
+    The live Asia/Dhaka clock runs entirely client-side (the server is UTC and
+    must not guess what time it is in Dhaka). Class routines are not part of
+    this page: no Routine query runs here and no schedule is embedded. The
+    server supplies the current month's academic events, the user's recent
+    activity, and the compact notices / courses feeds.
     """
     now_dhaka = _dhaka_now()
     today_dhaka = now_dhaka.date()
     # Python weekday(): Mon=0 … Sun=6 → canonical 3-letter key (Sun, Mon, …).
     today_key = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')[now_dhaka.weekday()]
 
-    routine = None
-    routine_schedule = None
-    routine_source = ''
-    if request.user.is_authenticated:
-        routine = Routine.objects.filter(user=request.user).first()
-        if routine and routine.schedule:
-            routine_schedule = routine.schedule
-            routine_source = routine.source_name
-
-    # Today's slots for the server-rendered list (the client re-highlights
-    # live using the Asia/Dhaka clock).
-    today_slots = []
-    if routine_schedule:
-        for day_entry in routine_schedule.get('days', []):
-            if day_entry.get('day') == today_key:
-                today_slots = day_entry.get('slots', [])
-                break
-        today_slots = sorted(today_slots, key=lambda s: s.get('start', ''))
-
     month_state = _academic_month_state(now_dhaka.year, now_dhaka.month)
 
     recent_activity = _recent_activity(request.user) if request.user.is_authenticated else []
-    quick_notice = Notice.objects.filter(is_published=True).order_by('-created_at').first()
     recent_notices = Notice.objects.filter(is_published=True).select_related('author')[:3]
     course_links = (
         Course.objects.annotate(material_count=Count('materials'))
@@ -402,7 +381,6 @@ def student_dashboard(request):
     )
 
     dash_data = {
-        'routine': routine_schedule,
         'today': {
             'key': today_key,
             'date': today_dhaka.isoformat(),
@@ -430,11 +408,7 @@ def student_dashboard(request):
         # Dict for both template access ({{ dash_data.today.label }}) and the
         # |json_script filter, which serialises it for the embedded script.
         'dash_data': dash_data,
-        'today_slots': today_slots,
-        'has_routine': bool(routine_schedule),
-        'routine_source': routine_source,
         'recent_activity': recent_activity,
-        'quick_notice': quick_notice,
         'recent_notices': recent_notices,
         'course_links': course_links,
         'club_events': club_events,
@@ -3339,7 +3313,6 @@ def signup_view(request):
 
     return render(request, 'signup.html', {
         'errors': errors,
-        'departments': StudentProfile.DEPARTMENT_CHOICES,
         'form_data': request.POST if request.method == 'POST' else None,
     })
 

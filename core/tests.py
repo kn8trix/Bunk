@@ -1326,10 +1326,13 @@ class AccountAndAdminPagesTest(TestCase):
     def test_signup_page_renders_form(self):
         response = self.client.get(reverse('signup'))
         self.assertEqual(response.status_code, 200)
-        for needle in ['Create Account', 'Student ID', 'Full Name', 'Department', 'Email', 'Password']:
+        for needle in ['Create Account', 'Full Name', 'Email', 'Password']:
             self.assertContains(response, needle, msg_prefix=needle)
+        # Student ID and Department are no longer asked for at signup.
+        self.assertNotContains(response, 'Student ID')
+        self.assertNotContains(response, 'Select department')
         for code in ['CSE', 'TEX', 'IPE', 'FDAE', 'EEE']:
-            self.assertContains(response, 'value="' + code + '"', msg_prefix=code)
+            self.assertNotContains(response, 'value="' + code + '"', msg_prefix=code)
 
     def test_signup_creates_user_and_redirects_to_dashboard(self):
         # A valid submission creates the account immediately (no email
@@ -1473,6 +1476,23 @@ class SignupViewTest(TestCase):
         self.assertEqual(profile.department, 'CSE')
         # Signed in automatically.
         self.assertEqual(int(self.client.session['_auth_user_id']), user.pk)
+
+    def test_signup_without_student_id_or_department(self):
+        # The Create Account page only asks for name / email / password. The
+        # profile row still needs a unique Student ID, so one is derived from
+        # the email, and the login identifier becomes the email itself.
+        response = self.client.post(reverse('signup'), {
+            'full_name': 'No Id Student',
+            'email': 'no.id@niter.edu.bd',
+            'password': 'secretpass1',
+            'confirm_password': 'secretpass1',
+        })
+        self.assertRedirects(response, reverse('student_dashboard'))
+        user = User.objects.get(email='no.id@niter.edu.bd')
+        self.assertEqual(user.username, 'no.id@niter.edu.bd')
+        profile = user.student_profile
+        self.assertTrue(profile.student_id)
+        self.assertEqual(profile.department, '')
 
     def test_signup_redirects_authenticated_user_away(self):
         self.client.post(reverse('signup'), self._data())
@@ -5252,10 +5272,11 @@ class JoinClubApiTest(TestCase):
 
 
 class DashboardWidgetsTest(TestCase):
-    """The /dashboard/student/ widgets — BST clock, routine, calendar, feeds.
+    """The /dashboard/student/ widgets — BST clock, calendar, feeds.
 
     The canonical student dashboard URL is ``student_dashboard``; the bare
-    ``/dashboard/`` dispatcher redirects authenticated users by role.
+    ``/dashboard/`` dispatcher redirects authenticated users by role. Class
+    routines, campus info and medical shortcuts are deliberately absent.
     """
 
     def setUp(self):
@@ -5263,8 +5284,8 @@ class DashboardWidgetsTest(TestCase):
 
     @staticmethod
     def _full_week_schedule():
-        """A schedule with one class on every weekday (the Dhaka weekday is
-        always covered, so the today's-routine block is deterministic)."""
+        """A schedule with one class on every weekday — used to prove no
+        routine data reaches the dashboard any more."""
         return {'days': [
             {'day': day, 'slots': [
                 {'start': '09:00', 'end': '10:30', 'course': 'CSE-1101', 'room': '201'},
@@ -5278,21 +5299,24 @@ class DashboardWidgetsTest(TestCase):
         self.assertIn('Bangladesh Standard Time', html)
         self.assertIn('id="dash-data"', html)
 
-    def test_dashboard_renders_todays_routine_slots(self):
+    def test_dashboard_has_no_class_routine_section(self):
+        # A saved class routine must not leak into the dashboard: no schedule
+        # query, no routine widget, no setup nudge, no next-class countdown.
         self.client.force_login(self.user)
         Routine.objects.create(
             user=self.user, schedule=self._full_week_schedule(), source_name='routine.png',
         )
         html = self.client.get(reverse('student_dashboard')).content.decode()
-        self.assertIn('CSE-1101', html)
-        self.assertIn('data-start="09:00"', html)
-        self.assertIn('Room 201', html)
-        self.assertIn('Synced from routine.png', html)
+        self.assertNotIn('CSE-1101', html)
+        self.assertNotIn("Today's Class Routine", html)
+        self.assertNotIn('routine-cta', html)
+        self.assertNotIn('routine.png', html)
+        self.assertNotIn('clock-next', html)
 
-    def test_dashboard_shows_routine_setup_cta_when_missing(self):
+    def test_dashboard_has_no_routine_setup_nudge(self):
         html = self.client.get(reverse('student_dashboard')).content.decode()
-        self.assertIn('routine-cta', html)
-        self.assertIn('Set up routine', html)
+        self.assertNotIn('routine-cta', html)
+        self.assertNotIn('Set up routine', html)
 
     def test_dashboard_lists_recent_activity(self):
         self.client.force_login(self.user)
@@ -5309,7 +5333,10 @@ class DashboardWidgetsTest(TestCase):
         )
         html = self.client.get(reverse('student_dashboard')).content.decode()
         self.assertIn('Semester Fee Notice', html)
-        self.assertIn('Quick Campus Info', html)
+        # The campus-info panel (and its pharmacy shortcut) is gone; notices
+        # surface in the Official Notices feed instead.
+        self.assertNotIn('Quick Campus Info', html)
+        self.assertNotIn(reverse('pharmacy_store'), html)
 
     def test_dashboard_lists_latest_published_notices(self):
         author = User.objects.create_user(username='admin_notice', password='x12345678', is_staff=True)
@@ -11945,14 +11972,18 @@ class PharmacyRequestStatusApiTest(TestCase):
 
 
 class PharmacyNavButtonsTest(TestCase):
-    """Online Pharmacy entry points — hero button + medical page shortcut."""
+    """Online Pharmacy entry points — the medical page shortcut only.
 
-    def test_hero_has_online_pharmacy_button(self):
+    The public homepage no longer carries campus / medical shortcuts, so the
+    pharmacy button lives on the medical page alone.
+    """
+
+    def test_home_has_no_online_pharmacy_button(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Online Pharmacy')
-        self.assertContains(response, reverse('pharmacy_store'))
-        self.assertContains(response, 'btn-pharmacy-hero')
+        self.assertNotContains(response, 'Online Pharmacy')
+        self.assertNotContains(response, reverse('pharmacy_store'))
+        self.assertNotContains(response, 'btn-pharmacy-hero')
 
     def test_medical_page_has_online_pharmacy_button(self):
         response = self.client.get(reverse('medical'))

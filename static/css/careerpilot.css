@@ -2,12 +2,16 @@
    Bunk — CareerPilot surfaces (My CV, Hunter, Fit Score, Assistant,
    Tracker, Calendar)
    ----------------------------------------------------------------------------
-   Charcoal page + #1c1c1c cards + warm amber accents, matching the public
-   landing page. Scoped to `body.cp` so no other Bunk page is affected.
+   Charcoal #1c1c1c cards + warm amber accents on the *shared* Bunk page
+   shell. The outer chrome (body surface, `.shell` container, topbar, pill
+   navigation) uses the same theme tokens, container width and markup as
+   /notices/ and /dashboard/, so the header aligns identically and follows
+   the visitor's light/dark preference. Only the card surfaces are pinned to
+   the dark charcoal/amber palette. Scoped to `body.cp`, so no other page is
+   affected.
    ========================================================================== */
 
 :root {
-    --cp-bg: #141414;
     --cp-card: #1c1c1c;
     --cp-card-2: #222120;
     --cp-border: #2e2a24;
@@ -25,11 +29,14 @@
     --cp-radius: 1rem;
 }
 
+/* Page surface — theme tokens (not a fixed charcoal), exactly like
+   body.notices / body.dashboard, so the topbar never sits on a different
+   surface colour from the rest of Bunk. */
 body.cp {
     margin: 0;
     min-height: 100vh;
-    background: var(--cp-bg);
-    color: var(--cp-text);
+    background: var(--bg-main);
+    color: var(--text-primary);
     font-family: var(--font-main, 'Inter', system-ui, sans-serif);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
@@ -41,48 +48,48 @@ body.cp *::after { box-sizing: border-box; }
 
 body.cp a { color: inherit; text-decoration: none; }
 
-.cp-shell {
+/* Container — identical geometry to .shell on /notices/, /dashboard/ and the
+   other native pages, so the shared topbar, bell/profile icons and pill
+   navigation line up at exactly the same x-positions everywhere. */
+.shell {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1160px;
     margin: 0 auto;
-    padding: 1.6rem clamp(1rem, 3.5vw, 2.4rem) 4rem;
+    padding: 1.5rem clamp(1.1rem, 4vw, 2.5rem) 4rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
-/* ---------- Page header ---------- */
-.cp-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin: 1.4rem 0 1.3rem;
+/* ---------- Page intro ---------- */
+/* The heading itself uses the shared .intro rules from topbar.css; the icon
+   is the only career-specific tint. */
+body.cp .intro h1 i {
+    color: var(--cp-amber);
+    font-size: 0.82em;
+    margin-right: 0.15rem;
 }
 
-.cp-title {
-    margin: 0;
-    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
-    font-weight: 800;
-    letter-spacing: -0.01em;
+/* Page-level actions (tabs / refresh / add) — in-flow, never full-width. */
+.cp-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 0.6rem;
+    margin: -0.5rem 0 1.3rem;
 }
 
-.cp-title i { color: var(--cp-amber); font-size: 0.95em; }
+.cp-actions:empty { display: none; }
 
-.cp-sub {
-    margin: 0.35rem 0 0;
-    color: var(--cp-muted);
-    font-size: 0.92rem;
-    max-width: 62ch;
-}
-
-/* ---------- Cards ---------- */
+/* ---------- Cards ----------
+   Card ink is pinned to the charcoal palette so the dark cards keep their
+   light text in both light and dark page themes. */
 .cp-card {
     background: var(--cp-card);
     border: 1px solid var(--cp-border);
     border-radius: var(--cp-radius);
     padding: 1.2rem 1.3rem;
+    color: var(--cp-text);
 }
 
 .cp-card--flush { padding: 0; overflow: hidden; }
@@ -133,13 +140,15 @@ body.cp a { color: inherit; text-decoration: none; }
 .cp-btn:hover { transform: translateY(-1px); filter: brightness(1.06); }
 .cp-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
+/* Ghost buttons sit on the page surface (not inside a charcoal card), so
+   they use the theme tokens to stay readable in light mode. */
 .cp-btn--ghost {
     background: transparent;
-    color: var(--cp-text);
-    border-color: var(--cp-border);
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
-.cp-btn--ghost:hover { background: var(--cp-card-2); }
+.cp-btn--ghost:hover { background: var(--bg-subtle); }
 
 .cp-btn--soft {
     background: var(--cp-amber-soft);
@@ -237,6 +246,7 @@ body.cp a { color: inherit; text-decoration: none; }
     border: 1.5px dashed var(--cp-border);
     border-radius: var(--cp-radius);
     background: #171717;
+    color: var(--cp-text);
     padding: 1.8rem 1.2rem;
     text-align: center;
     cursor: pointer;
@@ -389,7 +399,7 @@ body.cp a { color: inherit; text-decoration: none; }
 
 /* ---------- Kanban ---------- */
 .cp-kanban { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; }
-.cp-col { background: #171717; border: 1px solid var(--cp-border-soft); border-radius: var(--cp-radius); padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem; min-height: 14rem; }
+.cp-col { background: #171717; color: var(--cp-text); border: 1px solid var(--cp-border-soft); border-radius: var(--cp-radius); padding: 0.8rem; display: flex; flex-direction: column; gap: 0.6rem; min-height: 14rem; }
 .cp-col-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--cp-border-soft); }
 .cp-col-name { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cp-muted); }
 .cp-col-count { font-size: 0.72rem; color: var(--cp-faint); }

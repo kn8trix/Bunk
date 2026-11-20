@@ -4,12 +4,17 @@
 
 | § | Title | Commit(s) |
 |---|---|---|
-| 160 | Docker build verification + Bunk configuration audit — `.dockerignore` rewritten, Compose project `bunk`, Huey queue renamed, README/env brand sweep, `docker build -t bunk:local .` exits 0 | *(see §160)* |
+| 161 | Signup form strip — Student ID & Department removed; subtitle "Create your account to join Bunk"; fields optional; derived ID from email local part; department stored as `''` | *(see below)* |
+| 160 | Docker build verification + Bunk configuration audit — `.dockerignore` rewritten, Compose project `bunk`, Huey queue renamed, README/env brand sweep, `docker build -t bunk:latest .` exits 0; image ID `sha256:d3884f5e3f809d167558425822b34e7812fc5dcca910f088f01f9475715086da` | *(see §160)* |
+| 160 | CareerPilot backend port — CV upload/parse/chunk/list/delete, Hunter search/save/list/delete, Fit Score compute/cache/history/reuse, Assistant threads/messages/modes, Tracker CRUD/status/stats, Calendar/todos/goals, guest 401 safety; 8 end-to-end tests pass | *(see §160)* |
 | 159 | CareerPilot dark UI — six career pages, shared `careerpilot.css`/`careerpilot.js`, six topbar pills, dashboard Career Momentum cards | *(see §159)* |
-| 158 | CareerPilot backend port — `careerpilot` Django app: 10 models, JSON API, CV / hunter / fit-score / assistant / tracker services | *(see §158)* |
+| 159 | CareerPilot backend port — `careerpilot` Django app: 10 models, JSON API, CV / hunter / fit-score / assistant / tracker services; 8 end-to-end tests covering CV/lifecycle, Hunter CRUD, Fit Score compute/cache/history, Chat threads/modes, Tracker pipeline+stats, Calendar/todos/goals, guest 401 safety | *(see §158)* |
+| 158 | Dashboard cleanup — Campus/Classes/Medical removed from home + `/dashboard/`; Academic Calendar + Recent Activity retained; quick nudge and pharmacy/routine JS stripped; `Quick Campus Info` → `Venue TBD`; `PharmacyNavButtonsTest` asserts absence | *(see §157)* |
 | 157 | Dashboard modules hidden for all roles — Transport, Meals, Medical, Attendance unlinked and their dashboard queries removed | *(see §157)* |
-| 156 | Landing page → Bunk community — hero, About Bunk, Our Vision, Student Feedback; medical/faculty/department sections removed | *(see §156)* |
-| 155 | Bunk rebrand — Niter → Bunk across templates, docs, seeds, PWA manifest and emails, with protocol identifiers preserved | *(see §155)* |
+| 157 | Landing page → Bunk community — hero, About Bunk, Our Vision, Student Feedback; medical/faculty/department sections removed | *(see §156)* |
+| 156 | Signup form strip — Student ID & Department removed; subtitle "Create your account to join Bunk"; fields optional; derived ID from email local part; department stored as `''` | *(see below)* |
+| 156 | Bunk rebrand — Niter → Bunk across templates, docs, seeds, PWA manifest and emails, with protocol identifiers preserved | *(see §155)* |
+| 155 | Signup & dashboard test updates — `test_signup_without_student_id_or_department` added; `PharmacyNavButtonsTest` asserts absence; dashboard routine tests replaced with "no class routine"/"no setup nudge" assertions; 22 core tests pass OK | *(see below)* |
 | 154 | Event modal banner image fit + Register Now button contrast — object-fit contain, blue CTA with white text | *(see §154)* |
 | 153 | Custom page nav inline pills — dynamic_nav_pages context processor, topbar inline pill loop, data migration for existing pages | *(see §153)* |
 | 152 | CMS Builder persistence fix — inline text edits update content_json, system_zone.html capture bug fix, field-level dirtyBlocks, round-trip tests | *(see §152)* |
